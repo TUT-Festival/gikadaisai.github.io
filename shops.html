@@ -90,6 +90,42 @@
 </main>
 
 </div>
+
+<div id="map-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="map-switcher">
+                <button class="map-switch-button" data-map-target="outside">
+                    <i class="fas fa-map-marked-alt"></i> 屋外マップ
+                </button>
+                <button class="map-switch-button" data-map-target="inside">
+                    <i class="fas fa-building"></i> 屋内マップ
+                </button>
+            </div>
+            <button class="modal-close-btn" aria-label="閉じる">&times;</button>
+        </div>
+        <div class="map-panels-container">
+            <div id="map-panel-outside" class="map-panel">
+                <div class="map-zoom-container" data-map-id="outside">
+                    <img src="data/map/outside.png" alt="屋外会場マップ">
+                    <div class="map-instruction-overlay">
+                        <p><i class="fas fa-hand-pointer"></i><br>ピンチで拡大・縮小<br>ドラッグで移動できます</p>
+                    </div>
+                </div>
+            </div>
+            <div id="map-panel-inside" class="map-panel">
+                 <div class="map-zoom-container" data-map-id="inside">
+                    <img src="data/map/inside.png" alt="屋内会場マップ">
+                    <div class="map-instruction-overlay">
+                        <p><i class="fas fa-hand-pointer"></i><br>ピンチで拡大・縮小<br>ドラッグで移動できます</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <footer>
     <div class="footer-container">
         <div class="footer-col">
@@ -130,6 +166,7 @@
     </div>
 </footer>
 
+<button id="map-button" class="fixed-button" aria-label="マップを見る"><i class="fas fa-map"></i></button>
 <div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
 
 </div>
@@ -139,6 +176,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+<script src="https://unpkg.com/pinch-zoom-js@2.3.5/dist/pinch-zoom.umd.js"></script>
 <script src="js/main.js"></script>
 
 <script>
@@ -152,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderList = () => {
         if (!shopListContainer) return;
-
         const filterValue = filterSelect.value;
         let filteredShops;
         if (filterValue === 'indoor') {
@@ -162,13 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             filteredShops = [...allShops];
         }
-
         const sortKey = sortKeySelect.value;
         const sortOrder = sortOrderSelect.value;
         if (sortKey !== 'default') {
             filteredShops.sort((a, b) => sortCompare(a, b, sortKey, sortOrder));
         }
-
         shopListContainer.innerHTML = generateHtmlForShops(filteredShops) || '<p>該当する企画はありません。</p>';
     };
 
@@ -220,5 +255,86 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 });
 </script>
+
+<script>
+(function() {
+    const modal = document.getElementById('map-modal');
+    if (!modal) return;
+
+    const mapButton = document.getElementById('map-button');
+    const closeBtn = modal.querySelector('.modal-close-btn');
+    const body = document.body;
+    const switcher = modal.querySelector('.map-switcher');
+    const switchButtons = modal.querySelectorAll('.map-switch-button');
+    const mapPanels = modal.querySelectorAll('.map-panel');
+    
+    const zoomInstances = {}; // オブジェクトでインスタンスを管理
+
+    const setupZoomForPanel = (mapId) => {
+        // すでに初期化済みか、PC表示の場合は何もしない
+        if (zoomInstances[mapId] || window.innerWidth > 768 || typeof PinchZoom === 'undefined') {
+            return;
+        }
+
+        const container = modal.querySelector(`.map-zoom-container[data-map-id="${mapId}"]`);
+        if (container) {
+            const instance = new PinchZoom.default(container, { minZoom: 1 });
+            zoomInstances[mapId] = instance; // IDをキーとして保存
+
+            const overlay = container.querySelector('.map-instruction-overlay');
+            if (overlay) {
+                container.addEventListener('touchstart', () => {
+                    if (!overlay.classList.contains('hidden')) {
+                        overlay.classList.add('hidden');
+                    }
+                }, { once: true });
+            }
+        }
+    };
+    
+    const setActiveMap = (target) => {
+        // パネルの表示を切り替え
+        mapPanels.forEach(panel => {
+            panel.classList.toggle('active', panel.id === `map-panel-${target}`);
+        });
+        // ボタンのアクティブ状態を切り替え
+        switchButtons.forEach(button => {
+            button.classList.toggle('active', button.dataset.mapTarget === target);
+        });
+        
+        // 表示されたパネルのズーム機能を初期化
+        setupZoomForPanel(target);
+    };
+
+    const openModal = () => {
+        body.classList.add('modal-open');
+        modal.style.display = 'block';
+        setActiveMap('outside'); // 初期表示は「屋外マップ」
+    };
+
+    const closeModal = () => {
+        body.classList.remove('modal-open');
+        modal.style.display = 'none';
+    };
+
+    mapButton.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    switcher.addEventListener('click', (event) => {
+        const button = event.target.closest('.map-switch-button');
+        if (button?.dataset?.mapTarget) {
+            setActiveMap(button.dataset.mapTarget);
+        }
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.style.display === 'block') closeModal();
+    });
+})();
+</script>
+
 </body>
 </html>
