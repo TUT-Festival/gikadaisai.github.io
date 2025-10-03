@@ -122,6 +122,9 @@
                 </div>
             </div>
         </div>
+        <div class="modal-footer-note">
+            <p><i class="fas fa-info-circle"></i> マップが表示されない場合は、ページの再読み込みをお試しください。</p>
+        </div>
     </div>
 </div>
 
@@ -268,10 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const switchButtons = modal.querySelectorAll('.map-switch-button');
     const mapPanels = modal.querySelectorAll('.map-panel');
     
-    const zoomInstances = {}; // オブジェクトでインスタンスを管理
+    const zoomInstances = {};
 
     const setupZoomForPanel = (mapId) => {
-        // すでに初期化済みか、PC表示の場合は何もしない
         if (zoomInstances[mapId] || window.innerWidth > 768 || typeof PinchZoom === 'undefined') {
             return;
         }
@@ -279,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = modal.querySelector(`.map-zoom-container[data-map-id="${mapId}"]`);
         if (container) {
             const instance = new PinchZoom.default(container, { minZoom: 1 });
-            zoomInstances[mapId] = instance; // IDをキーとして保存
+            zoomInstances[mapId] = instance;
 
             const overlay = container.querySelector('.map-instruction-overlay');
             if (overlay) {
@@ -293,23 +295,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const setActiveMap = (target) => {
-        // パネルの表示を切り替え
         mapPanels.forEach(panel => {
             panel.classList.toggle('active', panel.id === `map-panel-${target}`);
         });
-        // ボタンのアクティブ状態を切り替え
         switchButtons.forEach(button => {
             button.classList.toggle('active', button.dataset.mapTarget === target);
         });
         
-        // 表示されたパネルのズーム機能を初期化
+        // 遅延初期化
         setupZoomForPanel(target);
     };
 
     const openModal = () => {
         body.classList.add('modal-open');
         modal.style.display = 'block';
-        setActiveMap('outside'); // 初期表示は「屋外マップ」
+        
+        // ガイドをリセット表示
+        modal.querySelectorAll('.map-instruction-overlay').forEach(overlay => {
+            overlay.classList.remove('hidden');
+        });
+
+        setActiveMap('outside');
     };
 
     const closeModal = () => {

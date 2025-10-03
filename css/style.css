@@ -1181,6 +1181,23 @@ p.next-bus-info {
     margin-bottom: 0.5rem;
 }
 
+/* === Modal Footer Note (新規追加) === */
+.modal-footer-note {
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    text-align: center;
+}
+.modal-footer-note p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #ccc;
+    line-height: 1.5;
+}
+.modal-footer-note .fas {
+    margin-right: 0.5em;
+}
+
 body.modal-open {
     overflow: hidden;
 }
