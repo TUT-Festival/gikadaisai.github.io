@@ -4,21 +4,21 @@
     "circle": "アニメーション＆コミック研究会",
     "title": "アニメーション＆コミック研究会",
     "place": "室内",
-    "location": "A-114"
+    "location": "A-114/22"
   },
   {
     "id": "2",
     "circle": "Jazz研究会",
     "title": "Jazz喫茶",
     "place": "室内",
-    "location": "A-201"
+    "location": "A-201/28"
   },
   {
     "id": "3",
     "circle": "総合文化部喫茶部門",
     "title": "TUTea & Coffee Club",
     "place": "室内",
-    "location": "A-106"
+    "location": "A-106/24"
   },
   {
     "id": "4",
@@ -32,14 +32,14 @@
     "circle": "アナログげ～む俱楽部",
     "title": "ボードゲーム体験会",
     "place": "室内",
-    "location": "A-312"
+    "location": "A-312/35"
   },
   {
     "id": "6",
     "circle": "スタートアップ推進室",
     "title": "ネイル体験サロン",
     "place": "室内",
-    "location": "A-203"
+    "location": "A-203/29"
   },
   {
     "id": "7",
@@ -53,42 +53,42 @@
     "circle": "カーボンニュートラル研究会",
     "title": "遊んで学ぶ！SDGsモルック",
     "place": "室内",
-    "location": "A-308"
+    "location": "A-308/33"
   },
   {
     "id": "9",
     "circle": "TUTものづくりサークル",
     "title": "物販&作品展示会",
     "place": "室内",
-    "location": "A棟1階ホール"
+    "location": "A棟1階ホール/25"
   },
   {
     "id": "10",
     "circle": "模型部(TuT)",
     "title": "模型展示/プラモデル制作体験会",
     "place": "室内",
-    "location": "A-205"
+    "location": "A-205/30"
   },
   {
     "id": "11",
     "circle": "ロボコン同好会",
     "title": "ロボット操縦体験&展示",
     "place": "室内",
-    "location": "A棟1階ホール"
+    "location": "A棟1階ホール/26"
   },
   {
     "id": "12",
     "circle": "コンピュータクラブ",
     "title": "コンピュータクラブ",
     "place": "室内",
-    "location": "A-108"
+    "location": "A-108/27"
   },
   {
     "id": "13",
     "circle": "TUT謎解き制作チーム",
     "title": "謎だらけの単位認定試験からの脱出",
     "place": "室内",
-    "location": "A-207"
+    "location": "A-207/31"
   },
   {
     "id": "14",
@@ -102,21 +102,21 @@
     "circle": "軽音楽部D7sus4",
     "title": "GIKA ROCK 2025",
     "place": "室内",
-    "location": "A-301"
+    "location": "A-301/32"
   },
   {
     "id": "16",
     "circle": "弓道部",
     "title": "的あて検定",
     "place": "室内",
-    "location": "A-105"
+    "location": "A-105/23"
   },
   {
     "id": "17",
     "circle": "ダンスサークル",
     "title": "ノマチカワサキ",
     "place": "室内",
-    "location": "A-306"
+    "location": "A-306/34"
   },
   {
     "id": "18",
@@ -281,8 +281,8 @@
   },
   {
     "id": "D",
-    "circle": "株式会社YUTAKA",
-    "title": "株式会社YUTAKA",
+    "circle": "ユタカ自動車学校",
+    "title": "ユタカ自動車学校",
     "place": "屋外",
     "location": "テントD"
   }
