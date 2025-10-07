@@ -20,7 +20,6 @@
 		</a>
 	</div>
 
-	<!--開閉ブロック-->
 	<div id="menubar">
 
     <nav id="menubar-pc">
@@ -52,8 +51,7 @@
     </nav>
 
 </div>
-	<!--/#menubar-->
-</header>
+	</header>
 
 <div id="contents">
 
@@ -72,7 +70,6 @@
     </div>
 </section>
 
-<!-- 開催日セクション (再デザイン) -->
 <section class="bg1">
 	<h2 class="c"><span>Date</span><span class="hosoku">開催日</span></h2>
 	<div class="countdown-card">
@@ -87,10 +84,14 @@
 			<div class="separator"></div>
 			<div class="timer-unit"><span id="seconds">00</span><p>秒</p></div>
 		</div>
+		<div class="opening-time-container">
+            <div class="opening-time-unit">
+                <span id="opening-time" class="opening-time-value">--:--</span>
+                <p class="opening-time-label">開場時間</p>
+            </div>
+        </div>
 	</div>
 </section>
-<!-- /#開催日セクション -->
-
 <section class="guest-feature-text-only">
     <div class="feature-content-text">
         <h2 class="feature-heading">
@@ -102,7 +103,6 @@
     </div>
 </section>
 
-<!-- アクセス情報ブロック -->
 <section class="bg1">
 	<h2 class="c"><span>Access</span><span class="hosoku">会場アクセス</span></h2>
 	<div class="access-container">
@@ -111,7 +111,6 @@
 				<h4><i class="fas fa-train-subway"></i>電車・バスでお越しの方</h4>
 				<div class="access-description">
 					<p><strong>JR各線・名鉄名古屋本線「豊橋駅」</strong>で下車。<br>豊橋駅東口バス乗り場から豊鉄バス「技科大線」に乗車（約25分）、「技科大前」バス停下車すぐ。</p>
-					<!-- Bus Countdown Section -->
 					<div class="bus-countdown-wrapper">
 						<h5><i class="fas fa-bus"></i>技科大線の出発案内（豊橋駅前 発）</h5>
 						<p id="bus-schedule-note" class="note"></p>
@@ -145,14 +144,9 @@
 		</div>
 	</div>
 </section>
-<!-- /#アクセス情報ブロック -->
-
 </main>
 
 </div>
-<!--/#contents-->
-
-<!-- フッター (再デザイン) -->
 <footer>
 	<div class="footer-container">
 		<div class="footer-col">
@@ -189,19 +183,12 @@
 		</div>
 	</div>
 	<div class="footer-bottom">
-		<small>Copyright&copy; 第48回技科大祭実行委員会 All Rights Reserved.</small>
+		<small>Copyright© 第48回技科大祭実行委員会 All Rights Reserved.</small>
 	</div>
 </footer>
-<!-- /#フッター -->
-
-
-<!--ページの上部へ戻るボタン-->
 <div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
 
 </div>
-<!--/#container-->
-
-<!--開閉ボタン（ハンバーガーアイコン）-->
 <div id="menubar_hdr">
 <span></span><span></span><span></span>
 </div>
@@ -212,7 +199,6 @@
 
 <script src="js/main.js"></script>
 
-<!-- 動的コンテンツ用スクリプト -->
 <script>
 const festivalCountDownDate = new Date("Oct 11, 2025 10:00:00").getTime();
 const festivalCountdownFunction = setInterval(function() {
@@ -241,6 +227,13 @@ const festivalCountdownFunction = setInterval(function() {
         }
     }
 }, 1000);
+const openingTimeDate = new Date(festivalCountDownDate);
+const openingHours = openingTimeDate.getHours().toString().padStart(2, '0');
+const openingMinutes = openingTimeDate.getMinutes().toString().padStart(2, '0');
+const openingTimeEl = document.getElementById("opening-time");
+if (openingTimeEl) {
+    openingTimeEl.innerText = `${openingHours}:${openingMinutes}`;
+}
 
 
 document.addEventListener('DOMContentLoaded', async function() {
