@@ -59,37 +59,7 @@
 
 <section>
 	<h2><span>Events</span><span class="hosoku">イベント情報</span></h2>
-	
-	<p class="c">
-		<strong>10/12(日) 11:30〜</strong><br>
-		「ハリウッドザコシショウ」・「SAKURAI」によるスペシャルお笑いライブを開催します！<br>
-		学内外の方、誰でも観覧無料ですので是非お越しください！<br>
-		詳細は以下ポスターをご確認ください。
-	</p>
-
-	<div class="poster" style="max-width: 600px; margin: 2rem auto;">
-		<img src="data/poster_live.png" alt="スペシャルお笑いライブ ポスター">
-	</div>
-
-	<h3>注意事項</h3>
-	<p>企画会場でのマナーに関して会場施設を傷つける⾏為や、⼀般の⽅、近隣にお住まいの⽅のご迷惑となる⾏為は絶対におやめください。</p>
-	<ul>
-		<li>会場内では、技科大祭実⾏委員の指⽰に従ってください。</li>
-		<li>他のお客様のご迷惑になる⾏為や、企画進⾏に⽀障をきたすような下記の⾏為は禁止とさせていただきます。</li>
-		<li>前や後ろへ駆け出したり、押し寄せたりする⾏為、ステージに上がる⾏為</li>
-		<li>会場内へのカメラ、ビデオカメラ、ICレコーダ等の録⾳録画機器の使⽤</li>
-	</ul>
-
-	<h3>その他注意事項</h3>
-	<ul>
-		<li>お荷物のお預かりはいたしません。ご⾃分での管理をお願いします。</li>
-		<li>開演時刻は前後する場合がございます。あらかじめ、ご了承ください。</li>
-	</ul>
-	<p>上記のことが守られなかった場合、スタッフが企画の妨げになると判断した場合、厳重注意、及び退場処分とさせていただく可能性がございます。<br>
-	※器物破損、事故につながる危険な⾏為があった場合、企画を⼀時中断、もしくは中⽌とさせていただきます。</p>
-
-	<p class="c" style="margin-top: 2rem;"><strong>ご来場の皆様全員がお楽しみいただけますよう、ご協⼒をお願いいたします。</strong></p>
-
+	<div id="events-container"></div>
 </section>
 
 </main>
@@ -131,7 +101,8 @@
 		</div>
 	</div>
 	<div class="footer-bottom">
-		<small>Copyright© 第48回技科大祭実行委員会 All Rights Reserved.</small>
+		<small>Copyright&copy; 第48回技科大祭実行委員会 All Rights Reserved.</small>
+	</div>
 </footer>
 <div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
 
@@ -145,6 +116,61 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/site-loader.js"></script>
+
+<script>
+// events.json を読み込みイベント情報を動的に描画
+document.addEventListener('DOMContentLoaded', async function() {
+    var container = document.getElementById('events-container');
+    if (!container) return;
+
+    try {
+        var res = await fetch('js/events.json');
+        if (!res.ok) throw new Error('events.json の読み込みに失敗');
+        var events = await res.json();
+
+        var html = '';
+        events.forEach(function(ev) {
+            var descLines = ev.description.replace(/\n/g, '<br>');
+            var warningLines = ev.warningText.replace(/\n/g, '<br>');
+
+            html += '<p class="c">';
+            html += '<strong>' + ev.date + ' ' + ev.startTime + '〜</strong><br>';
+            html += descLines;
+            html += '</p>';
+
+            if (ev.poster) {
+                html += '<div class="poster" style="max-width: 600px; margin: 2rem auto;">';
+                html += '<img src="' + ev.poster + '" alt="' + ev.title + ' ポスター">';
+                html += '</div>';
+            }
+
+            if (ev.cautions && ev.cautions.length > 0) {
+                html += '<h3>注意事項</h3>';
+                html += '<p>企画会場でのマナーに関して会場施設を傷つける行為や、一般の方、近隣にお住まいの方のご迷惑となる行為は絶対におやめください。</p>';
+                html += '<ul>';
+                ev.cautions.forEach(function(c) { html += '<li>' + c + '</li>'; });
+                html += '</ul>';
+            }
+
+            if (ev.otherNotes && ev.otherNotes.length > 0) {
+                html += '<h3>その他注意事項</h3>';
+                html += '<ul>';
+                ev.otherNotes.forEach(function(n) { html += '<li>' + n + '</li>'; });
+                html += '</ul>';
+            }
+
+            html += '<p>' + warningLines + '</p>';
+            html += '<p class="c" style="margin-top: 2rem;"><strong>' + ev.closingText + '</strong></p>';
+        });
+
+        container.innerHTML = html;
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = '<p>イベント情報の読み込み中にエラーが発生しました。</p>';
+    }
+});
+</script>
 
 </body>
 </html>
