@@ -64,8 +64,8 @@
 		<p class="c">お問い合わせは、メールにてお願いします。</p>
 
 		<div class="contact-button-wrapper">
-			<a href="mailto:tut.festival@gmail.com" class="cta-button">
-				<i class="fas fa-envelope"></i> tut.festival@gmail.com
+			<a id="contact-email-link" href="#" class="cta-button">
+				<i class="fas fa-envelope"></i> <span id="contact-email-text"></span>
 			</a>
 		</div>
 
@@ -73,7 +73,7 @@
 			<h3><i class="fas fa-info-circle"></i> お問い合わせ</h3>
 			<p>
 				無断での二次利用は原則禁止です。二次利用のご相談は上記のメールアドレスにて、お問い合わせください。<br>
-				その他、第48回技科大祭に関するお問い合わせは上記のメールアドレスにお願いします。<br>
+				その他、<span id="contact-festival-name">技科大祭</span>に関するお問い合わせは上記のメールアドレスにお願いします。<br>
 				<strong>※ @gmail.comからのメールが受信できるように設定をしておいてください。</strong>
 			</p>
 		</div>
@@ -144,6 +144,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/site-loader.js"></script>
+
+<script>
+// site-config 読み込み後にメールアドレスと回数表記を設定
+document.addEventListener('siteConfigLoaded', function(e) {
+    var config = e.detail;
+    var fullName = '第' + config.festivalNumber + '回' + config.festivalName;
+
+    var emailLink = document.getElementById('contact-email-link');
+    var emailText = document.getElementById('contact-email-text');
+    if (emailLink) emailLink.href = 'mailto:' + config.contact.email;
+    if (emailText) emailText.textContent = config.contact.email;
+
+    var festivalNameEl = document.getElementById('contact-festival-name');
+    if (festivalNameEl) festivalNameEl.textContent = fullName;
+});
+</script>
 
 </body>
 </html>

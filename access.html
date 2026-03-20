@@ -59,7 +59,7 @@
 	<h2><span>Access</span><span class="hosoku">会場アクセス</span></h2>
 
 	<section class="map-container">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.1582743817758!2d137.40748281152807!3d34.70118767280656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6004d486441646c7%3A0xb819d28be7a7df7f!2z6LGK5qmL5oqA6KGT56eR5a2m5aSn5a2m!5e0!3m2!1sja!2sjp!4v1754376149619!5m2!1sja!2sjp" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		<iframe id="google-maps-embed" src="" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 	</section>
 
 	<section class="bg1">
@@ -92,7 +92,7 @@
 				</div>
 			</div>
 			<div class="map-button-container">
-				<a href="https://www.google.com/maps/dir/?api=1&destination=${%E8%B1%8A%E6%A9%8B%E6%8A%80%E8%A1%93%E7%A7%91%E5%AD%A6%E5%A4%A7%E5%AD%A6}" target="_blank" class="map-button">
+				<a id="map-direction-link" href="#" target="_blank" class="map-button">
 					<span class="map-button-icon"><i class="fas fa-map-marked-alt"></i></span>
 					<span class="map-button-text">
 						<strong>Google Mapで経路を確認</strong>
@@ -156,112 +156,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/site-loader.js"></script>
+<script src="js/bus-countdown.js"></script>
 
 <script>
-// --- Bus Countdown Timer ---
-// --- Bus Countdown Timer (Modified) ---
-document.addEventListener('DOMContentLoaded', async function() {
-    const countdownDisplayEl = document.getElementById('bus-countdown-display');
-    const nextBusTimeEl = document.getElementById('next-bus-time');
-    const busScheduleNoteEl = document.getElementById('bus-schedule-note');
-    const nextBusInfoEl = document.querySelector('p.next-bus-info');
-
-    async function fetchTimetable() {
-        try {
-            const response = await fetch('js/timetable.json');
-            if (!response.ok) throw new Error('時刻表ファイルが読み込めませんでした。');
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-            if(countdownDisplayEl) countdownDisplayEl.innerHTML = "<p>時刻表データを取得できませんでした。</p>";
-            return null;
-        }
-    }
-
-    const timetable = await fetchTimetable();
-    if (!timetable || !countdownDisplayEl) return;
-
-    function updateBusCountdown() {
-        const now = new Date();
-        const day = now.getDay(); // 0 = Sunday, 6 = Saturday
-        const currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
-
-        let schedule;
-        if (day === 6) { // Saturday
-            schedule = timetable.saturday;
-            busScheduleNoteEl.textContent = "";
-            busScheduleNoteEl.style.display = "none";
-        } else if (day === 0) { // Sunday
-            schedule = timetable.sunday;
-            busScheduleNoteEl.textContent = "";
-            busScheduleNoteEl.style.display = "none";
-        } else { // Weekday
-            schedule = timetable.weekday;
-            busScheduleNoteEl.textContent = "※表示は平日ダイヤです。技科大祭当日の土日ダイヤとは異なります。";
-            busScheduleNoteEl.style.display = "block";
-        }
-
-        let nextBus = schedule.find(time => time > currentTime);
-        let nextBusDate = new Date();
-
-        // 今日のバスがない場合、明日の始発を探す
-        if (!nextBus) {
-            const tomorrow = new Date();
-            tomorrow.setDate(now.getDate() + 1);
-            const tomorrowDay = tomorrow.getDay();
-            
-            let tomorrowSchedule;
-            if (tomorrowDay === 6) { tomorrowSchedule = timetable.saturday; }
-            else if (tomorrowDay === 0) { tomorrowSchedule = timetable.sunday; }
-            else { tomorrowSchedule = timetable.weekday; }
-
-            nextBus = tomorrowSchedule[0];
-            nextBusDate = tomorrow;
-        }
-
-        if (!nextBus) {
-            countdownDisplayEl.innerHTML = "<p>次のバス情報が見つかりません。</p>";
-            if (nextBusTimeEl) nextBusTimeEl.textContent = "--:--";
-            return;
-        }
-
-        const [hours, minutes] = nextBus.split(':');
-        nextBusDate.setHours(hours, minutes, 0, 0);
-        
-        const distance = nextBusDate.getTime() - now.getTime();
-        
-        // ★★★★★ ここからが変更点 ★★★★★
-        // 次のバスまで1時間以上ある場合はメッセージを表示
-        if (distance > 3600000) { // 3,600,000ミリ秒 = 1時間
-            countdownDisplayEl.innerHTML = `<p style="font-size: 1.1rem; font-weight: 500;">次のバスは <strong>${nextBus}</strong> 発です</p>`;
-            if (nextBusInfoEl) nextBusInfoEl.style.display = 'none'; // 下の発車時刻情報を隠す
-        } else {
-            // 1時間を切ったらカウントダウンを表示
-            if (nextBusInfoEl) nextBusInfoEl.style.display = 'block'; // 発車時刻情報を表示
-            
-            // カウントダウン用のHTML構造を再設定
-            countdownDisplayEl.innerHTML = `
-                <p>次のバスまであと</p>
-                <div class="time-container">
-                    <span id="bus-minutes">--</span><small>分</small>
-                    <span id="bus-seconds">--</span><small>秒</small>
-                </div>
-            `;
-            
-            const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            const busMinutesEl = document.getElementById('bus-minutes');
-            const busSecondsEl = document.getElementById('bus-seconds');
-
-            if(busMinutesEl) busMinutesEl.textContent = mins.toString().padStart(2, '0');
-            if(busSecondsEl) busSecondsEl.textContent = secs.toString().padStart(2, '0');
-            if(nextBusTimeEl) nextBusTimeEl.textContent = nextBus + " 発";
-        }
-    }
-
-    setInterval(updateBusCountdown, 1000);
-    updateBusCountdown();
+// site-config 読み込み後に Google Maps の URL を設定
+document.addEventListener('siteConfigLoaded', function(e) {
+    var config = e.detail;
+    var embedIframe = document.getElementById('google-maps-embed');
+    if (embedIframe) embedIframe.src = config.access.googleMapsEmbed;
+    var mapLink = document.getElementById('map-direction-link');
+    if (mapLink) mapLink.href = config.access.googleMapsDirection;
 });
 </script>
 </body>

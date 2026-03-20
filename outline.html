@@ -60,107 +60,7 @@
     <h2><span>Sponsors</span><span class="hosoku">ご協賛企業</span></h2>
     <p class="c">本年度の技科大祭開催にあたり、多くの企業の皆様にご支援、ご協力を賜りました。<br>心より感謝申し上げます。（順不同、敬称略）</p>
 
-    <div class="sponsor-grid">
-
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">シライミュージック</span>
-        </a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">株式会社ミニミニ</span>
-        </a>
-
-        <a href="https://www.himika.co.jp" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/himika.png">
-            <span class="sponsor-name">株式会社ヒミカ</span>
-        </a>
-
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/science.png">
-            <span class="sponsor-name">株式会社サイエンス・クリエイト</span>
-        </a>
-
-        <a href="https://www.instagram.com/hanayaudon?igsh=aG9jOWlzMGx1dzJ0" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">花屋うどん</span>
-        </a>
-
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">株式会社水鳥</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">Planets Walker</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">メガワールド曙店</span>
-        </a>
-        
-        <a href="https://www.topy.co.jp/ja/index.html" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/topy.png">
-            <span class="sponsor-name">トピー工業株式会社</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">ホンダカーズ天伯店</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/NSK.png">
-            <span class="sponsor-name">NSKワーナー株式会社</span>
-        </a>
-        
-        <a href="https://www.onocom.co.jp/" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/onocom.png">
-            <span class="sponsor-name">株式会社オノコム</span>
-        </a>
-        
-        <a href="https://www.loisir-toyohashi.com/" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/rowaji-ru.png">
-            <span class="sponsor-name">ロワジールホテル豊橋</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">天伯校区自治会</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">LUCIDO STYLE B-SHINE</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/eiburu.png">
-            <span class="sponsor-name">住まいLOVE不動産株式会社エイブルネットワーク豊橋本店</span>
-        </a>
-        
-        <a href="https://yutaka-ds.jp/toyohashi/" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/yutaka.png">
-            <span class="sponsor-name">ユタカ自動車学校</span>
-        </a>
-        
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">モンスター</span>
-        </a>
-
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">Zone</span>
-        </a>
-
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-tile">
-            <img src="data/kyousan/no.png">
-            <span class="sponsor-name">マンナンライフ</span>
-        </a>
-    </div>
+    <div id="sponsor-grid" class="sponsor-grid"></div>
 </section>
 </main>
 
@@ -216,6 +116,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/site-loader.js"></script>
+
+<script>
+// sponsors.json を読み込み協賛企業を動的に描画
+document.addEventListener('DOMContentLoaded', async function() {
+    var grid = document.getElementById('sponsor-grid');
+    if (!grid) return;
+
+    try {
+        var res = await fetch('js/sponsors.json');
+        if (!res.ok) throw new Error('sponsors.json の読み込みに失敗');
+        var sponsors = await res.json();
+
+        var html = '';
+        sponsors.forEach(function(s) {
+            var href = s.url || '#';
+            var safeName = s.name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            html += '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="sponsor-tile">';
+            html += '<img src="' + s.logo + '">';
+            html += '<span class="sponsor-name">' + safeName + '</span>';
+            html += '</a>';
+        });
+
+        grid.innerHTML = html;
+    } catch (error) {
+        console.error(error);
+        grid.innerHTML = '<p>協賛企業情報の読み込み中にエラーが発生しました。</p>';
+    }
+});
+</script>
 
 </body>
 </html>

@@ -1,0 +1,34 @@
+{
+    "festivalNumber": 48,
+    "festivalName": "技科大祭",
+    "universityName": "豊橋技術科学大学",
+    "theme": "繋ぐ",
+    "dates": {
+        "day1": "2025-10-11T10:00:00",
+        "day2": "2025-10-12",
+        "displayText": "10月11日(土)・12日(日)"
+    },
+    "contact": {
+        "email": "tut.festival@gmail.com"
+    },
+    "sns": {
+        "x": "https://x.com/tut_festival",
+        "instagram": "https://www.instagram.com/tut_festival/"
+    },
+    "links": {
+        "universityOfficial": "https://www.tut.ac.jp/"
+    },
+    "address": {
+        "postalCode": "〒441-8580",
+        "text": "愛知県豊橋市天伯町雲雀ヶ丘1-1"
+    },
+    "images": {
+        "poster": "data/poster.png",
+        "posterLive": "data/poster_live.png",
+        "timetable": "data/timetable.png"
+    },
+    "access": {
+        "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.1582743817758!2d137.40748281152807!3d34.70118767280656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6004d486441646c7%3A0xb819d28be7a7df7f!2z6LGK5qmL5oqA6KGT56eR5a2m5aSn5a2m!5e0!3m2!1sja!2sjp!4v1754376149619!5m2!1sja!2sjp",
+        "googleMapsDirection": "https://www.google.com/maps/dir/?api=1&destination=${%E8%B1%8A%E6%A9%8B%E6%8A%80%E8%A1%93%E7%A7%91%E5%AD%A6%E5%A4%A7%E5%AD%A6}"
+    }
+}

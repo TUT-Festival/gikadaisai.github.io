@@ -59,9 +59,9 @@
 
 <section>
 	<h2><span>Timetable</span><span class="hosoku">タイムテーブル</span></h2>
-	
+
 	<div class="c" style="margin-top: 2rem;">
-		<img src="data/timetable.png" alt="第48回技科大祭 タイムテーブル">
+		<img id="timetable-img" src="" alt="技科大祭 タイムテーブル">
 	</div>
 
 </section>
@@ -105,7 +105,7 @@
 		</div>
 	</div>
 	<div class="footer-bottom">
-		<small>Copyright© 第48回技科大祭実行委員会 All Rights Reserved.</small>
+		<small>Copyright&copy; 第48回技科大祭実行委員会 All Rights Reserved.</small>
 	</div>
 </footer>
 <div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
@@ -120,6 +120,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/site-loader.js"></script>
+
+<script>
+// site-config 読み込み後にタイムテーブル画像を設定
+document.addEventListener('siteConfigLoaded', function(e) {
+    var config = e.detail;
+    var img = document.getElementById('timetable-img');
+    if (img) img.src = config.images.timetable;
+});
+</script>
 
 </body>
 </html>
