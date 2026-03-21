@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             var warningLines = ev.warningText.replace(/\n/g, '<br>');
 
             html += '<p class="c">';
-            html += '<strong>' + ev.date + ' ' + ev.startTime + '〜</strong><br>';
+            html += '<strong>' + ev.displayDatetime + '</strong><br>';
             html += descLines;
             html += '</p>';
 
