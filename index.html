@@ -5,11 +5,7 @@
 	<title>第48回 技科大祭</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="技科大祭の公式ホームページです。日程やイベント情報を提供しています。">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/home.css">
 	<link rel="icon" href="images/HP_icon.png">
 </head>
 
@@ -55,170 +51,99 @@
     </nav>
 
 </div>
-</header>
+	</header>
 
 <div id="contents">
 
 <main>
 
-<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-<section class="pf-hero">
-    <!-- Background decorations -->
-    <div class="pf-hero__bg">
-        <div class="pf-hero__grid"></div>
-        <div class="pf-hero__glow pf-hero__glow--tl"></div>
-        <div class="pf-hero__glow pf-hero__glow--br"></div>
-        <div class="pf-hero__line pf-hero__line--h1"></div>
-        <div class="pf-hero__line pf-hero__line--h2"></div>
+<section class="feature-block">
+    <div class="feature-content-text">
+        <h2 class="feature-heading">
+            <span class="feature-en-heading">Theme</span>
+            <span class="feature-ja-heading">今年のテーマ</span>
+        </h2>
+        <p class="theme-showcase-text" id="theme-text">繋ぐ</p>
     </div>
-
-    <!-- Main content -->
-    <div class="pf-hero__inner">
-        <div class="pf-hero__content">
-            <p class="pf-hero__eyebrow">
-                <span class="pf-hero__eyebrow-dot"></span>
-                豊橋技術科学大学
-            </p>
-            <h1 class="pf-hero__title">技科大祭</h1>
-            <p class="pf-hero__edition">第48回</p>
-
-            <div class="pf-hero__theme-row">
-                <div class="pf-hero__theme-divider"></div>
-                <span class="pf-hero__theme-label">Theme</span>
-                <div class="pf-hero__theme-divider"></div>
-            </div>
-            <p class="pf-hero__theme-text" id="theme-text">繋ぐ</p>
-
-            <p class="pf-hero__date">
-                <i class="fas fa-calendar-alt"></i>
-                10月11日(土)・12日(日)
-            </p>
-
-            <div class="pf-hero__actions">
-                <a href="events.html" class="pf-btn pf-btn--primary">イベント詳細 <i class="fas fa-arrow-right"></i></a>
-                <a href="access.html" class="pf-btn pf-btn--ghost">アクセス</a>
-            </div>
-        </div>
-
-        <div class="pf-hero__visual">
-            <div class="pf-hero__poster-wrap">
-                <img id="poster-img" src="data/poster.png" alt="技科大祭 テーマポスター">
-            </div>
-        </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="pf-hero__scroll-hint">
-        <div class="pf-hero__scroll-track">
-            <div class="pf-hero__scroll-thumb"></div>
-        </div>
-        <span>Scroll</span>
+    <div class="feature-poster-container">
+        <img id="poster-img" src="data/poster.png" alt="技科大祭 テーマポスター">
     </div>
 </section>
 
-<!-- ═════════════════════════ COUNTDOWN ════════════════════════ -->
-<section class="pf-section pf-countdown-section">
-    <div class="pf-section__inner">
-        <div class="pf-section__eyebrow">
-            <span class="pf-eyebrow-en">Date</span>
-            <span class="pf-eyebrow-sep"></span>
-            <span class="pf-eyebrow-ja">開催日</span>
-        </div>
-
-        <div class="pf-countdown__card">
-            <p class="pf-countdown__date-text">10月11日(土)・12日(日)</p>
-            <p id="countdown-text" class="pf-countdown__until-text">開催まで</p>
-            <div id="countdown">
-                <div class="timer-unit"><span id="days">00</span><p>日</p></div>
-                <div class="pf-timer-sep"></div>
-                <div class="timer-unit"><span id="hours">00</span><p>時間</p></div>
-                <div class="pf-timer-sep"></div>
-                <div class="timer-unit"><span id="minutes">00</span><p>分</p></div>
-                <div class="pf-timer-sep"></div>
-                <div class="timer-unit"><span id="seconds">00</span><p>秒</p></div>
-            </div>
-            <div class="pf-countdown__opening">
-                <div class="opening-time-unit">
-                    <span id="opening-time" class="opening-time-value">--:--</span>
-                    <p class="opening-time-label">開場時間</p>
-                </div>
+<section class="bg1">
+	<h2 class="c"><span>Date</span><span class="hosoku">開催日</span></h2>
+	<div class="countdown-card">
+		<p class="event-date">10月11日(土)・12日(日)</p>
+		<p id="countdown-text">開催まで</p>
+		<div id="countdown">
+			<div class="timer-unit"><span id="days">00</span><p>日</p></div>
+			<div class="separator"></div>
+			<div class="timer-unit"><span id="hours">00</span><p>時間</p></div>
+			<div class="separator"></div>
+			<div class="timer-unit"><span id="minutes">00</span><p>分</p></div>
+			<div class="separator"></div>
+			<div class="timer-unit"><span id="seconds">00</span><p>秒</p></div>
+		</div>
+		<div class="opening-time-container">
+            <div class="opening-time-unit">
+                <span id="opening-time" class="opening-time-value">--:--</span>
+                <p class="opening-time-label">開場時間</p>
             </div>
         </div>
+	</div>
+</section>
+<section class="guest-feature-text-only">
+    <div class="feature-content-text">
+        <h2 class="feature-heading">
+            <span class="feature-en-heading">Guest</span>
+            <span class="feature-ja-heading">今年のゲスト</span>
+        </h2>
+        <p class="guest-showcase-text">今年も豪華ゲストが登場！<br>詳細はイベントページをご確認ください。</p>
+        <a href="events.html" class="feature-button">イベントページへ</a>
     </div>
 </section>
 
-<!-- ══════════════════════════ GUEST ═══════════════════════════ -->
-<section class="pf-section pf-guest-section pf-section--dark">
-    <div class="pf-section__inner">
-        <div class="pf-section__eyebrow pf-section__eyebrow--light">
-            <span class="pf-eyebrow-en">Guest</span>
-            <span class="pf-eyebrow-sep pf-eyebrow-sep--light"></span>
-            <span class="pf-eyebrow-ja pf-eyebrow-ja--light">今年のゲスト</span>
-        </div>
-        <p class="pf-guest__text">今年も豪華ゲストが登場！<br>詳細はイベントページをご確認ください。</p>
-        <a href="events.html" class="pf-btn pf-btn--outline-light">イベントページへ <i class="fas fa-arrow-right"></i></a>
-    </div>
+<section class="bg1">
+	<h2 class="c"><span>Access</span><span class="hosoku">会場アクセス</span></h2>
+	<div class="access-container">
+		<div class="access-info">
+			<div class="access-method">
+				<h4><i class="fas fa-train-subway"></i>電車・バスでお越しの方</h4>
+				<div class="access-description">
+					<p><strong>JR各線・名鉄名古屋本線「豊橋駅」</strong>で下車。<br>豊橋駅東口バス乗り場から豊鉄バス「技科大線」に乗車（約25分）、「技科大前」バス停下車すぐ。</p>
+					<div class="bus-countdown-wrapper">
+						<h5><i class="fas fa-bus"></i>技科大線の出発案内（豊橋駅前 発）</h5>
+						<p id="bus-schedule-note" class="note"></p>
+						<div id="bus-countdown-display">
+							<p>次の出発まであと</p>
+							<div class="time-container">
+								<span id="bus-minutes">--</span><small>分</small>
+								<span id="bus-seconds">--</span><small>秒</small>
+							</div>
+						</div>
+						<p class="next-bus-info">発車時刻: <span id="next-bus-time">--:--</span></p>
+					</div>
+				</div>
+			</div>
+			<div class="access-method">
+				<h4><i class="fas fa-car"></i>お車でお越しの方</h4>
+				 <div class="access-description">
+					<p>東名高速道路「豊川IC」より約40分。<br>国道23号線バイパス「豊橋東IC」より約10分。</p>
+					<p class="note">※当日は駐車場の混雑が予想されます。可能な限り公共交通機関のご利用にご協力ください。</p>
+				</div>
+			</div>
+		</div>
+		<div class="map-button-container">
+			<a id="map-direction-link" href="#" target="_blank" class="map-button">
+				<span class="map-button-icon"><i class="fas fa-map-marked-alt"></i></span>
+				<span class="map-button-text">
+					<strong>Google Mapで経路を確認</strong>
+					<small>大学までのルートを検索</small>
+				</span>
+			</a>
+		</div>
+	</div>
 </section>
-
-<!-- ══════════════════════════ ACCESS ══════════════════════════ -->
-<section class="pf-section pf-access-section">
-    <div class="pf-section__inner">
-        <div class="pf-section__eyebrow">
-            <span class="pf-eyebrow-en">Access</span>
-            <span class="pf-eyebrow-sep"></span>
-            <span class="pf-eyebrow-ja">会場アクセス</span>
-        </div>
-
-        <div class="pf-access__grid">
-            <!-- 電車・バス -->
-            <div class="pf-access__card">
-                <div class="pf-access__card-header">
-                    <div class="pf-access__icon-wrap"><i class="fas fa-train-subway"></i></div>
-                    <h4 class="pf-access__card-title">電車・バスでお越しの方</h4>
-                </div>
-                <div class="pf-access__card-body">
-                    <p><strong>JR各線・名鉄名古屋本線「豊橋駅」</strong>で下車。<br>豊橋駅東口バス乗り場から豊鉄バス「技科大線」に乗車（約25分）、「技科大前」バス停下車すぐ。</p>
-                    <div class="bus-countdown-wrapper">
-                        <h5><i class="fas fa-bus"></i> 技科大線の出発案内（豊橋駅前 発）</h5>
-                        <p id="bus-schedule-note" class="note"></p>
-                        <div id="bus-countdown-display">
-                            <p>次の出発まであと</p>
-                            <div class="time-container">
-                                <span id="bus-minutes">--</span><small>分</small>
-                                <span id="bus-seconds">--</span><small>秒</small>
-                            </div>
-                        </div>
-                        <p class="next-bus-info">発車時刻: <span id="next-bus-time">--:--</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- お車 -->
-            <div class="pf-access__card">
-                <div class="pf-access__card-header">
-                    <div class="pf-access__icon-wrap"><i class="fas fa-car"></i></div>
-                    <h4 class="pf-access__card-title">お車でお越しの方</h4>
-                </div>
-                <div class="pf-access__card-body">
-                    <p>東名高速道路「豊川IC」より約40分。<br>国道23号線バイパス「豊橋東IC」より約10分。</p>
-                    <p class="note">※当日は駐車場の混雑が予想されます。可能な限り公共交通機関のご利用にご協力ください。</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="pf-access__map-wrap">
-            <a id="map-direction-link" href="#" target="_blank" class="pf-access__map-btn">
-                <span class="pf-access__map-icon"><i class="fas fa-map-marked-alt"></i></span>
-                <span class="pf-access__map-text">
-                    <strong>Google Mapで経路を確認</strong>
-                    <small>大学までのルートを検索</small>
-                </span>
-                <i class="fas fa-arrow-right pf-access__map-arrow"></i>
-            </a>
-        </div>
-    </div>
-</section>
-
 </main>
 
 </div>
