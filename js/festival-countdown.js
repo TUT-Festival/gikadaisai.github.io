@@ -7,7 +7,7 @@ document.addEventListener('siteConfigLoaded', function (e) {
     'use strict';
 
     var config = e.detail;
-    var festivalStart = new Date(config.dates.day1).getTime();
+    var festivalStart = new Date(config.dates.start).getTime();
     var festivalEnd   = config.dates.end ? new Date(config.dates.end).getTime() : null;
     var displayText   = config.dates.displayText;
 

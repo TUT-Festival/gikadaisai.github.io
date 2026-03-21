@@ -2,8 +2,8 @@
     {
         "id": "comedy-live",
         "title": "スペシャルお笑いライブ",
-        "date": "10/12(日)",
-        "startTime": "11:30",
+        "datetime": "2025-10-12T11:30:00",
+        "displayDatetime": "10月12日(日) 11:30〜",
         "description": "「ハリウッドザコシショウ」・「SAKURAI」によるスペシャルお笑いライブを開催します！\n学内外の方、誰でも観覧無料ですので是非お越しください！\n詳細は以下ポスターをご確認ください。",
         "poster": "data/poster_live.png",
         "freeAdmission": true,
