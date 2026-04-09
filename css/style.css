@@ -241,29 +241,28 @@ header {
 /* "+" icon with circular background, rotates on hover */
 .large-screen #menubar-pc .ddmenu_parent > a::before {
     content: "+";
-    margin-right: 5px;
-    font-weight: 500;
-    font-size: 0.72em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     width: 16px;
     height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 600;
     background: var(--bg-color);
     border-radius: 50%;
     vertical-align: middle;
-    line-height: 1;
-    flex-shrink: 0;
+    margin-right: 5px;
     transition: transform 0.25s ease;
 }
 .large-screen #menubar-pc .ddmenu_parent:hover > a::before {
     transform: rotate(90deg);
 }
 
-/* Desktop dropdown: base hidden state (mobile uses jQuery slideToggle) */
-.ddmenu_parent ul {
+/* Mobile: hide dropdown by default (jQuery slideToggle will show/hide) */
+.small-screen .ddmenu_parent ul {
     display: none;
 }
+/* Desktop: no display:none — use visibility/opacity instead, avoids specificity conflicts */
 /* Desktop dropdown: override to use CSS visibility transitions */
 .large-screen #menubar-pc .ddmenu_parent {
     position: relative;
