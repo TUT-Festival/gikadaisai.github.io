@@ -158,56 +158,79 @@ main section,
 
 /* ========== Header ========== */
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 10px 16px;
+}
+.header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
-    padding: 1vw 3vw;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(45, 48, 54, 0.10);
+    border-radius: var(--radius-pill);
+    padding: 6px 8px 6px 22px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    height: 56px;
     font-family: "Reddit Sans", "Noto Sans JP", sans-serif;
     font-weight: 700;
-    position: absolute;
-    z-index: 100;
-    width: 100%;
 }
 #logo a {
     display: block;
     text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 800;
     color: var(--text-color);
+    white-space: nowrap;
 }
 #logo img {
     display: block;
     width: 160px;
 }
 #daigaku {
-    position: relative;
-    bottom: -14px;
-    left: 1px;
-    font-size: 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    opacity: 0.55;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+}
+#gikadaisai {
+    font-size: 1.0rem;
+    font-weight: 800;
+    line-height: 1.2;
 }
 
-/* Desktop Navigation - Pill Style with thin border */
-.large-screen #menubar {
-    display: block;
+/* Desktop Navigation - integrated into header pill */
+#menubar-pc {
+    display: none;
 }
-.large-screen #menubar #menubar-pc > ul {
+.large-screen #menubar-pc {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+.large-screen #menubar-pc > ul {
     display: flex;
     font-size: 0.85rem;
-    gap: 0.3rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-pill);
-    padding: 0.3rem 0.5rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    gap: 0.2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
-.large-screen #menubar li a {
+.large-screen #menubar-pc li a {
+    display: block;
     border-radius: var(--radius-pill);
-    padding: 0.3rem 1.1rem;
+    padding: 0.3rem 1.0rem;
     color: var(--text-color);
     transition: all 0.25s ease;
+    white-space: nowrap;
 }
-.large-screen #menubar li a:hover {
+.large-screen #menubar-pc li a:hover {
     background: var(--bg-light);
     color: var(--primary-color);
 }
@@ -217,10 +240,10 @@ header {
 .large-screen .ddmenu_parent:hover > ul {
     display: block;
 }
-.large-screen #menubar ul ul {
+.large-screen #menubar-pc ul ul {
     animation: opa1 0.5s 0.1s both;
     position: absolute;
-    z-index: 100;
+    z-index: 200;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 16px;
@@ -228,14 +251,38 @@ header {
     margin-top: 0.3rem;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
-.large-screen #menubar ul ul li a {
+.large-screen #menubar-pc ul ul li a {
     display: block;
     padding: 0.4rem 1.2rem;
     border-radius: 10px;
     font-size: 0.85rem;
 }
-.large-screen #menubar ul ul li a:hover {
+.large-screen #menubar-pc ul ul li a:hover {
     background: var(--bg-light);
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.header-contact-btn {
+    background: var(--dark-color);
+    color: #fff !important;
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 1.3rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.25s ease;
+    white-space: nowrap;
+    display: inline-block;
+}
+.header-contact-btn:hover {
+    background: var(--primary-color) !important;
+    color: #fff !important;
 }
 
 /* ========== Main Headings ========== */
@@ -627,43 +674,43 @@ p.next-bus-info {
     letter-spacing: 0.05em;
     opacity: 0.6;
 }
-/* ========== Hamburger Menu & Mobile Navigation ========== */
-.large-screen #menubar_hdr {
-    display: none;
-}
-.small-screen #menubar_hdr {
+/* ========== Hamburger Button ========== */
+#menubar_hdr {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: fixed;
-    z-index: 1001;
     cursor: pointer;
-    right: 3vw;
-    top: 15px;
-    padding: 8px;
-    width: 34px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
+    padding: 11px 10px;
     border: none;
-    background: none;
+    background: var(--bg-color);
+    border-radius: 50%;
+    flex-shrink: 0;
 }
-.small-screen #menubar_hdr span {
+#menubar_hdr span {
     display: block;
     transition: all 0.3s ease-in-out;
     background-color: var(--text-color);
     height: 2px;
     width: 100%;
 }
-.small-screen #menubar_hdr.ham span {
-    background-color: var(--primary-inverse-color);
+#menubar_hdr.ham span:nth-of-type(1) {
+    transform: translateY(8px) rotate(45deg);
 }
-.small-screen #menubar_hdr.ham span:nth-of-type(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-.small-screen #menubar_hdr.ham span:nth-of-type(2) {
+#menubar_hdr.ham span:nth-of-type(2) {
     opacity: 0;
 }
-.small-screen #menubar_hdr.ham span:nth-of-type(3) {
-    transform: translateY(-7px) rotate(-45deg);
+#menubar_hdr.ham span:nth-of-type(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+.large-screen #menubar_hdr {
+    display: none;
+}
+
+/* ========== Mobile Menu Overlay ========== */
+#menubar {
+    display: none;
 }
 .small-screen #menubar {
     display: flex;
@@ -714,25 +761,11 @@ p.next-bus-info {
 .small-screen #menubar.is-open nav li:nth-child(3) a { transition-delay: 0.25s; }
 .small-screen #menubar.is-open nav li:nth-child(4) a { transition-delay: 0.30s; }
 .small-screen #menubar.is-open nav li:nth-child(5) a { transition-delay: 0.35s; }
+.small-screen #menubar.is-open nav li:nth-child(6) a { transition-delay: 0.40s; }
+.small-screen #menubar.is-open nav li:nth-child(7) a { transition-delay: 0.45s; }
 .small-screen #menubar nav a:hover {
     color: var(--primary-inverse-color);
     background-color: rgba(255, 255, 255, 0.08);
-}
-.small-screen #menubar ul ul {
-    display: none;
-    padding-top: 1rem;
-    position: static;
-    background: none;
-    border: none;
-    box-shadow: none;
-    text-align: center;
-}
-.small-screen #menubar ul ul a {
-    font-size: 1.2rem;
-    font-weight: 300;
-}
-.small-screen #menubar .ddmenu_parent > a.is-active + ul {
-    display: block;
 }
 
 /* Utility */
