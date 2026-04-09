@@ -208,6 +208,9 @@ header {
 #menubar-pc {
     display: none;
 }
+#logo {
+    flex: 1;
+}
 .large-screen #menubar-pc {
     display: flex;
     align-items: center;
@@ -222,7 +225,7 @@ header {
     padding: 0;
     margin: 0;
 }
-.large-screen #menubar-pc li a {
+.large-screen #menubar-pc > ul > li > a {
     display: block;
     border-radius: var(--radius-pill);
     padding: 0.3rem 1.0rem;
@@ -230,43 +233,91 @@ header {
     transition: all 0.25s ease;
     white-space: nowrap;
 }
-.large-screen #menubar-pc li a:hover {
+.large-screen #menubar-pc > ul > li > a:hover {
     background: var(--bg-light);
     color: var(--primary-color);
 }
+
+/* "+" indicator before dropdown parent */
+.large-screen #menubar-pc .ddmenu_parent > a::before {
+    content: "+";
+    margin-right: 4px;
+    font-weight: 300;
+    font-size: 0.95em;
+    opacity: 0.55;
+    display: inline-block;
+    line-height: 1;
+}
+
+/* Desktop dropdown: base hidden state (mobile uses jQuery slideToggle) */
 .ddmenu_parent ul {
     display: none;
 }
-.large-screen .ddmenu_parent:hover > ul {
-    display: block;
+/* Desktop dropdown: override to use CSS visibility transitions */
+.large-screen #menubar-pc .ddmenu_parent {
+    position: relative;
 }
-.large-screen #menubar-pc ul ul {
-    animation: opa1 0.5s 0.1s both;
+/* Transparent hover bridge between button and dropdown to prevent gap flicker */
+.large-screen #menubar-pc .ddmenu_parent::after {
+    content: "";
     position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+}
+.large-screen #menubar-pc .ddmenu_parent > ul {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    margin-top: 8px;
+    min-width: 180px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(45, 48, 54, 0.10);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+    overflow: hidden;
+    padding: 0.4rem 0;
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
     z-index: 200;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.large-screen #menubar-pc .ddmenu_parent:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+.large-screen #menubar-pc ul ul li + li {
+    border-top: 1px solid rgba(45, 48, 54, 0.06);
 }
 .large-screen #menubar-pc ul ul li a {
     display: block;
-    padding: 0.4rem 1.2rem;
-    border-radius: 10px;
-    font-size: 0.85rem;
+    padding: 0.85rem 1.4rem;
+    font-size: 1.0rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border-radius: 0;
 }
 .large-screen #menubar-pc ul ul li a:hover {
     background: var(--bg-light);
+    color: var(--primary-color);
 }
 
 /* Header Actions */
 .header-actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 8px;
-    flex-shrink: 0;
+    flex: 1;
 }
 .header-contact-btn {
     background: var(--dark-color);

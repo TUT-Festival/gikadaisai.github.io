@@ -71,12 +71,7 @@ $(function() {
         }
     });
 
-    // PC用のドロップダウンメニュー（ホバー）
-    $('.large-screen .ddmenu_parent').hover(function() {
-        $(this).children('ul').stop().fadeIn('fast');
-    }, function() {
-        $(this).children('ul').stop().fadeOut('fast');
-    });
+    // PC用のドロップダウンはCSSのvisibility/opacityトランジションで制御
 
 });
 
