@@ -713,6 +713,7 @@ p.next-bus-info {
     display: none;
 }
 .small-screen #menubar {
+    display: block;
     position: fixed;
     top: 72px; /* header top-padding(10) + pill-height(56) + gap(6) */
     left: 16px;
