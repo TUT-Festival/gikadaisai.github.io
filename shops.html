@@ -225,11 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return shops.map(shop => {
             const safeTitle = shop.title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             const safeCircle = shop.circle.replace(/"/g, "&quot;");
-            const id = shop.id;
+            const img = shop.img || 'default.png';
             return `
                 <div class="shop-card">
                     <div class="shop-card-image">
-                        <img src="data/shop/icon/${id}.png" alt="${safeCircle} アイコン" onerror="this.onerror=null; this.src='data/shop/icon/default.png';">
+                        <img src="data/shop/icon/${img}" alt="${safeCircle} アイコン" onerror="this.onerror=null; this.src='data/shop/icon/default.png';">
                     </div>
                     <div class="shop-card-content">
                         <p class="shop-card-title">${safeTitle}</p>

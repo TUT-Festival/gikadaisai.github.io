@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         var html = '';
         sponsors.forEach(function(s) {
             var href = s.url || '#';
-            var logo = s.logo || 'data/kyousan/no.png';
+            var logo = s.img ? 'data/kyousan/' + s.img : 'data/kyousan/no.png';
             var safeName = s.name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             html += '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="sponsor-tile">';
             html += '<img src="' + logo + '">';

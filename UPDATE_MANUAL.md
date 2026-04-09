@@ -122,24 +122,28 @@ HTMLファイルやJSファイルは原則として編集不要です。
 ```json
 [
     {
-        "id": "1",               ← 一意のID（アイコン画像名にも使用）
+        "id": "1",               ← 一意のID（一覧の表示順序に使用）
         "circle": "サークル名",    ← 団体名
         "title": "店名",          ← 店舗名
         "place": "室内",          ← "室内" または "屋外"
-        "location": "A-114/22"   ← 場所コード
+        "location": "A-114/22",  ← 場所コード
+        "img": "1.png"           ← アイコン画像ファイル名（拡張子を含む）
     },
     {
         "id": "2",
         "circle": "別のサークル",
         "title": "別の店名",
         "place": "屋外",
-        "location": "テント5"
+        "location": "テント5",
+        "img": "2.png"
     }
 ]
 ```
 
 **ポイント**:
-- `id` の値がそのまま `data/shop/icon/{id}.png` の画像ファイル名になります
+- `id` は一覧の表示順序を決定するためのキーです
+- `img` の値がそのまま `data/shop/icon/{img}` の画像ファイル名になります（拡張子を含めて指定）
+- `img` が未指定の場合、デフォルト画像 `data/shop/icon/default.png` が表示されます
 - キッチンカーは `id` にアルファベット（A, B, C...）を使用しています
 - `place` は `"室内"` か `"屋外"` のいずれかを指定してください
 
@@ -179,14 +183,15 @@ HTMLファイルやJSファイルは原則として編集不要です。
     {
         "name": "企業名",
         "url": "https://example.com",   ← 企業サイトURL（なければ空文字 ""）
-        "logo": "data/kyousan/logo.png"  ← ロゴ画像のパス
+        "img": "logo.png"                ← ロゴ画像ファイル名（拡張子を含む、data/kyousan/ 内に配置）
     }
 ]
 ```
 
 **ポイント**:
 - URLがない企業は `"url": ""` と空文字にしてください（`#` リンクになります）
-- ロゴがない企業は `"logo": "data/kyousan/no.png"` を使用
+- ロゴがない企業は `"img": null` としてください（デフォルト画像 `data/kyousan/no.png` が表示されます）
+- `img` にはファイル名のみ指定します（例: `"himika.png"`）。ディレクトリパスは不要です
 
 ### 3-5. timetable.json（バス時刻表）
 
@@ -216,8 +221,8 @@ HTMLファイルやJSファイルは原則として編集不要です。
 | タイムテーブル | `data/timetable.png` | 同上 |
 | 屋外マップ | `data/map/outside.png` | - |
 | 屋内マップ | `data/map/inside.png` | - |
-| 協賛企業ロゴ | `data/kyousan/*.png` | sponsors.json の `logo` と一致させる |
-| 模擬店アイコン | `data/shop/icon/{id}.png` | shop.json の `id` と一致させる |
+| 協賛企業ロゴ | `data/kyousan/*.png` | sponsors.json の `img` と一致させる |
+| 模擬店アイコン | `data/shop/icon/{img}` | shop.json の `img` と一致させる |
 
 **ファイル名を変更した場合**は、対応する JSON ファイルのパスも更新してください。
 
@@ -294,8 +299,8 @@ npx serve .
 **原因**: `shop.json` の `id` と画像ファイル名が一致していません。
 
 **対処法**:
-- `shop.json` で `"id": "5"` なら、画像は `data/shop/icon/5.png` が必要です
-- 画像がない場合、デフォルト画像 `data/shop/icon/default.png` が表示されます
+- `shop.json` で `"img": "5.png"` なら、画像は `data/shop/icon/5.png` が必要です
+- `img` が未指定の場合、デフォルト画像 `data/shop/icon/default.png` が表示されます
 
 ### 「カウントダウンが 00:00:00 のまま」
 
