@@ -48,6 +48,7 @@ html, body {
     padding: 0;
     height: 100%;
     font-size: 13px;
+    overflow-x: hidden;
 }
 body {
     font-family: "Noto Sans JP", "Hiragino Kaku Gothic Pro", Meiryo, sans-serif;
@@ -107,10 +108,12 @@ a:hover {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 #contents {
     flex: 1;
     padding: var(--global-space);
+    overflow-x: hidden;
 }
 body:not(.home) #container {
     display: flex;
@@ -119,6 +122,13 @@ body:not(.home) #container {
 }
 
 /* ========== Decorative Circles ========== */
+/* 装飾サークルの親要素は必ず overflow: hidden を持つこと */
+main section,
+.bg1,
+.feature-block,
+.guest-feature-text-only {
+    overflow: hidden;
+}
 .deco-circle {
     position: absolute;
     border-radius: 50%;
@@ -1230,7 +1240,6 @@ body.modal-open {
     .feature-block {
         grid-template-columns: 1fr;
         gap: 2.5rem;
-        overflow: visible;
     }
     .feature-poster-container {
         order: 2;
