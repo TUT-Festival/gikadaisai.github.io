@@ -163,7 +163,7 @@ header {
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 10px 16px;
+    padding: 10px 4vw;
 }
 .header-inner {
     display: flex;
@@ -175,9 +175,9 @@ header {
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(45, 48, 54, 0.10);
     border-radius: var(--radius-pill);
-    padding: 4px 6px 4px 20px;
+    padding: 6px 8px 6px 22px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-    height: 48px;
+    height: 56px;
     font-family: "Reddit Sans", "Noto Sans JP", sans-serif;
     font-weight: 700;
 }
@@ -777,7 +777,7 @@ p.next-bus-info {
 .small-screen #menubar {
     display: block;
     position: fixed;
-    top: 64px; /* header top-padding(10) + pill-height(48) + gap(6) */
+    top: 72px; /* header top-padding(10) + pill-height(56) + gap(6) */
     left: 16px;
     right: 16px;
     background: rgba(255, 255, 255, 0.96);
