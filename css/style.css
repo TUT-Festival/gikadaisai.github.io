@@ -25,21 +25,9 @@
 }
 
 /* Keyframes */
-@keyframes animation1 {
-    from { left: -200px; }
-    to { left: 0; }
-}
-@keyframes opa1 {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.8); }
     to { opacity: 1; transform: scale(1); }
-}
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
 }
 
 /* Base & Reset */
@@ -113,11 +101,10 @@ a:hover {
 #contents {
     flex: 1;
     padding: var(--global-space);
+    padding-top: max(var(--global-space), 80px);
     overflow-x: hidden;
 }
 body:not(.home) #container {
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
 }
 
@@ -456,13 +443,11 @@ footer::before {
     color: var(--primary-color);
 }
 /* ========== Components ========== */
-.pagetop-show {
-    display: block;
-}
 .pagetop a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    text-align: center;
     z-index: 99;
     position: fixed;
     right: 20px;
@@ -471,7 +456,7 @@ footer::before {
     font-size: 1.2rem;
     background: var(--card-bg);
     width: 50px;
-    line-height: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 1.5px solid var(--border-color);
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
@@ -502,11 +487,6 @@ footer::before {
 }
 .bg1::before, .bg1::after {
     content: none;
-}
-
-@font-face {
-    font-family: ZenMaru;
-    src: url("/font/Zen_Maru_Gothic/ZenMaruGothic-Medium.ttf") format("truetype");
 }
 
 /* ========== Access Block ========== */
@@ -893,9 +873,10 @@ p.next-bus-info {
     padding: 0.4rem 0.6rem;
     font-size: 0.85rem;
     background-color: var(--card-bg);
+    cursor: pointer;
     transition: border-color 0.3s;
 }
-.control-group select:focus {
+.control-group select:focus-visible {
     border-color: var(--primary-color);
     outline: none;
 }
@@ -1110,12 +1091,6 @@ p.next-bus-info {
     box-shadow: 0 8px 24px rgba(199, 0, 10, 0.3);
 }
 
-/* ========== Navigation Display Control ========== */
-.large-screen #menubar-sp { display: none; }
-.large-screen #menubar-pc { display: block; }
-.small-screen #menubar-pc { display: none; }
-.small-screen #menubar-sp { display: block; }
-
 /* ========== Fixed Action Buttons ========== */
 .fixed-button {
     display: flex;
@@ -1286,9 +1261,6 @@ body.modal-open {
 
 /* ========== Media Queries ========== */
 @media screen and (max-width: 600px) {
-    #contents {
-        padding-top: 80px;
-    }
     .countdown-card {
         padding: 1.5rem 1rem;
     }
@@ -1311,17 +1283,9 @@ body.modal-open {
         gap: 0.5rem;
     }
 }
-@media (min-width: 600px) {
-    .lineup {
-        flex-direction: row;
-    }
-}
 @media screen and (min-width: 900px) {
     html, body {
         font-size: 16px;
-    }
-    header {
-        position: fixed;
     }
 }
 @media screen and (max-width: 768px) {
