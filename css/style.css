@@ -1071,14 +1071,24 @@ p.next-bus-info {
 }
 
 /* ========== Fixed Action Buttons ========== */
-.fixed-button,
-.pagetop a {
+/* .pagetop 自体を fixed にして jQuery の fadeIn/fadeOut が直接動作するようにする */
+.pagetop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+}
+.fixed-button {
+    position: fixed;
+    right: 20px;
+    z-index: 99;
+}
+/* 共通ビジュアルスタイル */
+.pagetop a,
+.fixed-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99;
-    position: fixed;
-    right: 20px;
     color: var(--text-color);
     font-size: 1.2rem;
     background: var(--card-bg);
@@ -1092,8 +1102,8 @@ p.next-bus-info {
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     transition: all 0.3s ease;
 }
-.fixed-button:hover,
-.pagetop a:hover {
+.pagetop a:hover,
+.fixed-button:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
     transform: translateY(-3px);
@@ -1102,9 +1112,6 @@ p.next-bus-info {
 /* 右下ボタン群 — 模擬店マップボタンを基準に下から積み上げる */
 #map-button {
     bottom: 90px;   /* 20px(pagetop) + 50px(button height) + 20px(gap) */
-}
-.pagetop a {
-    bottom: 20px;
 }
 
 /* ========== Modal ========== */
