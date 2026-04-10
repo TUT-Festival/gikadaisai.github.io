@@ -1070,12 +1070,19 @@ p.next-bus-info {
 }
 
 /* ========== Fixed Action Buttons ========== */
-/* .pagetop 自体を fixed にして jQuery の fadeIn/fadeOut が直接動作するようにする */
+/* ページトップボタン: opacity/visibility でフェード制御 (display:none は使わない) */
 .pagetop {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.pagetop.is-visible {
+    opacity: 1;
+    visibility: visible;
 }
 .fixed-button {
     position: fixed;

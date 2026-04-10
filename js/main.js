@@ -105,14 +105,21 @@ $(function() {
     });
 
     // スクロールに応じてページトップボタンの表示/非表示を切り替え
-    $(topButton).hide(); // 初期状態ではボタンを隠す
-    $(window).scroll(function() {
-        if($(this).scrollTop() >= 300) { // スクロール位置が300pxを超えたら
-            $(topButton).fadeIn().addClass(scrollShow); // ボタンを表示
+    // opacity/visibility で制御 (display:none は position:fixed と相性が悪いため使わない)
+    // document capture phase で全スクロールコンテナに対応
+    function updatePagetop() {
+        var scrollTop = window.pageYOffset
+            || document.documentElement.scrollTop
+            || document.body.scrollTop
+            || 0;
+        if (scrollTop >= 300) {
+            topButton.addClass('is-visible');
         } else {
-            $(topButton).fadeOut().removeClass(scrollShow); // それ以外では非表示
+            topButton.removeClass('is-visible');
         }
-    });
+    }
+    updatePagetop(); // ロード時に即実行
+    document.addEventListener('scroll', updatePagetop, { passive: true, capture: true });
 
     // ページロード時にURLのハッシュが存在する場合の処理
     if(window.location.hash) {
