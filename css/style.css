@@ -446,30 +446,6 @@ footer {
     color: var(--primary-color);
 }
 /* ========== Components ========== */
-.pagetop a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    z-index: 99;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    color: var(--text-color);
-    font-size: 1.2rem;
-    background: var(--card-bg);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-}
-.pagetop a:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    transform: translateY(-3px);
-}
 
 /* ========== Section Backgrounds (bg1 = accent section) ========== */
 .bg1 {
@@ -1095,7 +1071,8 @@ p.next-bus-info {
 }
 
 /* ========== Fixed Action Buttons ========== */
-.fixed-button {
+.fixed-button,
+.pagetop a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1103,7 +1080,7 @@ p.next-bus-info {
     position: fixed;
     right: 20px;
     color: var(--text-color);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     background: var(--card-bg);
     width: 50px;
     height: 50px;
@@ -1111,17 +1088,23 @@ p.next-bus-info {
     border: 1.5px solid var(--border-color);
     cursor: pointer;
     padding: 0;
+    text-decoration: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     transition: all 0.3s ease;
 }
-.fixed-button:hover {
+.fixed-button:hover,
+.pagetop a:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
+/* 右下ボタン群 — 模擬店マップボタンを基準に下から積み上げる */
 #map-button {
-    bottom: 90px;
+    bottom: 90px;   /* 20px(pagetop) + 50px(button height) + 20px(gap) */
+}
+.pagetop a {
+    bottom: 20px;
 }
 
 /* ========== Modal ========== */
