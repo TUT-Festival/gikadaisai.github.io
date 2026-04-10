@@ -293,101 +293,124 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-(function() {
-    const modal = document.getElementById('map-modal');
+(function () {
+    'use strict';
+    var modal = document.getElementById('map-modal');
     if (!modal) return;
 
-    const mapButton = document.getElementById('map-button');
-    const closeBtn = modal.querySelector('.modal-close-btn');
-    const body = document.body;
-    const switcher = modal.querySelector('.map-switcher');
-    const switchButtons = modal.querySelectorAll('.map-switch-button');
-    const mapPanels = modal.querySelectorAll('.map-panel');
-    
-    const zoomInstances = {};
+    var mapButton  = document.getElementById('map-button');
+    var closeBtn   = modal.querySelector('.modal-close-btn');
+    var mapPanels  = modal.querySelectorAll('.map-panel');
+    var switchBtns = modal.querySelectorAll('.map-switch-button');
 
-    const setupZoomForPanel = (mapId) => {
-        const container = modal.querySelector(`.map-zoom-container[data-map-id="${mapId}"]`);
+    var zoomInstances = {};  // mapId -> PinchZoom instance
+    var overlayReady  = {};  // mapId -> bool（リスナー登録済み）
+
+    /* --------------------------------------------------
+     * PinchZoom コンストラクタを安全に取得
+     * UMD ビルドによって PinchZoom / PinchZoom.default のどちらかに入る
+     * -------------------------------------------------- */
+    function getPZ() {
+        if (typeof PinchZoom === 'undefined') return null;
+        if (typeof PinchZoom === 'function')         return PinchZoom;
+        if (typeof PinchZoom.default === 'function') return PinchZoom.default;
+        return null;
+    }
+
+    /* --------------------------------------------------
+     * 指定パネルのズームと操作ガイドを初期化
+     * -------------------------------------------------- */
+    function setupPanel(mapId) {
+        var container = modal.querySelector('.map-zoom-container[data-map-id="' + mapId + '"]');
         if (!container) return;
 
-        // 画面幅が768px以下のモバイル・タブレット環境のみ処理を実行
-        if (window.innerWidth <= 768) {
-            // Part 1: PinchZoomライブラリの初期化（初回のみ）
-            if (!zoomInstances[mapId] && typeof PinchZoom !== 'undefined') {
-                const instance = new PinchZoom.default(container, { minZoom: 1 });
-                zoomInstances[mapId] = instance;
+        // ── PinchZoom ──
+        // img 要素をズーム対象にする（container を渡すと overflow:hidden と干渉する）
+        if (!zoomInstances[mapId]) {
+            var img = container.querySelector('img');
+            var PZ  = getPZ();
+            if (img && PZ) {
+                try {
+                    zoomInstances[mapId] = new PZ(img, {
+                        draggableUnzoomed: true,   // ズーム前でもドラッグで移動可
+                        minZoom: 1,
+                        maxZoom: 5
+                    });
+                } catch (e) {
+                    console.warn('PinchZoom init failed:', e);
+                }
             }
+        }
 
-            // Part 2: 操作ガイドを非表示にするイベントリスナーの設定
-            const overlay = container.querySelector('.map-instruction-overlay');
+        // ── 操作ガイドオーバーレイ ──
+        // 重複登録を防ぐ・最初の操作（タッチ or クリック）で非表示
+        if (!overlayReady[mapId]) {
+            var overlay = container.querySelector('.map-instruction-overlay');
             if (overlay) {
-                // { once: true } オプションにより、イベントは一度だけ実行される
-                container.addEventListener('touchstart', () => {
-                    if (!overlay.classList.contains('hidden')) {
-                        overlay.classList.add('hidden');
-                        // ★変更点：ガイドを非表示にした際に、localStorageに記録を保存
-                        localStorage.setItem('mapGuideViewed', 'true');
-                    }
-                }, { once: true });
+                function dismiss() {
+                    overlay.classList.add('hidden');
+                    try { localStorage.setItem('mapGuideViewed', 'true'); } catch (e) {}
+                }
+                // pointer-events:none のためイベントはコンテナに届く
+                container.addEventListener('touchstart', dismiss, { once: true, passive: true });
+                container.addEventListener('mousedown',  dismiss, { once: true });
             }
+            overlayReady[mapId] = true;
         }
-    };
-    
-    const setActiveMap = (target) => {
-        mapPanels.forEach(panel => {
-            panel.classList.toggle('active', panel.id === `map-panel-${target}`);
-        });
-        switchButtons.forEach(button => {
-            button.classList.toggle('active', button.dataset.mapTarget === target);
-        });
-        
-        setupZoomForPanel(target);
-    };
+    }
 
-    const openModal = () => {
-        body.classList.add('modal-open');
+    /* --------------------------------------------------
+     * 表示マップを切り替え
+     * -------------------------------------------------- */
+    function setActiveMap(target) {
+        mapPanels.forEach(function (panel) {
+            panel.classList.toggle('active', panel.id === 'map-panel-' + target);
+        });
+        switchBtns.forEach(function (btn) {
+            btn.classList.toggle('active', btn.dataset.mapTarget === target);
+        });
+        setupPanel(target);
+    }
+
+    /* --------------------------------------------------
+     * モーダルの開閉
+     * -------------------------------------------------- */
+    function openModal() {
+        document.body.classList.add('modal-open');
         modal.style.display = 'block';
-        
-        // ★変更点：localStorageに記録があるか確認
-        const guideViewed = localStorage.getItem('mapGuideViewed');
 
-        if (guideViewed) {
-            // 記録がある場合（2回目以降）：強制的にガイドを非表示にする
-            modal.querySelectorAll('.map-instruction-overlay').forEach(overlay => {
-                overlay.classList.add('hidden');
-            });
-        } else {
-            // 記録がない場合（初回）：ガイドを表示する
-            modal.querySelectorAll('.map-instruction-overlay').forEach(overlay => {
-                overlay.classList.remove('hidden');
-            });
-        }
+        // 初回：ガイド表示 / 2回目以降：非表示
+        var seen = false;
+        try { seen = !!localStorage.getItem('mapGuideViewed'); } catch (e) {}
+        modal.querySelectorAll('.map-instruction-overlay').forEach(function (el) {
+            el.classList.toggle('hidden', seen);
+        });
 
         setActiveMap('outside');
-    };
+    }
 
-    const closeModal = () => {
-        body.classList.remove('modal-open');
+    function closeModal() {
+        document.body.classList.remove('modal-open');
         modal.style.display = 'none';
-    };
+    }
 
-    mapButton.addEventListener('click', openModal);
+    // イベント登録
+    if (mapButton) mapButton.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
 
-    switcher.addEventListener('click', (event) => {
-        const button = event.target.closest('.map-switch-button');
-        if (button?.dataset?.mapTarget) {
-            setActiveMap(button.dataset.mapTarget);
-        }
+    modal.querySelector('.map-switcher').addEventListener('click', function (e) {
+        var btn = e.target.closest('.map-switch-button');
+        if (btn && btn.dataset.mapTarget) setActiveMap(btn.dataset.mapTarget);
     });
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) closeModal();
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
     });
-    window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.style.display === 'block') closeModal();
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
     });
-})();
+}());
 </script>
 
 </body>

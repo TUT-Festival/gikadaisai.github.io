@@ -1209,10 +1209,12 @@ p.next-bus-info {
     -webkit-touch-callout: none;
     user-select: none;
 }
+/* PinchZoom が img をラップした後もレイアウトを保持 */
 .map-zoom-container img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
+    max-height: 100%;
 }
 .map-instruction-overlay {
     position: absolute;
