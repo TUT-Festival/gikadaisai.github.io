@@ -36,7 +36,7 @@ document.addEventListener('siteConfigLoaded', function (e) {
     if (festivalEnd && Date.now() >= festivalEnd) {
         setCardContent(
             "<p class='event-date'>" + displayText + "</p>" +
-            "<p style='font-size: 1.6rem; font-weight: bold; margin-top: 1rem;'>今年もご来場ありがとうございました</p>"
+            "<p style='font-size: 1.6rem; font-weight: bold; margin-top: 1rem;'>ご来場<br>ありがとうございました</p>"
         );
         return;
     }
