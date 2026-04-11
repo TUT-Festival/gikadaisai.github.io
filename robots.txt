@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ggx7.github.io/gikadaisai/sitemap.xml
+Sitemap: https://sea.tut.ac.jp/gikadaisai/sitemap.xml
