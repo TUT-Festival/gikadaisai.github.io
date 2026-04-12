@@ -39,6 +39,6 @@
         "outline": false,
         "donation": true,
         "access": true,
-        "contact": true
+        "contact": false
     }
 }
