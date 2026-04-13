@@ -31,12 +31,27 @@
         "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.1582743817758!2d137.40748281152807!3d34.70118767280656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6004d486441646c7%3A0xb819d28be7a7df7f!2z6LGK5qmL5oqA6KGT56eR5a2m5aSn5a2m!5e0!3m2!1sja!2sjp!4v1754376149619!5m2!1sja!2sjp",
         "googleMapsDirection": "https://www.google.com/maps/dir/?api=1&destination=${%E8%B1%8A%E6%A9%8B%E6%8A%80%E8%A1%93%E7%A7%91%E5%AD%A6%E5%A4%A7%E5%AD%A6}"
     },
+    "footerNav": [
+        { "href": "index.html", "label": "トップ" },
+        { "href": "events.html", "label": "予定イベント" },
+        { "href": "shops.html", "label": "模擬店・キッチンカー" },
+        { "href": "timetable.html", "label": "タイムテーブル" },
+        { "href": "outline.html", "label": "協賛" },
+        { "href": "donation.html", "label": "ご寄付" },
+        { "href": "access.html", "label": "アクセス" },
+        { "href": "contact.html", "label": "お問い合わせ" }
+    ],
+    "footerLinks": [
+        { "href": "https://www.tut.ac.jp/", "label": "大学公式サイト" },
+        { "href": "https://x.com/tut_festival", "label": "公式X(Twitter)" },
+        { "href": "https://www.instagram.com/tut_festival/", "label": "公式Instagram" }
+    ],
     "pageVisibility": {
-        "index": true,
-        "events": true,
-        "shops": true,
-        "timetable": true,
-        "outline": true,
+        "index": false,
+        "events": false,
+        "shops": false,
+        "timetable": false,
+        "outline": false,
         "donation": true,
         "access": true,
         "contact": true

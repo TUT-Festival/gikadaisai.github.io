@@ -140,31 +140,54 @@
     };
     replaceTextInNode(document.body);
 
-    // --- ヘッダー・フッター等の個別要素更新 ---
+    // --- ヘッダーの更新 ---
     const headerGikadaisai = document.getElementById('gikadaisai');
     if (headerGikadaisai) headerGikadaisai.textContent = fullName;
 
-    const footerGikadaisai = document.querySelector('.gikadaisai-footer');
-    if (footerGikadaisai) footerGikadaisai.textContent = fullName;
+    // --- フッターの動的生成 ---
+    const footerEl = document.querySelector('footer');
+    if (footerEl) {
+        // Menu ナビゲーション
+        const menuItems = (config.footerNav || []).map(function (item) {
+            return '<li><a href="' + item.href + '">' + item.label + '</a></li>';
+        }).join('\n\t\t\t\t');
 
-    const footerAddress = document.querySelector('.footer-address');
-    if (footerAddress) {
-        footerAddress.innerHTML = config.address.postalCode + '<br>' + config.address.text;
+        // Links（外部リンク）
+        const linkItems = (config.footerLinks || []).map(function (item) {
+            return '<li><a href="' + item.href + '" target="_blank" rel="noopener noreferrer">' + item.label + '</a></li>';
+        }).join('\n\t\t\t\t');
+
+        footerEl.innerHTML =
+            '<div class="footer-container">\n' +
+            '\t\t<div class="footer-col">\n' +
+            '\t\t\t<div class="logo-footer">\n' +
+            '\t\t\t\t<a href="index.html">\n' +
+            '\t\t\t\t\t<span class="daigaku-footer">' + univName + '</span>\n' +
+            '\t\t\t\t\t<span class="gikadaisai-footer">' + fullName + '</span>\n' +
+            '\t\t\t\t</a>\n' +
+            '\t\t\t</div>\n' +
+            '\t\t\t<address class="footer-address">\n' +
+            '\t\t\t\t' + config.address.postalCode + '<br>\n' +
+            '\t\t\t\t' + config.address.text + '\n' +
+            '\t\t\t</address>\n' +
+            '\t\t</div>\n' +
+            '\t\t<div class="footer-col">\n' +
+            '\t\t\t<h4>Menu</h4>\n' +
+            '\t\t\t<ul class="footer-nav">\n' +
+            '\t\t\t\t' + menuItems + '\n' +
+            '\t\t\t</ul>\n' +
+            '\t\t</div>\n' +
+            '\t\t<div class="footer-col">\n' +
+            '\t\t\t<h4>Links</h4>\n' +
+            '\t\t\t<ul class="footer-nav">\n' +
+            '\t\t\t\t' + linkItems + '\n' +
+            '\t\t\t</ul>\n' +
+            '\t\t</div>\n' +
+            '\t</div>\n' +
+            '\t<div class="footer-bottom">\n' +
+            '\t\t<small>Copyright&copy; ' + fullName + '実行委員会 All Rights Reserved.</small>\n' +
+            '\t</div>';
     }
-
-    const footerBottom = document.querySelector('.footer-bottom small');
-    if (footerBottom) {
-        footerBottom.innerHTML = 'Copyright&copy; ' + fullName + '実行委員会 All Rights Reserved.';
-    }
-
-    // SNS / 大学リンク
-    const footerLinks = document.querySelectorAll('.footer-nav a');
-    footerLinks.forEach(function (a) {
-        const href = a.getAttribute('href');
-        if (href && href.includes('x.com')) a.setAttribute('href', config.sns.x);
-        else if (href && href.includes('instagram.com')) a.setAttribute('href', config.sns.instagram);
-        else if (href && href.includes('tut.ac.jp') && a.textContent.includes('大学公式')) a.setAttribute('href', config.links.universityOfficial);
-    });
 
     // --- グローバルに config を公開 ---
     window.siteConfig = config;
