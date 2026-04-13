@@ -1,22 +1,3 @@
 [
-    { "name": "シライミュージック",                                        "url": "",                                                "img": null },
-    { "name": "株式会社ミニミニ",                                           "url": "",                                                "img": null },
-    { "name": "株式会社ヒミカ",                                             "url": "https://www.himika.co.jp",                        "img": "himika.png" },
-    { "name": "株式会社サイエンス・クリエイト",                               "url": "",                                                "img": "science.png" },
-    { "name": "花屋うどん",                                                 "url": "https://www.instagram.com/hanayaudon?igsh=aG9jOWlzMGx1dzJ0", "img": null },
-    { "name": "株式会社水鳥",                                               "url": "",                                                "img": null },
-    { "name": "Planets Walker",                                            "url": "",                                                "img": null },
-    { "name": "メガワールド曙店",                                            "url": "",                                                "img": null },
-    { "name": "トピー工業株式会社",                                          "url": "https://www.topy.co.jp/ja/index.html",            "img": "topy.png" },
-    { "name": "ホンダカーズ天伯店",                                          "url": "",                                                "img": null },
-    { "name": "NSKワーナー株式会社",                                         "url": "",                                                "img": "NSK.png" },
-    { "name": "株式会社オノコム",                                            "url": "https://www.onocom.co.jp/",                       "img": "onocom.png" },
-    { "name": "ロワジールホテル豊橋",                                        "url": "https://www.loisir-toyohashi.com/",               "img": "rowaji-ru.png" },
-    { "name": "天伯校区自治会",                                              "url": "",                                                "img": null },
-    { "name": "LUCIDO STYLE B-SHINE",                                      "url": "",                                                "img": null },
-    { "name": "住まいLOVE不動産株式会社エイブルネットワーク豊橋本店",           "url": "",                                                "img": "eiburu.png" },
-    { "name": "ユタカ自動車学校",                                            "url": "https://yutaka-ds.jp/toyohashi/",                 "img": "yutaka.png" },
-    { "name": "モンスター",                                                 "url": "",                                                "img": null },
-    { "name": "Zone",                                                      "url": "",                                                "img": null },
-    { "name": "マンナンライフ",                                              "url": "",                                                "img": null }
+      { "_memo": "ここに協賛企業を追加していく" }
 ]

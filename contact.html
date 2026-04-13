@@ -63,7 +63,7 @@
 		</nav>
 
 		<div class="header-actions">
-			<a href="events.html" class="header-contact-btn">今年のゲスト</a>
+			<a href="guest.html" class="header-contact-btn">今年のゲスト</a>
 			<div id="menubar_hdr"><span></span><span></span><span></span></div>
 		</div>
 	</div>
@@ -97,7 +97,7 @@
 		<p class="c">お問い合わせは、メールにてお願いします。</p>
 
 		<div class="contact-button-wrapper">
-			<a id="contact-email-link" href="#" class="cta-button">
+			<a id="contact-email-link" href="javascript:void(0);" class="cta-button" target="_blank" rel="noopener noreferrer">
 				<i class="fas fa-envelope"></i> <span id="contact-email-text"></span>
 			</a>
 		</div>
@@ -147,7 +147,10 @@ document.addEventListener('siteConfigLoaded', function(e) {
 
     var emailLink = document.getElementById('contact-email-link');
     var emailText = document.getElementById('contact-email-text');
-    if (emailLink) emailLink.href = 'mailto:' + config.contact.email;
+    if (emailLink) {
+        var subject = encodeURIComponent(fullName + 'に関するお問い合わせ');
+        emailLink.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + config.contact.email + '&su=' + subject;
+    }
     if (emailText) emailText.textContent = config.contact.email;
 
     var festivalNameEl = document.getElementById('contact-festival-name');

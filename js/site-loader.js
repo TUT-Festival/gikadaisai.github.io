@@ -192,4 +192,61 @@
     // --- グローバルに config を公開 ---
     window.siteConfig = config;
     document.dispatchEvent(new CustomEvent('siteConfigLoaded', { detail: config }));
+
+    // --- 協賛・寄付者の動的描画（共通処理） ---
+    const sponsorGrid = document.getElementById('sponsor-grid');
+    if (sponsorGrid) {
+        try {
+            const resSponsors = await fetch('js/sponsors.json');
+            if (resSponsors.ok) {
+                const sponsors = await resSponsors.json();
+                const validSponsors = sponsors.filter(s => !s._memo);
+                let htmlSponsors = '';
+                if (validSponsors.length > 0) {
+                    validSponsors.forEach(function(s) {
+                        const href = s.url || '#';
+                        const logo = s.img ? 'data/kyousan/' + s.img : 'data/kyousan/no.png';
+                        const safeName = s.name ? String(s.name).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+                        htmlSponsors += '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="sponsor-tile">';
+                        htmlSponsors += '<img src="' + logo + '" alt="' + safeName + ' ロゴ">';
+                        htmlSponsors += '<span class="sponsor-name">' + safeName + '</span>';
+                        htmlSponsors += '</a>';
+                    });
+                } else {
+                    htmlSponsors = '<p class="c" style="width: 100%;">本年度のご協賛企業様を募集しております。</p>';
+                }
+                sponsorGrid.innerHTML = htmlSponsors;
+            }
+        } catch (error) {
+            console.error(error);
+            sponsorGrid.innerHTML = '<p class="c">協賛企業情報の読み込み中にエラーが発生しました。</p>';
+        }
+    }
+
+    const supporterGrid = document.getElementById('supporter-grid');
+    if (supporterGrid) {
+        try {
+            const resSupporters = await fetch('js/supporters.json');
+            if (resSupporters.ok) {
+                const supporters = await resSupporters.json();
+                const validSupporters = supporters.filter(sp => !sp._memo);
+                let htmlSupporters = '';
+                if (validSupporters.length > 0) {
+                    validSupporters.forEach(function(sp) {
+                        const rawName = typeof sp === 'string' ? sp : sp.name;
+                        const safeName = rawName ? String(rawName).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+                        if (safeName) {
+                            htmlSupporters += '<div class="supporter-chip">' + safeName + '</div>';
+                        }
+                    });
+                } else {
+                    htmlSupporters = '<p class="c" style="width: 100%;">皆様からのご支援を引き続きお待ちしております。</p>';
+                }
+                supporterGrid.innerHTML = htmlSupporters;
+            }
+        } catch (error) {
+            console.error(error);
+            supporterGrid.innerHTML = '<p class="c">寄付者情報の読み込み中にエラーが発生しました。</p>';
+        }
+    }
 })();

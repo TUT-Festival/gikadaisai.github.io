@@ -63,7 +63,7 @@
 		</nav>
 
 		<div class="header-actions">
-			<a href="events.html" class="header-contact-btn">今年のゲスト</a>
+			<a href="guest.html" class="header-contact-btn">今年のゲスト</a>
 			<div id="menubar_hdr"><span></span><span></span><span></span></div>
 		</div>
 	</div>
@@ -101,21 +101,21 @@
 		</p>
 
 		<div class="action-grid">
-			<a href="#" class="action-card" target="_blank" rel="noopener noreferrer">
+			<a href="https://drive.google.com/file/d/13iJslatjf4lzMM2lQUnMHY1v63wThN-D/view?usp=drivesdk" class="action-card" target="_blank" rel="noopener noreferrer">
 				<i class="fas fa-file-pdf"></i>
-				<span class="action-label">ご協賛プラン詳細 (PDF)</span>
+				<span class="action-label">ご協賛の詳細資料（団体向け）</span>
 			</a>
-			<a href="#" class="action-card" target="_blank" rel="noopener noreferrer">
+			<a href="https://docs.google.com/presentation/d/15koDFsxh6fDrLjPWgeG1JBRzC5ZcxjHgExnQD3-B57Q/present?slide=id.g3de7692f301_0_0" class="action-card" target="_blank" rel="noopener noreferrer">
 				<i class="fas fa-desktop"></i>
-				<span class="action-label">ご寄付プラン詳細</span>
+				<span class="action-label">ご寄付プラン詳細（個人向け）</span>
 			</a>
-			<a href="#" class="action-card action-card-primary" target="_blank" rel="noopener noreferrer">
+			<a href="https://docs.google.com/forms/d/e/1FAIpQLSdLSp2VjwMjkiS8ePOrO1tOZrOFSugx96MJHr6amTSygyZS9w/viewform" class="action-card action-card-primary" target="_blank" rel="noopener noreferrer">
 				<i class="fas fa-handshake"></i>
-				<span class="action-label">ご協賛はこちら</span>
+				<span class="action-label">ご協賛のお手続きはこちら</span>
 			</a>
 			<a href="https://www.tut.ac.jp/kikin/kifu/" class="action-card action-card-primary" target="_blank" rel="noopener noreferrer">
 				<i class="fas fa-heart"></i>
-				<span class="action-label">ご寄付はこちら</span>
+				<span class="action-label">ご寄付のお手続きはこちら</span>
 			</a>
 		</div>
 
@@ -144,7 +144,7 @@
     <div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
     <div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
     <h2 class="c"><span>Sponsors</span><span class="hosoku">ご協賛企業</span></h2>
-    <p class="c">本年度の技科大祭開催にあたり、多くの企業の皆様にご支援、ご協力を賜りました。<br>心より感謝申し上げます。（順不同、敬称略）</p>
+    <p class="c">昨年度の技科大祭開催にあたり、多くの企業の皆様にご支援、ご協力を賜りました。<br>心より感謝申し上げます。（順不同、敬称略）</p>
 
     <div id="sponsor-grid" class="sponsor-grid"></div>
 </section>
@@ -154,7 +154,7 @@
     <div class="deco-circle deco-circle--filled deco-circle--md" style="top: 150px; left: -40px;"></div>
     <div class="deco-circle deco-circle--solid deco-circle--sm" style="bottom: 100px; right: 8%;"></div>
     <h2 class="c"><span>Supporters</span><span class="hosoku">ご寄付いただいた皆様</span></h2>
-    <p class="c">本年度の技科大祭開催に際し、寄付サイト等を通じてご支援いただいた皆様をご紹介いたします。<br>皆様のご厚志に心より御礼申し上げます。（順不同、敬称略）</p>
+    <p class="c">昨年度の技科大祭開催に際し、寄付サイト等を通じてご支援いただいた皆様をご紹介いたします。<br>皆様のご厚志に心より御礼申し上げます。（順不同、敬称略）</p>
     
     <div id="supporter-grid" class="supporter-grid"></div>
 </section>
@@ -172,63 +172,6 @@
 <script src="js/main.js"></script>
 <script src="js/site-loader.js"></script>
 <script src="js/page-visibility.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', async function() {
-    // 協賛企業を動的に描画
-    var sponsorGrid = document.getElementById('sponsor-grid');
-    if (sponsorGrid) {
-        try {
-            var resSponsors = await fetch('js/sponsors.json');
-            if (resSponsors.ok) {
-                var sponsors = await resSponsors.json();
-                var htmlSponsors = '';
-                sponsors.forEach(function(s) {
-                    var href = s.url || '#';
-                    var logo = s.img ? 'data/kyousan/' + s.img : 'data/kyousan/no.png';
-                    var safeName = s.name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                    htmlSponsors += '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="sponsor-tile">';
-                    htmlSponsors += '<img src="' + logo + '" alt="' + safeName + ' ロゴ">';
-                    htmlSponsors += '<span class="sponsor-name">' + safeName + '</span>';
-                    htmlSponsors += '</a>';
-                });
-                sponsorGrid.innerHTML = htmlSponsors;
-            }
-        } catch (error) {
-            console.error(error);
-            sponsorGrid.innerHTML = '<p class="c">協賛企業情報の読み込み中にエラーが発生しました。</p>';
-        }
-    }
-
-    // 寄付者一覧を動的に描画
-    var supporterGrid = document.getElementById('supporter-grid');
-    if (supporterGrid) {
-        try {
-            var resSupporters = await fetch('js/supporters.json');
-            if (resSupporters.ok) {
-                var supporters = await resSupporters.json();
-                var htmlSupporters = '';
-                if (supporters.length > 0) {
-                    supporters.forEach(function(sp) {
-                        // 文字列配列とオブジェクト配列両方に対応
-                        var rawName = typeof sp === 'string' ? sp : sp.name;
-                        var safeName = rawName ? String(rawName).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
-                        if (safeName) {
-                            htmlSupporters += '<div class="supporter-chip">' + safeName + '</div>';
-                        }
-                    });
-                } else {
-                    htmlSupporters = '<p class="c" style="width: 100%;">皆様からのご支援を引き続きお待ちしております。</p>';
-                }
-                supporterGrid.innerHTML = htmlSupporters;
-            }
-        } catch (error) {
-            console.error(error);
-            supporterGrid.innerHTML = '<p class="c">寄付者情報の読み込み中にエラーが発生しました。</p>';
-        }
-    }
-});
-</script>
 
 </body>
 </html>

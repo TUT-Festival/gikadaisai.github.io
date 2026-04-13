@@ -65,6 +65,23 @@
             '    <p class="coming-soon-desc">' + festivalName + 'の情報は<br>ただいま準備中です。<br>今しばらくお待ちください。</p>',
             linksHtml,
             '  </div>',
+            '</section>',
+            '<!-- Section: Sponsors -->',
+            '<section style="position: relative;" class="bg1">',
+            '    <div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -100px;"></div>',
+            '    <div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>',
+            '    <div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>',
+            '    <h2 class="c"><span>Sponsors</span><span class="hosoku">ご協賛企業</span></h2>',
+            '    <p class="c">昨年度の技科大祭開催にあたり、多くの企業の皆様にご支援、ご協力を賜りました。<br>心より感謝申し上げます。（順不同、敬称略）</p>',
+            '    <div id="sponsor-grid" class="sponsor-grid"></div>',
+            '</section>',
+            '<!-- Section: Supporters -->',
+            '<section style="position: relative;">',
+            '    <div class="deco-circle deco-circle--filled deco-circle--md" style="top: 150px; left: -40px;"></div>',
+            '    <div class="deco-circle deco-circle--solid deco-circle--sm" style="bottom: 100px; right: 8%;"></div>',
+            '    <h2 class="c"><span>Supporters</span><span class="hosoku">ご寄付いただいた皆様</span></h2>',
+            '    <p class="c">昨年度の技科大祭開催に際し、寄付サイト等を通じてご支援いただいた皆様をご紹介いたします。<br>皆様のご厚志に心より御礼申し上げます。（順不同、敬称略）</p>',
+            '    <div id="supporter-grid" class="supporter-grid"></div>',
             '</section>'
         ].join('\n');
 

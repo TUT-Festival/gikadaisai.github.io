@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>イベント・ゲスト情報｜第--回技科大祭</title>
+	<title>ゲスト情報｜第--回技科大祭</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="第--回技科大祭のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学の学園祭イベント情報をご覧いただけます。">
+	<meta name="description" content="第--回技科大祭のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学の学園祭ゲスト情報をご覧いただけます。">
 	<!-- Preconnect -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,15 +21,15 @@
 	<!-- OGP / SNSシェア用 -->
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="第--回技科大祭">
-	<meta property="og:title" content="イベント・ゲスト情報｜第--回技科大祭">
+	<meta property="og:title" content="ゲスト情報｜第--回技科大祭">
 	<meta property="og:description" content="第--回技科大祭のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学にて開催。">
-	<meta property="og:url" content="https://sea.tut.ac.jp/gikadaisai/events.html">
+	<meta property="og:url" content="https://sea.tut.ac.jp/gikadaisai/guest.html">
 	<meta property="og:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
 	<meta property="og:locale" content="ja_JP">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:site" content="@tut_festival">
-	<meta name="twitter:title" content="イベント・ゲスト情報｜第--回技科大祭">
+	<meta name="twitter:title" content="ゲスト情報｜第--回技科大祭">
 	<meta name="twitter:description" content="第--回技科大祭のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学にて開催。">
 	<meta name="twitter:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
 </head>
@@ -91,7 +91,7 @@
 	<div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; right: -100px;"></div>
 	<div class="deco-circle deco-circle--filled deco-circle--lg" style="top: 200px; left: -60px;"></div>
 	<div class="deco-circle deco-circle--solid deco-circle--sm" style="top: 50px; left: 20%;"></div>
-	<h1><span>Events</span><span class="hosoku">イベント情報</span></h1>
+	<h1><span>Guests</span><span class="hosoku">ゲスト情報</span></h1>
 	<div id="events-container"></div>
 </section>
 
@@ -111,9 +111,8 @@
 <script src="js/site-loader.js"></script>
 <script src="js/page-visibility.js"></script>
 
-<!--
 <script>
-// events.json を読み込みイベント情報を動的に描画
+// events.json を読み込みゲスト（公表用イベント）情報を動的に描画
 document.addEventListener('DOMContentLoaded', async function() {
     var container = document.getElementById('events-container');
     if (!container) return;
@@ -125,8 +124,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         var html = '';
         events.forEach(function(ev) {
-            var descLines = ev.description.replace(/\n/g, '<br>');
-            var warningLines = ev.warningText.replace(/\n/g, '<br>');
+            var descLines = ev.description ? ev.description.replace(/\n/g, '<br>') : '';
+            var warningLines = ev.warningText ? ev.warningText.replace(/\n/g, '<br>') : '';
+            var closingText = ev.closingText || '';
 
             html += '<p class="c">';
             html += '<strong>' + ev.displayDatetime + '</strong><br>';
@@ -154,35 +154,17 @@ document.addEventListener('DOMContentLoaded', async function() {
                 html += '</ul>';
             }
 
-            html += '<p>' + warningLines + '</p>';
-            html += '<p class="c" style="margin-top: 2rem;"><strong>' + ev.closingText + '</strong></p>';
+            if (warningLines) html += '<p>' + warningLines + '</p>';
+            if (closingText) html += '<p class="c" style="margin-top: 2rem;"><strong>' + closingText + '</strong></p>';
         });
 
         container.innerHTML = html;
     } catch (error) {
         console.error(error);
-        container.innerHTML = '<p>イベント情報の読み込み中にエラーが発生しました。</p>';
+        container.innerHTML = '<p>情報の読み込み中にエラーが発生しました。</p>';
     }
 });
 </script>
--->
-
-<script>
-// 一時的な対応: events が true に設定された場合、指定のGoogleスライドへ自動リダイレクトする
-function handleEventsRedirect(config) {
-    if (config.pageVisibility && config.pageVisibility.events === true) {
-        window.location.href = 'https://docs.google.com/presentation/d/1m8YXywrvApHa5_70XWmGpw0HUoxibCvJu5ZgBoM56fI/present?slide=id.g3de7449cffc_0_3';
-    }
-}
-if (window.siteConfig) {
-    handleEventsRedirect(window.siteConfig);
-} else {
-    document.addEventListener('siteConfigLoaded', function(e) {
-        handleEventsRedirect(e.detail);
-    });
-}
-</script>
-
 
 </body>
 </html>
