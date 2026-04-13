@@ -1347,7 +1347,7 @@ body.modal-open {
     background: var(--card-bg);
     border: 1.5px solid var(--border-color);
     border-radius: var(--radius-card);
-    padding: 1.4rem 2rem;
+    padding: 1.4rem 1rem;
     min-width: 120px;
     font-size: 0.95rem;
     font-weight: 700;
@@ -1360,6 +1360,9 @@ body.modal-open {
     font-size: 1.6rem;
     color: var(--primary-color);
     transition: color 0.25s;
+}
+.coming-soon-link-btn span {
+    white-space: nowrap;
 }
 .coming-soon-link-btn:hover {
     background: var(--primary-color);
@@ -1376,7 +1379,92 @@ body.modal-open {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    max-width: 340px;
+    max-width: 380px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* ========== Actions Grid (Support Page) ========== */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 3rem auto;
+    max-width: 700px;
+}
+@media (max-width: 600px) {
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 2rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+.action-card .fas {
+    font-size: 2.2rem;
+    color: var(--text-color);
+    transition: color 0.25s ease;
+}
+.action-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(199, 0, 10, 0.15);
+    color: var(--primary-color);
+}
+.action-card:hover .fas {
+    color: var(--primary-color);
+}
+
+.action-card-primary {
+    background: rgba(199, 0, 10, 0.04);
+    border-color: rgba(199, 0, 10, 0.2);
+}
+.action-card-primary .fas {
+    color: var(--primary-color);
+}
+.action-card-primary:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+.action-card-primary:hover .fas {
+    color: #fff;
+}
+
+/* ========== Supporter Grid ========== */
+.supporter-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.supporter-chip {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    padding: 0.6rem 1.4rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: all 0.25s ease;
+}
+.supporter-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: var(--primary-color);
 }

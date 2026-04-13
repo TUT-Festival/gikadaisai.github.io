@@ -32,30 +32,27 @@
         var festivalName = '第' + config.festivalNumber + '回' + config.festivalName;
         var isIndex = (pageKey === 'index');
 
-        // index.html 非公開時のみリンクボタンを表示
-        var linksHtml = '';
-        if (isIndex) {
-            linksHtml = [
-                '<div class="coming-soon-links coming-soon-links--grid">',
-                '  <a href="donation.html" class="coming-soon-link-btn">',
-                '    <i class="fas fa-hand-holding-heart"></i>',
-                '    <span>ご寄付</span>',
-                '  </a>',
-                '  <a href="events.html" class="coming-soon-link-btn">',
-                '    <i class="fas fa-calendar-alt"></i>',
-                '    <span>予定イベント</span>',
-                '  </a>',
-                '  <a href="access.html" class="coming-soon-link-btn">',
-                '    <i class="fas fa-map-marker-alt"></i>',
-                '    <span>アクセス</span>',
-                '  </a>',
-                '  <a href="contact.html" class="coming-soon-link-btn">',
-                '    <i class="fas fa-envelope"></i>',
-                '    <span>お問い合わせ</span>',
-                '  </a>',
-                '</div>'
-            ].join('\n');
-        }
+        // 各ページの準備中画面に共通でリンクボタンを表示
+        var linksHtml = [
+            '<div class="coming-soon-links coming-soon-links--grid">',
+            '  <a href="support.html" class="coming-soon-link-btn">',
+            '    <i class="fas fa-hand-holding-heart"></i>',
+            '    <span>ご協賛・ご寄付</span>',
+            '  </a>',
+            '  <a href="events.html" class="coming-soon-link-btn">',
+            '    <i class="fas fa-calendar-alt"></i>',
+            '    <span>予定イベント</span>',
+            '  </a>',
+            '  <a href="access.html" class="coming-soon-link-btn">',
+            '    <i class="fas fa-map-marker-alt"></i>',
+            '    <span>アクセス</span>',
+            '  </a>',
+            '  <a href="contact.html" class="coming-soon-link-btn">',
+            '    <i class="fas fa-envelope"></i>',
+            '    <span>お問い合わせ</span>',
+            '  </a>',
+            '</div>'
+        ].join('\n');
 
         var html = [
             '<section class="coming-soon-section">',

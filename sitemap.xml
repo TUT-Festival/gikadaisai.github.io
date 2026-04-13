@@ -25,22 +25,16 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sea.tut.ac.jp/gikadaisai/outline.html</loc>
+    <loc>https://sea.tut.ac.jp/gikadaisai/support.html</loc>
     <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sea.tut.ac.jp/gikadaisai/access.html</loc>
     <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sea.tut.ac.jp/gikadaisai/donation.html</loc>
-    <lastmod>2025-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sea.tut.ac.jp/gikadaisai/contact.html</loc>
