@@ -13,7 +13,7 @@
   { "id": "12", "circle": "コンピュータクラブ",            "title": "コンピュータクラブ",                 "place": "室内", "location": "A-108",       "mapPin": 27, "img": "12.png" },
   { "id": "13", "circle": "TUT謎解き制作チーム",           "title": "謎だらけの単位認定試験からの脱出",     "place": "室内", "location": "A-207",       "mapPin": 31, "img": "13.png" },
   { "id": "14", "circle": "レゴ部",                      "title": "レゴ作品展示",                      "place": "室内", "location": "ひばりラウンジ", "mapPin": null, "img": "14.png" },
-  { "id": "15", "circle": "軽音楽部D7sus4",              "title": "GIKA ROCK 2025",                  "place": "室内", "location": "A-301",       "mapPin": 32, "img": "15.png" },
+  { "id": "15", "circle": "軽音楽部D7sus4",              "title": "GIKA ROCK",                       "place": "室内", "location": "A-301",       "mapPin": 32, "img": "15.png" },
   { "id": "16", "circle": "弓道部",                      "title": "的あて検定",                        "place": "室内", "location": "A-105",       "mapPin": 23, "img": "16.png" },
   { "id": "17", "circle": "ダンスサークル",               "title": "ノマチカワサキ",                     "place": "室内", "location": "A-306",       "mapPin": 34, "img": "17.png" },
   { "id": "18", "circle": "1系",                        "title": "タクトのタピオカ",                   "place": "屋外", "location": "テント12",     "mapPin": 12, "img": "18.png" },

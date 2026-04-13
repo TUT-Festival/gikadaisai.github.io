@@ -1371,3 +1371,12 @@ body.modal-open {
 .coming-soon-link-btn:hover .fas {
     color: #fff;
 }
+/* 4ボタン 2×2 グリッド配置 */
+.coming-soon-links--grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -36,10 +36,14 @@
         var linksHtml = '';
         if (isIndex) {
             linksHtml = [
-                '<div class="coming-soon-links">',
+                '<div class="coming-soon-links coming-soon-links--grid">',
                 '  <a href="donation.html" class="coming-soon-link-btn">',
                 '    <i class="fas fa-hand-holding-heart"></i>',
                 '    <span>ご寄付</span>',
+                '  </a>',
+                '  <a href="events.html" class="coming-soon-link-btn">',
+                '    <i class="fas fa-calendar-alt"></i>',
+                '    <span>予定イベント</span>',
                 '  </a>',
                 '  <a href="access.html" class="coming-soon-link-btn">',
                 '    <i class="fas fa-map-marker-alt"></i>',

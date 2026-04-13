@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>第48回技科大祭｜豊橋技術科学大学の学園祭</title>
+	<title>第--回技科大祭｜豊橋技術科学大学の学園祭</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="豊橋技術科学大学の学園祭「第48回技科大祭」公式サイト。2025年10月11日(土)・12日(日)開催。今年のテーマは「繋ぐ」。ゲスト情報・タイムテーブル・模擬店情報を掲載。">
+	<meta name="description" content="豊橋技術科学大学の学園祭「第--回技科大祭」公式サイト。今年のテーマは「{{THEME}}」。ゲスト情報・タイムテーブル・模擬店情報を掲載。">
 	<!-- Preconnect -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,17 +20,17 @@
 	<link rel="stylesheet" href="css/style.css">
 	<!-- OGP / SNSシェア用 -->
 	<meta property="og:type" content="website">
-	<meta property="og:site_name" content="第48回技科大祭">
-	<meta property="og:title" content="第48回技科大祭｜豊橋技術科学大学の学園祭">
-	<meta property="og:description" content="豊橋技術科学大学の学園祭「第48回技科大祭」公式サイト。2025年10月11日(土)・12日(日)開催。今年のテーマは「繋ぐ」。">
+	<meta property="og:site_name" content="第--回技科大祭">
+	<meta property="og:title" content="第--回技科大祭｜豊橋技術科学大学の学園祭">
+	<meta property="og:description" content="豊橋技術科学大学の学園祭「第--回技科大祭」公式サイト。今年のテーマは「{{THEME}}」。">
 	<meta property="og:url" content="https://sea.tut.ac.jp/gikadaisai/">
 	<meta property="og:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
 	<meta property="og:locale" content="ja_JP">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:site" content="@tut_festival">
-	<meta name="twitter:title" content="第48回技科大祭｜豊橋技術科学大学の学園祭">
-	<meta name="twitter:description" content="豊橋技術科学大学の学園祭「第48回技科大祭」公式サイト。2025年10月11日(土)・12日(日)開催。今年のテーマは「繋ぐ」。">
+	<meta name="twitter:title" content="第--回技科大祭｜豊橋技術科学大学の学園祭">
+	<meta name="twitter:description" content="豊橋技術科学大学の学園祭「第--回技科大祭」公式サイト。今年のテーマは「{{THEME}}」。">
 	<meta name="twitter:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
 </head>
 
@@ -42,16 +42,16 @@
 		<div id="logo">
 			<a href="index.html">
 				<div id="daigaku">豊橋技術科学大学</div>
-				<div id="gikadaisai">第48回技科大祭</div>
+				<div id="gikadaisai">第--回技科大祭</div>
 			</a>
 		</div>
 
 		<nav id="menubar-pc">
 			<ul>
 				<li><a href="index.html">トップ</a></li>
-				<li class="ddmenu_parent"><a href="#">企画</a>
+				<li class="ddmenu_parent"><a href="#">予定企画</a>
 					<ul>
-						<li><a href="events.html">イベント</a></li>
+						<li><a href="events.html">予定イベント</a></li>
 						<li><a href="shops.html">模擬店・キッチンカー</a></li>
 						<li><a href="timetable.html">タイムテーブル</a></li>
 					</ul>
@@ -73,7 +73,7 @@
 		<nav id="menubar-sp">
 			<ul>
 				<li><a href="index.html">トップ</a></li>
-				<li><a href="events.html">イベント</a></li>
+				<li><a href="events.html">予定イベント</a></li>
 				<li><a href="shops.html">模擬店・キッチンカー</a></li>
 				<li><a href="timetable.html">タイムテーブル</a></li>
 				<li><a href="outline.html">協賛</a></li>
@@ -89,7 +89,7 @@
 
 <main>
 
-<h1 class="sr-only">第48回技科大祭｜豊橋技術科学大学の学園祭</h1>
+<h1 class="sr-only">第--回技科大祭｜豊橋技術科学大学の学園祭</h1>
 
 <section class="feature-block">
     <div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -120px;"></div>
@@ -101,7 +101,7 @@
             <span class="feature-en-heading">Theme</span>
             <span class="feature-ja-heading">今年のテーマ</span>
         </h2>
-        <p class="theme-showcase-text" id="theme-text">繋ぐ</p>
+        <p class="theme-showcase-text" id="theme-text">{{THEME}}</p>
     </div>
     <div class="feature-poster-container">
         <img id="poster-img" src="data/poster.png" alt="技科大祭 テーマポスター">
@@ -114,7 +114,7 @@
 	<div class="deco-circle deco-circle--solid deco-circle--sm" style="top: 50%; left: 5%;"></div>
 	<h2 class="c"><span>Date</span><span class="hosoku">開催日</span></h2>
 	<div class="countdown-card">
-		<p class="event-date">10月11日(土)・12日(日)</p>
+		<p class="event-date">{{DATE}}</p>
 		<p id="countdown-text">開催まで</p>
 		<div id="countdown">
 			<div class="timer-unit"><span id="days">00</span><p>日</p></div>
@@ -199,7 +199,7 @@
 			<div class="logo-footer">
 				<a href="index.html">
 					<span class="daigaku-footer">豊橋技術科学大学</span>
-					<span class="gikadaisai-footer">第48回技科大祭</span>
+					<span class="gikadaisai-footer">第--回技科大祭</span>
 				</a>
 			</div>
 			<address class="footer-address">
@@ -211,7 +211,7 @@
 			<h4>Menu</h4>
 			<ul class="footer-nav">
 				<li><a href="index.html">トップ</a></li>
-				<li><a href="events.html">イベント</a></li>
+				<li><a href="events.html">予定イベント</a></li>
 				<li><a href="shops.html">模擬店・キッチンカー</a></li>
 				<li><a href="timetable.html">タイムテーブル</a></li>
 				<li><a href="outline.html">協賛</a></li>
@@ -230,7 +230,7 @@
 		</div>
 	</div>
 	<div class="footer-bottom">
-		<small>Copyright&copy; 第48回技科大祭実行委員会 All Rights Reserved.</small>
+		<small>Copyright&copy; 第--回技科大祭実行委員会 All Rights Reserved.</small>
 	</div>
 </footer>
 <div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
@@ -241,11 +241,11 @@
 {
   "@context": "https://schema.org",
   "@type": "Festival",
-  "name": "第48回技科大祭",
+  "name": "第--回技科大祭",
   "alternateName": "技科大祭",
-  "description": "豊橋技術科学大学の学園祭。2025年10月11日(土)・12日(日)開催。今年のテーマは「繋ぐ」。",
-  "startDate": "2025-10-11T10:00:00+09:00",
-  "endDate": "2025-10-12T16:00:00+09:00",
+  "description": "豊橋技術科学大学の学園祭。今年のテーマは「{{THEME}}」。",
+  "startDate": "{{START_DATE}}",
+  "endDate": "{{END_DATE}}",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "isAccessibleForFree": true,
@@ -259,14 +259,14 @@
       "streetAddress": "天伯町雲雀ヶ丘1-1",
       "addressLocality": "豊橋市",
       "addressRegion": "愛知県",
-      "postalCode": "441-8580",
+      "postalCode": "{{POSTAL_CODE}}",
       "addressCountry": "JP"
     }
   },
   "organizer": {
     "@type": "Organization",
-    "name": "第48回技科大祭実行委員会",
-    "email": "tut.festival@gmail.com",
+    "name": "第--回技科大祭実行委員会",
+    "email": "{{EMAIL}}",
     "sameAs": [
       "https://x.com/tut_festival",
       "https://www.instagram.com/tut_festival/"
