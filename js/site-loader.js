@@ -31,13 +31,11 @@
     const univReg = /豊橋技術科学大学|{{UNIVERSITY}}/g;
 
     // --- <title> の更新 ---
-    const titleEl = document.querySelector('title');
-    if (titleEl) {
-        titleEl.textContent = titleEl.textContent
-            .replace(festivalReg, fullName)
-            .replace(themeReg, theme)
-            .replace(univReg, univName);
-    }
+    document.title = document.title
+        .replace(festivalReg, fullName)
+        .replace(numOnlyReg, '第' + num + '回')
+        .replace(themeReg, theme)
+        .replace(univReg, univName);
 
     // --- 各種 Meta タグの更新 (Description, OGP, Twitter, Images) ---
     const metaUpdates = [
@@ -74,6 +72,7 @@
     if (srOnlyH1) {
         srOnlyH1.textContent = srOnlyH1.textContent
             .replace(festivalReg, fullName)
+            .replace(numOnlyReg, '第' + num + '回')
             .replace(themeReg, theme)
             .replace(univReg, univName);
     }
@@ -101,6 +100,7 @@
                             // それ以外は文字列置換
                             obj[key] = obj[key]
                                 .replace(festivalReg, fullName)
+                                .replace(numOnlyReg, '第' + num + '回')
                                 .replace(themeReg, theme)
                                 .replace(dateReg, festivalDateText)
                                 .replace(univReg, univName);
@@ -127,6 +127,8 @@
     const replaceTextInNode = (node) => {
         if (node.nodeType === Node.TEXT_NODE) {
             node.nodeValue = node.nodeValue
+                .replace(festivalReg, fullName)
+                .replace(numOnlyReg, '第' + num + '回')
                 .replace(themeReg, theme)
                 .replace(dateReg, festivalDateText)
                 .replace(univReg, univName);
