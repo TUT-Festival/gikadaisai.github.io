@@ -1,4 +1,4 @@
-/**
+﻿/**
  * page-visibility.js
  * site-config.json の pageVisibility 設定に基づき、false に設定されたページを
  * 「準備中」画面に切り替える。
@@ -39,7 +39,7 @@
             '    <i class="fas fa-hand-holding-heart"></i>',
             '    <span>ご協賛・ご寄付</span>',
             '  </a>',
-            '  <a href="events.html" class="coming-soon-link-btn">',
+            '  <a href="proposal.html" class="coming-soon-link-btn">',
             '    <i class="fas fa-calendar-alt"></i>',
             '    <span>予定イベント</span>',
             '  </a>',

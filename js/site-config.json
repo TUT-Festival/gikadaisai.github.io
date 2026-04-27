@@ -1,4 +1,4 @@
-{
+﻿{
     "festivalNumber": 49,
     "festivalName": "技科大祭",
     "universityName": "豊橋技術科学大学",
@@ -33,7 +33,7 @@
     },
     "footerNav": [
         { "href": "index.html", "label": "トップ" },
-        { "href": "events.html", "label": "予定イベント" },
+        { "href": "proposal.html", "label": "予定イベント" },
         { "href": "shops.html", "label": "模擬店・キッチンカー" },
         { "href": "timetable.html", "label": "タイムテーブル" },
         { "href": "support.html", "label": "ご協賛・ご寄付" },
@@ -46,13 +46,13 @@
         { "href": "https://www.instagram.com/tut_festival/", "label": "公式Instagram" }
     ],
     "pageVisibility": {
-        "index": false,
+        "index": true,
         "events": true,
-        "shops": false,
-        "timetable": false,
+        "shops": true,
+        "timetable": true,
         "support": true,
         "access": true,
         "contact": true,
-        "guest": false
+        "guest": true
     }
 }
