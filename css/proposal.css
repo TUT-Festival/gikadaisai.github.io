@@ -1,0 +1,698 @@
+/* ========== Proposal Page Styles ========== */
+
+/* Accent color helper */
+.text-accent {
+    color: var(--primary-color);
+}
+
+/* ==================== Hero Section ==================== */
+.proposal-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1c22 0%, #2D3036 50%, #1E2028 100%);
+    margin: calc(-1 * var(--global-space));
+    margin-bottom: 0;
+    padding: 6rem var(--global-space) 4rem;
+    overflow: hidden;
+}
+.proposal-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(199, 0, 10, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(199, 0, 10, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+.proposal-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+}
+.proposal-hero-badge {
+    display: inline-block;
+    background: rgba(199, 0, 10, 0.15);
+    border: 1px solid rgba(199, 0, 10, 0.3);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+}
+.proposal-hero-title {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.3;
+    color: #fff;
+    margin: 0 0 2rem;
+    letter-spacing: 0.05em;
+}
+.proposal-hero-accent {
+    color: var(--primary-color);
+    font-style: italic;
+}
+.proposal-hero-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-pill);
+    padding: 0.8rem 2rem;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+.proposal-hero-date .fas {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+/* ==================== Highlights Section ==================== */
+.proposal-highlights {
+    background: var(--dark-color) !important;
+    color: #f0f0f0 !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+.highlights-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.highlights-en {
+    display: block;
+    font-family: "Reddit Sans", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+.highlights-title {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+}
+.highlights-badge {
+    background: var(--primary-color);
+    color: #fff;
+    font-family: "Reddit Sans", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+/* Highlights Grid */
+.highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+}
+.highlight-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-card);
+    padding: 1.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+.highlight-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+}
+.highlight-card--hero {
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-color: rgba(199, 0, 10, 0.3);
+    border-top: 3px solid var(--primary-color);
+}
+.highlight-card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+.highlight-card-icon--red {
+    color: var(--primary-color);
+}
+.highlight-label {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin: 0 0 0.5rem;
+}
+.highlight-number {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+}
+.highlight-unit {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 0.3rem;
+}
+.highlight-sub {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin: 0.5rem 0 0;
+}
+.highlight-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.5rem;
+    border-bottom: none;
+    display: block;
+}
+.highlight-card-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* ==================== Overview Section ==================== */
+.proposal-overview {
+    padding: 4rem 0;
+}
+.overview-lead {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+}
+.overview-table-container {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    min-width: 600px;
+}
+.overview-table thead {
+    background: var(--dark-color);
+    color: #fff;
+}
+.overview-table th {
+    padding: 1rem 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+.overview-th-label {
+    width: 120px;
+}
+.overview-th-this {
+    background: var(--primary-color) !important;
+}
+.overview-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+}
+.overview-table tbody tr:nth-child(even) {
+    background: var(--bg-light);
+}
+.overview-table td {
+    padding: 1rem 1.2rem;
+    vertical-align: top;
+}
+.overview-td-label {
+    font-weight: 700;
+    text-align: center;
+    background: rgba(45, 48, 54, 0.05);
+    white-space: nowrap;
+}
+.overview-td-highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.overview-badge {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: var(--radius-pill);
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    font-weight: 700;
+}
+.overview-sub {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    font-weight: 400;
+}
+.overview-list {
+    list-style: disc;
+    padding-left: 1.2rem;
+    margin: 0;
+}
+.overview-list li {
+    margin-bottom: 0.3rem;
+}
+.overview-list--enhanced li {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.overview-tag {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+/* Vision Block */
+.overview-vision {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+.overview-vision-from {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 1.2rem 2rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+}
+.overview-vision-arrow {
+    font-size: 2rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+.overview-vision-to {
+    background: rgba(199, 0, 10, 0.06);
+    border: 1.5px solid rgba(199, 0, 10, 0.2);
+    border-radius: var(--radius-card);
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+.overview-vision-to p {
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin: 0;
+    color: var(--text-color);
+}
+
+/* ==================== Special Events Section ==================== */
+.proposal-events {
+    background: var(--bg-light) !important;
+}
+.events-disclaimer {
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin: 0 0 1rem;
+}
+.events-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.events-badge {
+    display: inline-block;
+    background: rgba(199, 0, 10, 0.1);
+    border: 1px solid rgba(199, 0, 10, 0.2);
+    color: var(--text-color);
+    font-family: "Reddit Sans", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+.events-title {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: var(--text-color);
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+}
+.events-subtitle {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin: 0;
+}
+
+/* Events Grid */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.event-card {
+    position: relative;
+    border-radius: var(--radius-card);
+    padding: 2.5rem 1.5rem 1.8rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+.event-card--white {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-color);
+}
+.event-card--accent {
+    background: linear-gradient(135deg, #2D3036 0%, #1E2028 100%);
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+.event-card--accent .event-card-desc {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Event Tags */
+.event-card-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: "Reddit Sans", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.05em;
+}
+.event-card-tag--new {
+    background: var(--primary-color);
+    color: #fff;
+}
+.event-card-tag--power {
+    background: #FF8C00;
+    color: #fff;
+}
+.event-card-tag--must {
+    background: #2ECC40;
+    color: #fff;
+}
+.event-card-tag--collab {
+    background: var(--text-color);
+    color: #fff;
+}
+
+/* Event Card Icon */
+.event-card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+.event-card-icon--yellow {
+    color: #FF8C00;
+}
+.event-card-icon--green {
+    color: #2ECC40;
+}
+.event-card-icon--white {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Event Card Title & Desc */
+.event-card-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0 0 0.8rem;
+    line-height: 1.5;
+    border-bottom: none;
+    display: block;
+}
+.event-card-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* ==================== CTA Section ==================== */
+.proposal-cta {
+    padding: 4rem 0;
+}
+.cta-container {
+    max-width: 800px;
+    margin: 2rem auto 0;
+    text-align: center;
+}
+.cta-message {
+    text-align: left;
+    margin-bottom: 3rem;
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+}
+.cta-message p {
+    line-height: 1.9;
+    margin: 0 0 1rem;
+}
+.cta-message p:last-child {
+    margin-bottom: 0;
+}
+
+/* CTA Cards */
+.cta-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.cta-card {
+    border-radius: var(--radius-card);
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+.cta-card--sponsor {
+    background: var(--card-bg);
+    border: 2px solid #C7A84C;
+}
+.cta-card--donation {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+}
+.cta-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+.cta-card-header .fas {
+    font-size: 1.5rem;
+}
+.cta-card--sponsor .cta-card-header .fas {
+    color: #C7A84C;
+}
+.cta-card--donation .cta-card-header .fas {
+    color: var(--primary-color);
+}
+.cta-card-header h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0;
+    border-bottom: none;
+    display: inline;
+}
+.cta-card-sub {
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.7;
+    margin-left: 0.3rem;
+}
+.cta-card-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* CTA Buttons */
+.cta-btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.cta-btn--outline {
+    border: 2px solid #C7A84C;
+    color: #C7A84C;
+    background: transparent;
+}
+.cta-btn--outline:hover {
+    background: #C7A84C;
+    color: #fff;
+}
+.cta-btn--outline-red {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+.cta-btn--outline-red:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+.cta-btn--filled {
+    border: 2px solid transparent;
+    color: #fff;
+}
+.cta-btn--gold {
+    background: #C7A84C;
+    border-color: #C7A84C;
+}
+.cta-btn--gold:hover {
+    background: #b39540;
+    border-color: #b39540;
+    color: #fff;
+}
+.cta-btn--red {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.cta-btn--red:hover {
+    background: #a50008;
+    border-color: #a50008;
+    color: #fff;
+}
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* CTA Note */
+.cta-note {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+.cta-note a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Email Button */
+.cta-email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--dark-color);
+    color: #fff !important;
+    padding: 0.9rem 2.5rem;
+    border-radius: var(--radius-pill);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+.cta-email-btn .fas {
+    font-size: 1.1rem;
+}
+.cta-email-btn:hover {
+    background: var(--primary-color);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(199, 0, 10, 0.3);
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 768px) {
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+    .highlight-card--hero {
+        grid-row: auto;
+    }
+    .events-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .cta-cards {
+        grid-template-columns: 1fr;
+    }
+    .overview-vision {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .overview-vision-arrow {
+        transform: rotate(90deg);
+    }
+    .proposal-hero {
+        min-height: 60vh;
+        padding: 5rem var(--global-space) 3rem;
+    }
+    .proposal-hero-title {
+        font-size: clamp(2rem, 7vw, 3.5rem);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .highlights-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .overview-table {
+        font-size: 0.85rem;
+    }
+    .overview-table th,
+    .overview-table td {
+        padding: 0.7rem 0.8rem;
+    }
+    .cta-card-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}
