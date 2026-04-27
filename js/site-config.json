@@ -47,7 +47,7 @@
     ],
     "pageVisibility": {
         "index": true,
-        "events": true,
+        "proposal": true,
         "shops": true,
         "timetable": true,
         "support": true,
