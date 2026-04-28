@@ -69,40 +69,14 @@
         { selector: 'meta[name="twitter:image"]', attr: 'content', val: config.images.poster, overwrite: true }
     ];
 
-    // ページが公開状態の場合: description を本番テキストに直接上書き
-    if (isPageVisible) {
-        var publishedDesc = '豊橋技術科学大学の学園祭「' + fullName + '」公式サイト。今年のテーマは「' + theme + '」。ゲスト情報・タイムテーブル・模擬店情報を掲載。';
-        var publishedDescShort = '豊橋技術科学大学の学園祭「' + fullName + '」公式サイト。今年のテーマは「' + theme + '」。';
-
-        // ページ固有の description マッピング
-        var descMap = {
-            'index': publishedDesc,
-            'access': fullName + 'の会場・アクセス情報。豊橋技術科学大学（愛知県豊橋市）へは豊橋駅より豊鉄バス技科大線で約25分。電車・バス・お車でのアクセス方法を案内します。',
-            'contact': fullName + 'へのお問い合わせ・協賛に関するご相談はメールにてお受けしております。豊橋技術科学大学の学園祭実行委員会へお気軽にどうぞ。',
-            'guest': fullName + 'のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学の学園祭ゲスト情報をご覧いただけます。',
-            'proposal': '豊橋技術科学大学 開学50周年記念「' + fullName + '」へのご協賛・ご寄付のご案内。昨年の実績や今年の特別企画、開催概要をご覧いただけます。',
-            'shops': fullName + 'の模擬店・キッチンカー全店舗一覧。屋内・屋外の出店情報を掲載。豊橋技術科学大学にて開催。',
-            'support': fullName + 'へのご協賛・ご寄付のお願い。皆様からのご支援が学生主体の学園祭をより豊かなものにします。豊橋技術科学大学の学園祭。',
-            'timetable': fullName + 'のタイムテーブル。ステージイベントの時間割を掲載しています。豊橋技術科学大学にて開催。'
-        };
-        var pageDesc = descMap[pageName] || publishedDesc;
-
-        var ogDescMap = {
-            'index': publishedDescShort,
-            'access': fullName + 'の会場・アクセス情報。豊橋技術科学大学（愛知県豊橋市）へは豊橋駅より豊鉄バス技科大線で約25分。',
-            'contact': fullName + 'へのお問い合わせ・協賛に関するご相談はメールにてお受けしております。',
-            'guest': fullName + 'のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学にて開催。',
-            'proposal': '豊橋技術科学大学 開学50周年記念「' + fullName + '」へのご協賛・ご寄付のご案内。',
-            'shops': fullName + 'の模擬店・キッチンカー全店舗一覧。屋内・屋外の出店情報を掲載。',
-            'support': fullName + 'へのご協賛・ご寄付のお願い。皆様からのご支援が学生主体の学園祭をより豊かなものにします。',
-            'timetable': fullName + 'のタイムテーブル。豊橋技術科学大学にて開催。'
-        };
-        var ogDesc = ogDescMap[pageName] || publishedDescShort;
-
+    // ページが非公開（pageVisibility が false）の場合のみ: description を準備中テキストに上書き
+    // 公開（true）の場合は HTML 初期値が正規表現で正しく置換されるためそのまま
+    if (!isPageVisible) {
+        var comingSoonDesc = fullName + 'の公式サイトです。現在、サイトは準備中です。公開までしばらくお待ちください。';
         metaUpdates.push(
-            { selector: 'meta[name="description"]', attr: 'content', val: pageDesc, overwrite: true },
-            { selector: 'meta[property="og:description"]', attr: 'content', val: ogDesc, overwrite: true },
-            { selector: 'meta[name="twitter:description"]', attr: 'content', val: ogDesc, overwrite: true }
+            { selector: 'meta[name="description"]', attr: 'content', val: comingSoonDesc, overwrite: true },
+            { selector: 'meta[property="og:description"]', attr: 'content', val: comingSoonDesc, overwrite: true },
+            { selector: 'meta[name="twitter:description"]', attr: 'content', val: comingSoonDesc, overwrite: true }
         );
     }
 
