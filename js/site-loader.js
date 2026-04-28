@@ -23,6 +23,26 @@
     const fullName = '第' + num + '回' + config.festivalName;
     const festivalDateText = config.dates.displayText;
 
+    // --- 現在のページの公開状態を pageVisibility から判定 ---
+    var pathname = window.location.pathname;
+    var pageName = pathname.split('/').pop().replace(/\.html$/i, '') || 'index';
+    var visibility = config.pageVisibility || {};
+    var isPageVisible = visibility[pageName] !== false;
+
+    // --- FOUC防止: プリレンダースクリーンを解除（常に実行） ---
+    // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
+    // body.site-ready は常に付与してプリレンダースクリーンを解除する
+    document.body.classList.add('site-ready');
+
+    // --- プリレンダースクリーンの祭名を更新（解除前に一瞬表示される場合に備える） ---
+    var prerenderScreen = document.querySelector('.site-prerender-screen');
+    if (prerenderScreen) {
+        var prerenderDesc = prerenderScreen.querySelector('.prerender-desc');
+        if (prerenderDesc) {
+            prerenderDesc.innerHTML = fullName + 'の公式サイトです。<br>現在、サイトは準備中です。<br>公開までしばらくお待ちください。';
+        }
+    }
+
     // --- 正規表現 ---
     const festivalReg = /第(?:\d+|--|XX)回\s*技科大祭/g;
     const numOnlyReg = /第(?:\d+|--|XX)回/g;
@@ -48,6 +68,43 @@
         { selector: 'meta[property="og:image"]', attr: 'content', val: config.images.poster, overwrite: true },
         { selector: 'meta[name="twitter:image"]', attr: 'content', val: config.images.poster, overwrite: true }
     ];
+
+    // ページが公開状態の場合: description を本番テキストに直接上書き
+    if (isPageVisible) {
+        var publishedDesc = '豊橋技術科学大学の学園祭「' + fullName + '」公式サイト。今年のテーマは「' + theme + '」。ゲスト情報・タイムテーブル・模擬店情報を掲載。';
+        var publishedDescShort = '豊橋技術科学大学の学園祭「' + fullName + '」公式サイト。今年のテーマは「' + theme + '」。';
+
+        // ページ固有の description マッピング
+        var descMap = {
+            'index': publishedDesc,
+            'access': fullName + 'の会場・アクセス情報。豊橋技術科学大学（愛知県豊橋市）へは豊橋駅より豊鉄バス技科大線で約25分。電車・バス・お車でのアクセス方法を案内します。',
+            'contact': fullName + 'へのお問い合わせ・協賛に関するご相談はメールにてお受けしております。豊橋技術科学大学の学園祭実行委員会へお気軽にどうぞ。',
+            'guest': fullName + 'のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学の学園祭ゲスト情報をご覧いただけます。',
+            'proposal': '豊橋技術科学大学 開学50周年記念「' + fullName + '」へのご協賛・ご寄付のご案内。昨年の実績や今年の特別企画、開催概要をご覧いただけます。',
+            'shops': fullName + 'の模擬店・キッチンカー全店舗一覧。屋内・屋外の出店情報を掲載。豊橋技術科学大学にて開催。',
+            'support': fullName + 'へのご協賛・ご寄付のお願い。皆様からのご支援が学生主体の学園祭をより豊かなものにします。豊橋技術科学大学の学園祭。',
+            'timetable': fullName + 'のタイムテーブル。ステージイベントの時間割を掲載しています。豊橋技術科学大学にて開催。'
+        };
+        var pageDesc = descMap[pageName] || publishedDesc;
+
+        var ogDescMap = {
+            'index': publishedDescShort,
+            'access': fullName + 'の会場・アクセス情報。豊橋技術科学大学（愛知県豊橋市）へは豊橋駅より豊鉄バス技科大線で約25分。',
+            'contact': fullName + 'へのお問い合わせ・協賛に関するご相談はメールにてお受けしております。',
+            'guest': fullName + 'のスペシャルゲストとお笑いライブ詳細。豊橋技術科学大学にて開催。',
+            'proposal': '豊橋技術科学大学 開学50周年記念「' + fullName + '」へのご協賛・ご寄付のご案内。',
+            'shops': fullName + 'の模擬店・キッチンカー全店舗一覧。屋内・屋外の出店情報を掲載。',
+            'support': fullName + 'へのご協賛・ご寄付のお願い。皆様からのご支援が学生主体の学園祭をより豊かなものにします。',
+            'timetable': fullName + 'のタイムテーブル。豊橋技術科学大学にて開催。'
+        };
+        var ogDesc = ogDescMap[pageName] || publishedDescShort;
+
+        metaUpdates.push(
+            { selector: 'meta[name="description"]', attr: 'content', val: pageDesc, overwrite: true },
+            { selector: 'meta[property="og:description"]', attr: 'content', val: ogDesc, overwrite: true },
+            { selector: 'meta[name="twitter:description"]', attr: 'content', val: ogDesc, overwrite: true }
+        );
+    }
 
     metaUpdates.forEach(m => {
         const el = document.querySelector(m.selector);
