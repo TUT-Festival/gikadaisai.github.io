@@ -46,7 +46,7 @@
         { "href": "https://www.instagram.com/tut_festival/", "label": "公式Instagram" }
     ],
     "pageVisibility": {
-        "index": true,
+        "index": false,
         "proposal": true,
         "shops": true,
         "timetable": true,
