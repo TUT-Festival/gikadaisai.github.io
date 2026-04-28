@@ -79,10 +79,10 @@
         "index": false,
         "proposal": false,
         "shops": false,
-        "timetable": false,
-        "support": false,
+        "timetable": true,
+        "support": true,
         "access": true,
-        "contact": false,
+        "contact": true,
         "guest": false
     }
 }
