@@ -77,12 +77,12 @@
     ],
     "pageVisibility": {
         "index": false,
-        "proposal": false,
+        "proposal": true,
         "shops": false,
         "timetable": false,
-        "support": false,
-        "access": false,
-        "contact": false,
+        "support": true,
+        "access": true,
+        "contact": true,
         "guest": false
     }
 }
