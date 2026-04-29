@@ -1489,7 +1489,7 @@ body.site-ready .site-prerender-screen {
     display: none !important;
 }
 
-/* プリレンダースクリーン（準備中画面）: CSSのみで表示 */
+/* プリレンダースクリーン（ローディング画面）: CSSのみで表示 */
 .site-prerender-screen {
     position: fixed;
     inset: 0;
@@ -1504,54 +1504,136 @@ body.site-ready .site-prerender-screen {
 .site-prerender-screen .prerender-content {
     position: relative;
     z-index: 1;
-}
-.site-prerender-screen .prerender-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: clamp(0.85rem, 2vw, 1rem);
-    font-weight: 600;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--primary-color);
-    margin: 0 0 0.75rem;
-}
-.site-prerender-screen .prerender-title {
-    font-family: "Zen Maru Gothic", "Noto Sans JP", serif;
-    font-size: clamp(3rem, 10vw, 5.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin: 0 0 1.5rem;
-    color: var(--text-color);
-}
-.site-prerender-screen .prerender-desc {
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
-    line-height: 2;
-    margin: 0 auto 2.5rem;
-    max-width: 400px;
-    opacity: 0.7;
-}
-.site-prerender-screen .prerender-sns {
     display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-top: 1.5rem;
-}
-.site-prerender-screen .prerender-sns a {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
+    gap: 1.5rem;
+}
+
+/* ========== Running Mascot Animation ========== */
+.prerender-runner {
+    position: relative;
+    width: 160px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.prerender-mascot-wrapper {
+    position: relative;
+    animation: mascot-bounce 0.45s ease-in-out infinite;
+}
+
+.prerender-mascot-img {
+    width: 120px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    animation: mascot-tilt 0.45s ease-in-out infinite;
+}
+
+/* 地面の影（走っている時の影の伸縮） */
+.prerender-ground {
+    width: 70px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, rgba(45, 48, 54, 0.15) 0%, transparent 70%);
     border-radius: 50%;
-    background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
+    margin-top: 2px;
+    animation: shadow-pulse 0.45s ease-in-out infinite;
+}
+
+/* 砂ぼこりパーティクル */
+.prerender-mascot-wrapper::before,
+.prerender-mascot-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    border-radius: 50%;
+    background: rgba(45, 48, 54, 0.12);
+    animation: dust-particle 0.9s ease-out infinite;
+}
+.prerender-mascot-wrapper::before {
+    left: 10px;
+    width: 8px;
+    height: 8px;
+    animation-delay: 0s;
+}
+.prerender-mascot-wrapper::after {
+    left: 20px;
+    width: 6px;
+    height: 6px;
+    animation-delay: 0.2s;
+}
+
+/* キーフレーム: バウンス */
+@keyframes mascot-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-18px);
+    }
+}
+
+/* キーフレーム: 左右の傾き（走っている感じ） */
+@keyframes mascot-tilt {
+    0%, 100% {
+        transform: rotate(-3deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+}
+
+/* キーフレーム: 影の伸縮 */
+@keyframes shadow-pulse {
+    0%, 100% {
+        transform: scaleX(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scaleX(0.6);
+        opacity: 0.4;
+    }
+}
+
+/* キーフレーム: 砂ぼこり */
+@keyframes dust-particle {
+    0% {
+        opacity: 0.6;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-30px, -10px) scale(0.3);
+    }
+}
+
+/* ========== Loading Text Animation ========== */
+.prerender-loading {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
     color: var(--text-color);
-    font-size: 1.3rem;
-    transition: all 0.25s ease;
-    text-decoration: none;
+    opacity: 0.65;
+    margin: 0;
+    min-width: 180px;
 }
-.site-prerender-screen .prerender-sns a:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+/* ドットのアニメーション: content で . の数を増減 */
+.prerender-dots::after {
+    content: '';
+    animation: loading-dots 1.5s steps(1, end) infinite;
 }
+
+@keyframes loading-dots {
+    0%        { content: ''; }
+    25%       { content: ' .'; }
+    50%       { content: ' . .'; }
+    75%       { content: ' . . .'; }
+    100%      { content: ''; }
+}
+
