@@ -23,6 +23,26 @@
     const fullName = '第' + num + '回' + config.festivalName;
     const festivalDateText = config.dates.displayText;
 
+    // --- 現在のページの公開状態を pageVisibility から判定 ---
+    var pathname = window.location.pathname;
+    var pageName = pathname.split('/').pop().replace(/\.html$/i, '') || 'index';
+    var visibility = config.pageVisibility || {};
+    var isPageVisible = visibility[pageName] !== false;
+
+    // --- FOUC防止: プリレンダースクリーンを解除（常に実行） ---
+    // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
+    // body.site-ready は常に付与してプリレンダースクリーンを解除する
+    document.body.classList.add('site-ready');
+
+    // --- プリレンダースクリーンの祭名を更新（解除前に一瞬表示される場合に備える） ---
+    var prerenderScreen = document.querySelector('.site-prerender-screen');
+    if (prerenderScreen) {
+        var prerenderDesc = prerenderScreen.querySelector('.prerender-desc');
+        if (prerenderDesc) {
+            prerenderDesc.innerHTML = fullName + 'の公式サイトです。<br>現在、サイトは準備中です。<br>公開までしばらくお待ちください。';
+        }
+    }
+
     // --- 正規表現 ---
     const festivalReg = /第(?:\d+|--|XX)回\s*技科大祭/g;
     const numOnlyReg = /第(?:\d+|--|XX)回/g;
@@ -48,6 +68,17 @@
         { selector: 'meta[property="og:image"]', attr: 'content', val: config.images.poster, overwrite: true },
         { selector: 'meta[name="twitter:image"]', attr: 'content', val: config.images.poster, overwrite: true }
     ];
+
+    // ページが非公開（pageVisibility が false）の場合のみ: description を準備中テキストに上書き
+    // 公開（true）の場合は HTML 初期値が正規表現で正しく置換されるためそのまま
+    if (!isPageVisible) {
+        var comingSoonDesc = fullName + 'の公式サイトです。現在、サイトは準備中です。公開までしばらくお待ちください。';
+        metaUpdates.push(
+            { selector: 'meta[name="description"]', attr: 'content', val: comingSoonDesc, overwrite: true },
+            { selector: 'meta[property="og:description"]', attr: 'content', val: comingSoonDesc, overwrite: true },
+            { selector: 'meta[name="twitter:description"]', attr: 'content', val: comingSoonDesc, overwrite: true }
+        );
+    }
 
     metaUpdates.forEach(m => {
         const el = document.querySelector(m.selector);

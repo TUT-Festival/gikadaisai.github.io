@@ -1,4 +1,4 @@
-﻿{
+{
     "festivalNumber": 49,
     "festivalName": "技科大祭",
     "universityName": "豊橋技術科学大学",
@@ -32,24 +32,54 @@
         "googleMapsDirection": "https://www.google.com/maps/dir/?api=1&destination=%E8%B1%8A%E6%A9%8B%E6%8A%80%E8%A1%93%E7%A7%91%E5%AD%A6%E5%A4%A7%E5%AD%A6"
     },
     "footerNav": [
-        { "href": "index.html", "label": "トップ" },
-        { "href": "proposal.html", "label": "予定イベント" },
-        { "href": "shops.html", "label": "模擬店・キッチンカー" },
-        { "href": "timetable.html", "label": "タイムテーブル" },
-        { "href": "support.html", "label": "ご協賛・ご寄付" },
-        { "href": "access.html", "label": "アクセス" },
-        { "href": "contact.html", "label": "お問い合わせ" }
+        {
+            "href": "index.html",
+            "label": "トップ"
+        },
+        {
+            "href": "proposal.html",
+            "label": "予定イベント"
+        },
+        {
+            "href": "shops.html",
+            "label": "模擬店・キッチンカー"
+        },
+        {
+            "href": "timetable.html",
+            "label": "タイムテーブル"
+        },
+        {
+            "href": "support.html",
+            "label": "ご協賛・ご寄付"
+        },
+        {
+            "href": "access.html",
+            "label": "アクセス"
+        },
+        {
+            "href": "contact.html",
+            "label": "お問い合わせ"
+        }
     ],
     "footerLinks": [
-        { "href": "https://www.tut.ac.jp/", "label": "大学公式サイト" },
-        { "href": "https://x.com/tut_festival", "label": "公式X(Twitter)" },
-        { "href": "https://www.instagram.com/tut_festival/", "label": "公式Instagram" }
+        {
+            "href": "https://www.tut.ac.jp/",
+            "label": "大学公式サイト"
+        },
+        {
+            "href": "https://x.com/tut_festival",
+            "label": "公式X(Twitter)"
+        },
+        {
+            "href": "https://www.instagram.com/tut_festival/",
+            "label": "公式Instagram"
+        }
     ],
     "pageVisibility": {
         "index": false,
         "proposal": true,
-        "shops": true,
-        "timetable": true,
+        "shops": false,
+        "timetable": false,
         "support": true,
         "access": true,
         "contact": true,

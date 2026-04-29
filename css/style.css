@@ -1468,3 +1468,90 @@ body.modal-open {
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     border-color: var(--primary-color);
 }
+
+/* ========== FOUC防止: サイト公開状態管理 ========== */
+/* 初期状態: 本番コンテンツを非表示にし、準備中スクリーンを表示 */
+#contents,
+footer,
+.pagetop {
+    visibility: hidden;
+}
+
+/* JS が isPublished: true を確認後に body.site-ready を付与 → 本番コンテンツを表示 */
+body.site-ready #contents,
+body.site-ready footer,
+body.site-ready .pagetop {
+    visibility: visible;
+}
+
+/* JS が body.site-ready を付与したらプリレンダースクリーンを非表示 */
+body.site-ready .site-prerender-screen {
+    display: none !important;
+}
+
+/* プリレンダースクリーン（準備中画面）: CSSのみで表示 */
+.site-prerender-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-color);
+    text-align: center;
+    padding: 2rem;
+}
+.site-prerender-screen .prerender-content {
+    position: relative;
+    z-index: 1;
+}
+.site-prerender-screen .prerender-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin: 0 0 0.75rem;
+}
+.site-prerender-screen .prerender-title {
+    font-family: "Zen Maru Gothic", "Noto Sans JP", serif;
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1.5rem;
+    color: var(--text-color);
+}
+.site-prerender-screen .prerender-desc {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    line-height: 2;
+    margin: 0 auto 2.5rem;
+    max-width: 400px;
+    opacity: 0.7;
+}
+.site-prerender-screen .prerender-sns {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+.site-prerender-screen .prerender-sns a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 1.3rem;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+.site-prerender-screen .prerender-sns a:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}

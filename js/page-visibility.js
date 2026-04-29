@@ -1,4 +1,4 @@
-﻿/**
+/**
  * page-visibility.js
  * site-config.json の pageVisibility 設定に基づき、false に設定されたページを
  * 「準備中」画面に切り替える。
