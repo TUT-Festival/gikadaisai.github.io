@@ -29,10 +29,17 @@
     var visibility = config.pageVisibility || {};
     var isPageVisible = visibility[pageName] !== false;
 
-    // --- FOUC防止: プリレンダースクリーンを解除（常に実行） ---
-    // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
-    // body.site-ready は常に付与してプリレンダースクリーンを解除する
-    document.body.classList.add('site-ready');
+    // --- FOUC防止: プリレンダースクリーンを解除 ---
+    // index.html で花火アニメーションが有効な場合は、完了まで site-ready を待つ
+    if (document.body.classList.contains('home') && document.getElementById('fireworks-canvas')) {
+        document.addEventListener('fireworksComplete', function () {
+            document.body.classList.add('site-ready');
+        }, { once: true });
+    } else {
+        // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
+        // body.site-ready は常に付与してプリレンダースクリーンを解除する
+        document.body.classList.add('site-ready');
+    }
 
     // --- プリレンダースクリーンの祭名を更新（解除前に一瞬表示される場合に備える） ---
     var prerenderScreen = document.querySelector('.site-prerender-screen');

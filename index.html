@@ -35,17 +35,10 @@
 </head>
 
 <body class="home">
-<!-- 準備中スクリーン（FOUC防止: CSSで初期表示、JSが読み込まれたら非表示にする） -->
+<!-- 花火アニメーション ローディング画面（index.html 専用） -->
 <div class="site-prerender-screen">
-	<div class="prerender-content">
-		<div class="prerender-runner">
-			<div class="prerender-mascot-wrapper">
-				<img src="images/mascot_run.png" alt="技科大祭マスコットキャラクター" class="prerender-mascot-img">
-			</div>
-			<div class="prerender-ground"></div>
-		</div>
-		<p class="prerender-loading" aria-label="Loading">loading<span class="prerender-dots"></span></p>
-	</div>
+	<canvas id="fireworks-canvas"></canvas>
+	<button id="fireworks-skip" class="fireworks-skip-btn" aria-label="スキップ">Skip <i class="fas fa-forward"></i></button>
 </div>
 <div id="container">
 
@@ -273,6 +266,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/fireworks-intro.js"></script>
 <script src="js/site-loader.js"></script>
 <script src="js/page-visibility.js"></script>
 <script src="js/festival-countdown.js"></script>
