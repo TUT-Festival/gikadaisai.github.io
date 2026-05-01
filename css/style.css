@@ -1804,40 +1804,41 @@ body.site-ready .site-prerender-screen:not(.opening-active) {
 
 /* --- Exit animation --- */
 .site-prerender-screen.opening-exit {
-    animation: opening-exit 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: opening-exit 0.75s cubic-bezier(0.76, 0, 0.24, 1) forwards;
     pointer-events: none;
+    will-change: transform, opacity;
 }
+
+/* タイトルグループは少し先行してフェード */
 .site-prerender-screen.opening-exit .opening-title-group {
-    animation: title-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: title-group-exit 0.5s cubic-bezier(0.4, 0, 0.8, 1) forwards;
+    will-change: transform, opacity;
 }
+
+/* コーナー・グリッド・パーティクルはフェード */
 .site-prerender-screen.opening-exit .opening-corner,
 .site-prerender-screen.opening-exit .opening-grid-h,
 .site-prerender-screen.opening-exit .opening-grid-v,
 .site-prerender-screen.opening-exit .opening-particle {
-    animation: element-exit 0.5s ease forwards;
+    animation: element-exit 0.3s ease forwards;
 }
 
+/* 画面全体が上へスライドアウト（transform only = GPU合成） */
 @keyframes opening-exit {
-    0% {
-        opacity: 1;
-        clip-path: inset(0 0 0 0);
-    }
-    100% {
-        opacity: 0;
-        clip-path: inset(0 0 100% 0);
-    }
+    0%   { transform: translateY(0);      opacity: 1; }
+    100% { transform: translateY(-100%);  opacity: 1; }
 }
-@keyframes title-exit {
-    to {
-        opacity: 0;
-        transform: translateY(-30px) scale(1.02);
-    }
+
+/* タイトルグループ：上へ + フェード */
+@keyframes title-group-exit {
+    0%   { transform: translateY(0);    opacity: 1; }
+    100% { transform: translateY(-40px); opacity: 0; }
 }
+
 @keyframes element-exit {
-    to {
-        opacity: 0;
-    }
+    to { opacity: 0; }
 }
+
 
 /* --- Responsive adjustments --- */
 @media screen and (max-width: 600px) {

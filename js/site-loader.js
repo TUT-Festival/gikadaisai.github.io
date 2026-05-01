@@ -37,10 +37,11 @@
     // それ以外のページは CSS ルールで即非表示になる
     var openingScreen = document.querySelector('.site-prerender-screen.opening-active');
     if (openingScreen) {
-        var animDuration = 3500; // 全アニメーション表示時間 (ms)
+        var animDuration = 3900; // 全アニメーション表示時間 (ms) ─ グロウ完了(約3.82s)直後に終了モーションへ
         setTimeout(function () {
             openingScreen.classList.add('opening-exit');
-            openingScreen.addEventListener('animationend', function () {
+            openingScreen.addEventListener('animationend', function (e) {
+                if (e.target !== openingScreen) return; // 子要素のイベントは無視
                 openingScreen.remove();
             }, { once: true });
         }, animDuration);
