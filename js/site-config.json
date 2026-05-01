@@ -76,13 +76,13 @@
         }
     ],
     "pageVisibility": {
-        "index": false,
+        "index": true,
         "proposal": true,
-        "shops": false,
-        "timetable": false,
+        "shops": true,
+        "timetable": true,
         "support": true,
         "access": true,
         "contact": true,
-        "guest": false
+        "guest": true
     }
 }
