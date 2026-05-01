@@ -1646,8 +1646,12 @@ body.site-ready .site-prerender-screen:not(.opening-active) {
     display: inline-block;
     opacity: 0;
     transform: translateY(40px) rotateX(40deg);
-    animation: char-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(0.5s + var(--i) * 0.055s);
+    animation:
+        char-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+        char-glow 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay:
+        calc(0.5s + var(--i) * 0.055s),
+        calc(1.7s + var(--i) * 0.08s);
     transform-origin: center bottom;
 }
 
@@ -1662,6 +1666,48 @@ body.site-ready .site-prerender-screen:not(.opening-active) {
     100% {
         opacity: 1;
         transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* --- GIKADAISAI glow effect (triggered when 技科大祭 appears) --- */
+@keyframes char-glow {
+    0% {
+        color: #fff;
+        text-shadow: none;
+    }
+    20% {
+        color: #fff;
+        text-shadow:
+            0 0 4px rgba(255, 255, 255, 0.6),
+            0 0 11px rgba(199, 0, 10, 0.4),
+            0 0 19px rgba(199, 0, 10, 0.25);
+    }
+    50% {
+        color: #fff;
+        text-shadow:
+            0 0 7px rgba(255, 255, 255, 0.9),
+            0 0 15px rgba(255, 220, 220, 0.7),
+            0 0 30px rgba(199, 0, 10, 0.6),
+            0 0 50px rgba(199, 0, 10, 0.35),
+            0 0 80px rgba(199, 0, 10, 0.15);
+    }
+    75% {
+        color: #fff;
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.8),
+            0 0 12px rgba(255, 220, 220, 0.5),
+            0 0 25px rgba(199, 0, 10, 0.45),
+            0 0 45px rgba(199, 0, 10, 0.25),
+            0 0 70px rgba(199, 0, 10, 0.1);
+    }
+    100% {
+        color: #fff;
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.7),
+            0 0 10px rgba(255, 220, 220, 0.4),
+            0 0 22px rgba(199, 0, 10, 0.4),
+            0 0 40px rgba(199, 0, 10, 0.2),
+            0 0 65px rgba(199, 0, 10, 0.08);
     }
 }
 
