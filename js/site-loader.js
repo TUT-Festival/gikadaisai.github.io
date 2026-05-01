@@ -29,18 +29,21 @@
     var visibility = config.pageVisibility || {};
     var isPageVisible = visibility[pageName] !== false;
 
-    // --- FOUC防止: プリレンダースクリーンを解除（常に実行） ---
-    // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
-    // body.site-ready は常に付与してプリレンダースクリーンを解除する
+    // --- FOUC防止: コンテンツを表示可能にする（オーバーレイの裏で描画開始） ---
     document.body.classList.add('site-ready');
 
-    // --- プリレンダースクリーンの祭名を更新（解除前に一瞬表示される場合に備える） ---
-    var prerenderScreen = document.querySelector('.site-prerender-screen');
-    if (prerenderScreen) {
-        var prerenderDesc = prerenderScreen.querySelector('.prerender-desc');
-        if (prerenderDesc) {
-            prerenderDesc.innerHTML = fullName + 'の公式サイトです。<br>現在、サイトは準備中です。<br>公開までしばらくお待ちください。';
-        }
+    // --- オープニングアニメーション制御 ---
+    // opening-active クラスを持つスクリーン（index.html のみ）はアニメーション後に削除
+    // それ以外のページは CSS ルールで即非表示になる
+    var openingScreen = document.querySelector('.site-prerender-screen.opening-active');
+    if (openingScreen) {
+        var animDuration = 3500; // 全アニメーション表示時間 (ms)
+        setTimeout(function () {
+            openingScreen.classList.add('opening-exit');
+            openingScreen.addEventListener('animationend', function () {
+                openingScreen.remove();
+            }, { once: true });
+        }, animDuration);
     }
 
     // --- 正規表現 ---

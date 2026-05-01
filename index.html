@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<title>第--回技科大祭｜豊橋技術科学大学の学園祭</title>
@@ -13,7 +14,8 @@
 	<link rel="icon" href="images/HP_icon.png" type="image/png">
 	<link rel="apple-touch-icon" href="images/HP_icon.png">
 	<!-- Google Fonts (4フォントを1リクエストに統合) -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP:wght@100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP:wght@100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<!-- Site stylesheet -->
@@ -35,202 +37,246 @@
 </head>
 
 <body class="home">
-<!-- 準備中スクリーン（FOUC防止: CSSで初期表示、JSが読み込まれたら非表示にする） -->
-<div class="site-prerender-screen">
-	<div class="prerender-content">
-		<div class="prerender-runner">
-			<div class="prerender-mascot-wrapper">
-				<img src="images/mascot_run.png" alt="技科大祭マスコットキャラクター" class="prerender-mascot-img">
+	<!-- 準備中スクリーン（FOUC防止: CSSで初期表示、JSが読み込まれたら非表示にする） -->
+	<div class="site-prerender-screen opening-active" id="opening-screen">
+		<div class="opening-overlay">
+			<!-- Subtle grid crosshair lines -->
+			<div class="opening-grid-h"></div>
+			<div class="opening-grid-v"></div>
+
+			<!-- Corner brackets -->
+			<div class="opening-corner opening-corner--tl"></div>
+			<div class="opening-corner opening-corner--tr"></div>
+			<div class="opening-corner opening-corner--bl"></div>
+			<div class="opening-corner opening-corner--br"></div>
+
+			<!-- Main title group -->
+			<div class="opening-title-group">
+				<div class="opening-title" aria-label="GIKADAISAI">
+					<span class="opening-char" style="--i:0">G</span>
+					<span class="opening-char" style="--i:1">I</span>
+					<span class="opening-char" style="--i:2">K</span>
+					<span class="opening-char" style="--i:3">A</span>
+					<span class="opening-char" style="--i:4">D</span>
+					<span class="opening-char" style="--i:5">A</span>
+					<span class="opening-char" style="--i:6">I</span>
+					<span class="opening-char" style="--i:7">S</span>
+					<span class="opening-char" style="--i:8">A</span>
+					<span class="opening-char" style="--i:9">I</span>
+				</div>
+				<div class="opening-accent-line"></div>
+				<div class="opening-subtitle">技科大祭</div>
 			</div>
-			<div class="prerender-ground"></div>
+
+			<!-- Floating particles -->
+			<div class="opening-particle opening-particle--1"></div>
+			<div class="opening-particle opening-particle--2"></div>
+			<div class="opening-particle opening-particle--3"></div>
+			<div class="opening-particle opening-particle--4"></div>
+			<div class="opening-particle opening-particle--5"></div>
 		</div>
-		<p class="prerender-loading" aria-label="Loading">loading<span class="prerender-dots"></span></p>
 	</div>
-</div>
-<div id="container">
+	<div id="container">
 
-<header>
-	<div class="header-inner">
-		<div id="logo">
-			<a href="index.html">
-				<div id="daigaku">豊橋技術科学大学</div>
-				<div id="gikadaisai">第--回技科大祭</div>
-			</a>
-		</div>
+		<header>
+			<div class="header-inner">
+				<div id="logo">
+					<a href="index.html">
+						<div id="daigaku">豊橋技術科学大学</div>
+						<div id="gikadaisai">第--回技科大祭</div>
+					</a>
+				</div>
 
-		<nav id="menubar-pc">
-			<ul>
-				<li><a href="index.html">トップ</a></li>
-				<li class="ddmenu_parent"><a href="#">予定企画</a>
+				<nav id="menubar-pc">
 					<ul>
+						<li><a href="index.html">トップ</a></li>
+						<li class="ddmenu_parent"><a href="#">予定企画</a>
+							<ul>
+								<li><a href="proposal.html">予定イベント</a></li>
+								<li><a href="shops.html">模擬店・キッチンカー</a></li>
+								<li><a href="timetable.html">タイムテーブル</a></li>
+							</ul>
+						</li>
+						<li><a href="support.html">ご協賛・ご寄付</a></li>
+						<li><a href="access.html">アクセス</a></li>
+						<li><a href="contact.html">お問い合わせ</a></li>
+					</ul>
+				</nav>
+
+				<div class="header-actions">
+					<a href="guest.html" class="header-contact-btn">今年のゲスト</a>
+					<div id="menubar_hdr"><span></span><span></span><span></span></div>
+				</div>
+			</div>
+
+			<div id="menubar">
+				<nav id="menubar-sp">
+					<ul>
+						<li><a href="index.html">トップ</a></li>
 						<li><a href="proposal.html">予定イベント</a></li>
 						<li><a href="shops.html">模擬店・キッチンカー</a></li>
 						<li><a href="timetable.html">タイムテーブル</a></li>
+						<li><a href="support.html">ご協賛・ご寄付</a></li>
+						<li><a href="access.html">アクセス</a></li>
+						<li><a href="contact.html">お問い合わせ</a></li>
 					</ul>
-				</li>
-				<li><a href="support.html">ご協賛・ご寄付</a></li>
-				<li><a href="access.html">アクセス</a></li>
-				<li><a href="contact.html">お問い合わせ</a></li>
-			</ul>
-		</nav>
+				</nav>
+			</div>
+		</header>
 
-		<div class="header-actions">
-			<a href="guest.html" class="header-contact-btn">今年のゲスト</a>
-			<div id="menubar_hdr"><span></span><span></span><span></span></div>
-		</div>
-	</div>
+		<div id="contents">
 
-	<div id="menubar">
-		<nav id="menubar-sp">
-			<ul>
-				<li><a href="index.html">トップ</a></li>
-				<li><a href="proposal.html">予定イベント</a></li>
-				<li><a href="shops.html">模擬店・キッチンカー</a></li>
-				<li><a href="timetable.html">タイムテーブル</a></li>
-				<li><a href="support.html">ご協賛・ご寄付</a></li>
-				<li><a href="access.html">アクセス</a></li>
-				<li><a href="contact.html">お問い合わせ</a></li>
-			</ul>
-		</nav>
-	</div>
-</header>
+			<main>
 
-<div id="contents">
+				<h1 class="sr-only">第--回技科大祭｜豊橋技術科学大学の学園祭</h1>
 
-<main>
+				<section class="feature-block">
+					<div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -120px;">
+					</div>
+					<div class="deco-circle deco-circle--filled deco-circle--lg" style="bottom: -60px; right: -40px;">
+					</div>
+					<div class="deco-circle deco-circle--solid deco-circle--md" style="top: 30px; right: 10%;"></div>
+					<div class="deco-circle deco-circle--dashed deco-circle--sm" style="bottom: 40px; left: 15%;"></div>
+					<div class="feature-content-text">
+						<h2 class="feature-heading">
+							<span class="feature-en-heading">Theme</span>
+							<span class="feature-ja-heading">今年のテーマ</span>
+						</h2>
+						<p class="theme-showcase-text" id="theme-text">{{THEME}}</p>
+					</div>
+					<div class="feature-poster-container">
+						<img id="poster-img" src="data/poster.png" alt="技科大祭 テーマポスター">
+					</div>
+				</section>
 
-<h1 class="sr-only">第--回技科大祭｜豊橋技術科学大学の学園祭</h1>
-
-<section class="feature-block">
-    <div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -120px;"></div>
-    <div class="deco-circle deco-circle--filled deco-circle--lg" style="bottom: -60px; right: -40px;"></div>
-    <div class="deco-circle deco-circle--solid deco-circle--md" style="top: 30px; right: 10%;"></div>
-    <div class="deco-circle deco-circle--dashed deco-circle--sm" style="bottom: 40px; left: 15%;"></div>
-    <div class="feature-content-text">
-        <h2 class="feature-heading">
-            <span class="feature-en-heading">Theme</span>
-            <span class="feature-ja-heading">今年のテーマ</span>
-        </h2>
-        <p class="theme-showcase-text" id="theme-text">{{THEME}}</p>
-    </div>
-    <div class="feature-poster-container">
-        <img id="poster-img" src="data/poster.png" alt="技科大祭 テーマポスター">
-    </div>
-</section>
-
-<section class="bg1">
-	<div class="deco-circle deco-circle--dashed deco-circle--lg" style="top: -30px; right: -60px;"></div>
-	<div class="deco-circle deco-circle--filled-blue deco-circle--xl" style="bottom: -100px; left: -80px;"></div>
-	<div class="deco-circle deco-circle--solid deco-circle--sm" style="top: 50%; left: 5%;"></div>
-	<h2 class="c"><span>Date</span><span class="hosoku">開催日</span></h2>
-	<div class="countdown-card">
-		<p class="event-date">{{DATE}}</p>
-		<p id="countdown-text">開催まで</p>
-		<div id="countdown">
-			<div class="timer-unit"><span id="days">00</span><p>日</p></div>
-			<div class="separator"></div>
-			<div class="timer-unit"><span id="hours">00</span><p>時間</p></div>
-			<div class="separator"></div>
-			<div class="timer-unit"><span id="minutes">00</span><p>分</p></div>
-			<div class="separator"></div>
-			<div class="timer-unit"><span id="seconds">00</span><p>秒</p></div>
-		</div>
-		<div class="opening-time-container">
-            <div class="opening-time-unit">
-                <span id="opening-time" class="opening-time-value">--:--</span>
-                <p class="opening-time-label">開場時間</p>
-            </div>
-        </div>
-	</div>
-</section>
-<section class="guest-feature-text-only">
-    <div class="deco-circle deco-circle--dashed deco-circle--md" style="top: -20px; right: 8%;"></div>
-    <div class="deco-circle deco-circle--filled deco-circle--lg" style="bottom: -40px; left: -30px;"></div>
-    <div class="feature-content-text">
-        <h2 class="feature-heading">
-            <span class="feature-en-heading">Guest</span>
-            <span class="feature-ja-heading">今年のゲスト</span>
-        </h2>
-        <p class="guest-showcase-text">今年も豪華ゲストが登場！<br>詳細はイベントページをご確認ください。</p>
-        <a href="proposal.html" class="feature-button">イベントページへ</a>
-    </div>
-</section>
-
-<section class="bg1">
-	<div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -60px; left: -100px;"></div>
-	<div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
-	<div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
-	<h2 class="c"><span>Access</span><span class="hosoku">会場アクセス</span></h2>
-	<div class="access-container">
-		<div class="access-info">
-			<div class="access-method">
-				<h4><i class="fas fa-train-subway"></i>電車・バスでお越しの方</h4>
-				<div class="access-description">
-					<p><strong>JR各線・名鉄名古屋本線「豊橋駅」</strong>で下車。<br>豊橋駅東口バス乗り場から豊鉄バス「技科大線」に乗車（約25分）、「技科大前」バス停下車すぐ。</p>
-					<div class="bus-countdown-wrapper">
-						<h5><i class="fas fa-bus"></i>技科大線の出発案内（豊橋駅前 発）</h5>
-						<p id="bus-schedule-note" class="note"></p>
-						<div id="bus-countdown-display">
-							<p>次の出発まであと</p>
-							<div class="time-container">
-								<span id="bus-minutes">--</span><small>分</small>
-								<span id="bus-seconds">--</span><small>秒</small>
+				<section class="bg1">
+					<div class="deco-circle deco-circle--dashed deco-circle--lg" style="top: -30px; right: -60px;">
+					</div>
+					<div class="deco-circle deco-circle--filled-blue deco-circle--xl"
+						style="bottom: -100px; left: -80px;"></div>
+					<div class="deco-circle deco-circle--solid deco-circle--sm" style="top: 50%; left: 5%;"></div>
+					<h2 class="c"><span>Date</span><span class="hosoku">開催日</span></h2>
+					<div class="countdown-card">
+						<p class="event-date">{{DATE}}</p>
+						<p id="countdown-text">開催まで</p>
+						<div id="countdown">
+							<div class="timer-unit"><span id="days">00</span>
+								<p>日</p>
+							</div>
+							<div class="separator"></div>
+							<div class="timer-unit"><span id="hours">00</span>
+								<p>時間</p>
+							</div>
+							<div class="separator"></div>
+							<div class="timer-unit"><span id="minutes">00</span>
+								<p>分</p>
+							</div>
+							<div class="separator"></div>
+							<div class="timer-unit"><span id="seconds">00</span>
+								<p>秒</p>
 							</div>
 						</div>
-						<p class="next-bus-info">発車時刻: <span id="next-bus-time">--:--</span></p>
+						<div class="opening-time-container">
+							<div class="opening-time-unit">
+								<span id="opening-time" class="opening-time-value">--:--</span>
+								<p class="opening-time-label">開場時間</p>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="access-method">
-				<h4><i class="fas fa-car"></i>お車でお越しの方</h4>
-				 <div class="access-description">
-					<p>東名高速道路「豊川IC」より約40分。<br>国道23号線バイパス「豊橋東IC」より約10分。</p>
-					<p class="note">※当日は駐車場の混雑が予想されます。可能な限り公共交通機関のご利用にご協力ください。</p>
-				</div>
-			</div>
+				</section>
+				<section class="guest-feature-text-only">
+					<div class="deco-circle deco-circle--dashed deco-circle--md" style="top: -20px; right: 8%;"></div>
+					<div class="deco-circle deco-circle--filled deco-circle--lg" style="bottom: -40px; left: -30px;">
+					</div>
+					<div class="feature-content-text">
+						<h2 class="feature-heading">
+							<span class="feature-en-heading">Guest</span>
+							<span class="feature-ja-heading">今年のゲスト</span>
+						</h2>
+						<p class="guest-showcase-text">今年も豪華ゲストが登場！<br>詳細はイベントページをご確認ください。</p>
+						<a href="proposal.html" class="feature-button">イベントページへ</a>
+					</div>
+				</section>
+
+				<section class="bg1">
+					<div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -60px; left: -100px;">
+					</div>
+					<div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
+					<div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
+					<h2 class="c"><span>Access</span><span class="hosoku">会場アクセス</span></h2>
+					<div class="access-container">
+						<div class="access-info">
+							<div class="access-method">
+								<h4><i class="fas fa-train-subway"></i>電車・バスでお越しの方</h4>
+								<div class="access-description">
+									<p><strong>JR各線・名鉄名古屋本線「豊橋駅」</strong>で下車。<br>豊橋駅東口バス乗り場から豊鉄バス「技科大線」に乗車（約25分）、「技科大前」バス停下車すぐ。
+									</p>
+									<div class="bus-countdown-wrapper">
+										<h5><i class="fas fa-bus"></i>技科大線の出発案内（豊橋駅前 発）</h5>
+										<p id="bus-schedule-note" class="note"></p>
+										<div id="bus-countdown-display">
+											<p>次の出発まであと</p>
+											<div class="time-container">
+												<span id="bus-minutes">--</span><small>分</small>
+												<span id="bus-seconds">--</span><small>秒</small>
+											</div>
+										</div>
+										<p class="next-bus-info">発車時刻: <span id="next-bus-time">--:--</span></p>
+									</div>
+								</div>
+							</div>
+							<div class="access-method">
+								<h4><i class="fas fa-car"></i>お車でお越しの方</h4>
+								<div class="access-description">
+									<p>東名高速道路「豊川IC」より約40分。<br>国道23号線バイパス「豊橋東IC」より約10分。</p>
+									<p class="note">※当日は駐車場の混雑が予想されます。可能な限り公共交通機関のご利用にご協力ください。</p>
+								</div>
+							</div>
+						</div>
+						<div class="map-button-container">
+							<a id="map-direction-link" href="javascript:void(0);" target="_blank"
+								rel="noopener noreferrer" class="map-button">
+								<span class="map-button-icon"><i class="fas fa-map-marked-alt"></i></span>
+								<span class="map-button-text">
+									<strong>Google Mapで経路を確認</strong>
+									<small>大学までのルートを検索</small>
+								</span>
+							</a>
+						</div>
+					</div>
+				</section>
+
+				<!-- Section: Sponsors -->
+				<section style="position: relative;" class="bg1">
+					<div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -100px;">
+					</div>
+					<div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
+					<div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
+					<h2 class="c"><span>Sponsors</span><span class="hosoku">ご協賛企業</span></h2>
+					<p class="c">昨年度の技科大祭開催にあたり、多くの企業の皆様にご支援、ご協力を賜りました。<br>心より感謝申し上げます。（順不同、敬称略）</p>
+
+					<div id="sponsor-grid" class="sponsor-grid"></div>
+				</section>
+
+				<!-- Section: Supporters -->
+				<section style="position: relative;">
+					<div class="deco-circle deco-circle--filled deco-circle--md" style="top: 150px; left: -40px;"></div>
+					<div class="deco-circle deco-circle--solid deco-circle--sm" style="bottom: 100px; right: 8%;"></div>
+					<h2 class="c"><span>Supporters</span><span class="hosoku">ご寄付いただいた皆様</span></h2>
+					<p class="c">昨年度の技科大祭開催に際し、寄付サイト等を通じてご支援いただいた皆様をご紹介いたします。<br>皆様のご厚志に心より御礼申し上げます。（順不同、敬称略）</p>
+
+					<div id="supporter-grid" class="supporter-grid"></div>
+				</section>
+
+			</main>
+
 		</div>
-		<div class="map-button-container">
-			<a id="map-direction-link" href="javascript:void(0);" target="_blank" rel="noopener noreferrer" class="map-button">
-				<span class="map-button-icon"><i class="fas fa-map-marked-alt"></i></span>
-				<span class="map-button-text">
-					<strong>Google Mapで経路を確認</strong>
-					<small>大学までのルートを検索</small>
-				</span>
-			</a>
-		</div>
+		<footer></footer>
+		<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
+
 	</div>
-</section>
 
-<!-- Section: Sponsors -->
-<section style="position: relative;" class="bg1">
-    <div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -100px;"></div>
-    <div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
-    <div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
-    <h2 class="c"><span>Sponsors</span><span class="hosoku">ご協賛企業</span></h2>
-    <p class="c">昨年度の技科大祭開催にあたり、多くの企業の皆様にご支援、ご協力を賜りました。<br>心より感謝申し上げます。（順不同、敬称略）</p>
-
-    <div id="sponsor-grid" class="sponsor-grid"></div>
-</section>
-
-<!-- Section: Supporters -->
-<section style="position: relative;">
-    <div class="deco-circle deco-circle--filled deco-circle--md" style="top: 150px; left: -40px;"></div>
-    <div class="deco-circle deco-circle--solid deco-circle--sm" style="bottom: 100px; right: 8%;"></div>
-    <h2 class="c"><span>Supporters</span><span class="hosoku">ご寄付いただいた皆様</span></h2>
-    <p class="c">昨年度の技科大祭開催に際し、寄付サイト等を通じてご支援いただいた皆様をご紹介いたします。<br>皆様のご厚志に心より御礼申し上げます。（順不同、敬称略）</p>
-    
-    <div id="supporter-grid" class="supporter-grid"></div>
-</section>
-
-</main>
-
-</div>
-<footer></footer>
-<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
-
-</div>
-
-<script type="application/ld+json">
+	<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Festival",
@@ -268,30 +314,31 @@
 }
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
-<script src="js/main.js"></script>
-<script src="js/site-loader.js"></script>
-<script src="js/page-visibility.js"></script>
-<script src="js/festival-countdown.js"></script>
-<script src="js/bus-countdown.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/site-loader.js"></script>
+	<script src="js/page-visibility.js"></script>
+	<script src="js/festival-countdown.js"></script>
+	<script src="js/bus-countdown.js"></script>
 
-<script>
-// site-config 読み込み後にテーマ・ポスター・Google Maps リンクを更新
-document.addEventListener('siteConfigLoaded', function(e) {
-    var config = e.detail;
-    // テーマ
-    var themeText = document.getElementById('theme-text');
-    if (themeText) themeText.textContent = config.theme;
-    // ポスター画像
-    var posterImg = document.getElementById('poster-img');
-    if (posterImg) posterImg.src = config.images.poster;
-    // Google Maps 経路リンク
-    var mapLink = document.getElementById('map-direction-link');
-    if (mapLink) mapLink.href = config.access.googleMapsDirection;
-});
-</script>
+	<script>
+		// site-config 読み込み後にテーマ・ポスター・Google Maps リンクを更新
+		document.addEventListener('siteConfigLoaded', function (e) {
+			var config = e.detail;
+			// テーマ
+			var themeText = document.getElementById('theme-text');
+			if (themeText) themeText.textContent = config.theme;
+			// ポスター画像
+			var posterImg = document.getElementById('poster-img');
+			if (posterImg) posterImg.src = config.images.poster;
+			// Google Maps 経路リンク
+			var mapLink = document.getElementById('map-direction-link');
+			if (mapLink) mapLink.href = config.access.googleMapsDirection;
+		});
+	</script>
 </body>
+
 </html>
