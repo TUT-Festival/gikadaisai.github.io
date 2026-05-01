@@ -54,6 +54,33 @@
 .rlx-md-purple  { width: 120px; height: 120px; background: #FF6B5E; }
 .rlx-sm-purple  { width: 60px;  height: 60px;  background: #FF6B5E; }
 
+/* ---------- Entrance Animations for Shapes ---------- */
+@keyframes slide-in-top {
+    0% { transform: translateY(-150px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-in-bottom {
+    0% { transform: translateY(150px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-in-left {
+    0% { transform: translateX(-150px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-right {
+    0% { transform: translateX(150px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+.anim-slide-t { animation: slide-in-top 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-slide-b { animation: slide-in-bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-slide-l { animation: slide-in-left 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-slide-r { animation: slide-in-right 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.anim-d1 { animation-delay: 0.1s; }
+.anim-d2 { animation-delay: 0.2s; }
+.anim-d3 { animation-delay: 0.3s; }
+.anim-d4 { animation-delay: 0.4s; }
+
 /* ---------- Hero Section ---------- */
 .proposal-hero {
     position: relative;
@@ -78,6 +105,11 @@
     border-radius: 18px;
     z-index: -1;
     transform: rotate(45deg);
+    animation: hero-bg-slide-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes hero-bg-slide-in {
+    0% { transform: translate(150px, -150px) rotate(45deg); opacity: 0; }
+    100% { transform: translate(0, 0) rotate(45deg); opacity: 1; }
 }
 .proposal-hero-content {
     position: relative;

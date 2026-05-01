@@ -3,18 +3,19 @@
 
 /* Custom Properties */
 :root {
-    --text-color: #2D3036;
-    --dark-color: #1E2028;
-    --primary-color: #C7000A;
-    --primary-inverse-color: #fff;
-    --bg-color: #D9DEE4;
-    --bg-light: #E8ECF0;
-    --card-bg: #fff;
-    --border-color: rgba(45, 48, 54, 0.15);
-    --border-dashed-color: rgba(45, 48, 54, 0.25);
+    --bg-color: #0a0a0a;
+    --text-color: #ffffff;
+    --dark-color: #050505;
+    --primary-color: #FF6B5E;
+    --accent-color: #FFC824;
+    --primary-inverse-color: #ffffff;
+    --bg-light: #1a1a1a;
+    --card-bg: rgba(15, 15, 15, 0.85);
+    --border-color: rgba(255, 200, 36, 0.3);
+    --border-dashed-color: rgba(255, 200, 36, 0.2);
     --global-space: 5vw;
     --radius-pill: 100px;
-    --radius-card: 20px;
+    --radius-card: 4px;
     --section-gap: 6rem;
 }
 
@@ -121,15 +122,18 @@ main section,
     background: transparent;
 }
 .deco-circle--solid {
-    border: 1.5px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
     background: transparent;
 }
 .deco-circle--filled {
-    background: rgba(199, 0, 10, 0.06);
+    background: rgba(255, 107, 94, 0.05);
+    box-shadow: 0 0 40px rgba(255, 107, 94, 0.1);
     border: none;
 }
 .deco-circle--filled-blue {
-    background: rgba(45, 80, 140, 0.05);
+    background: rgba(255, 200, 36, 0.05);
+    box-shadow: 0 0 40px rgba(255, 200, 36, 0.1);
     border: none;
 }
 .deco-circle--sm { width: 60px; height: 60px; }
@@ -151,13 +155,13 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(15, 15, 15, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(45, 48, 54, 0.10);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-pill);
     padding: 6px 8px 6px 22px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
     height: 56px;
     font-family: "Reddit Sans", "Noto Sans JP", sans-serif;
     font-weight: 700;
@@ -215,8 +219,9 @@ header {
     white-space: nowrap;
 }
 .large-screen #menubar-pc > ul > li > a:hover {
-    background: var(--bg-light);
-    color: var(--primary-color);
+    background: rgba(255, 200, 36, 0.1);
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(255, 200, 36, 0.5);
 }
 
 /* "+" icon with circular background, rotates on hover */
@@ -265,12 +270,12 @@ header {
     transform: translateX(-50%) translateY(-6px);
     margin-top: 12px;
     min-width: 160px;
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(15, 15, 15, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(45, 48, 54, 0.10);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 0 25px rgba(255, 200, 36, 0.15);
     overflow: hidden;
     padding: 0.3rem 0;
     list-style: none;
@@ -287,7 +292,7 @@ header {
     transform: translateX(-50%) translateY(0);
 }
 .large-screen #menubar-pc ul ul li + li {
-    border-top: 1px solid rgba(45, 48, 54, 0.06);
+    border-top: 1px dashed var(--border-dashed-color);
 }
 .large-screen #menubar-pc ul ul li a {
     display: block;
@@ -297,10 +302,13 @@ header {
     color: var(--text-color);
     border-radius: 0;
     white-space: nowrap;
+    transition: all 0.3s ease;
 }
 .large-screen #menubar-pc ul ul li a:hover {
-    background: var(--bg-light);
-    color: var(--primary-color);
+    background: rgba(255, 200, 36, 0.1);
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(255, 200, 36, 0.5);
+    padding-left: 1.5rem;
 }
 
 /* Header Actions */
@@ -312,20 +320,23 @@ header {
     flex: 1;
 }
 .header-contact-btn {
-    background: var(--dark-color);
-    color: #fff !important;
+    background: transparent;
+    color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color);
     border-radius: var(--radius-pill);
     padding: 0.4rem 1.3rem;
     font-size: 0.82rem;
     font-weight: 700;
     text-decoration: none;
-    transition: background 0.25s ease;
+    transition: all 0.25s ease;
     white-space: nowrap;
     display: inline-block;
+    box-shadow: 0 0 15px rgba(255, 107, 94, 0.15);
 }
 .header-contact-btn:hover {
-    background: var(--primary-color) !important;
+    background: var(--primary-color);
     color: #fff !important;
+    box-shadow: 0 0 25px rgba(255, 107, 94, 0.4);
 }
 
 /* ========== Main Headings ========== */
@@ -439,12 +450,13 @@ footer {
 /* ========== Section Backgrounds (bg1 = accent section) ========== */
 .bg1 {
     position: relative;
-    background: var(--card-bg);
+    background: var(--bg-light);
     color: var(--text-color);
     padding: 4rem var(--global-space);
     margin: var(--section-gap) calc(-1 * var(--global-space));
-    border-top: 1.5px solid var(--border-color);
-    border-bottom: 1.5px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 0 30px rgba(255, 200, 36, 0.05);
     overflow: hidden;
 }
 .bg1 a {
@@ -460,10 +472,10 @@ footer {
 /* ========== Access Block ========== */
 .map-container {
     margin-bottom: 3rem;
-    border: 1.5px solid var(--border-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-card);
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
 }
 .access-container {
     max-width: 900px;
@@ -471,10 +483,11 @@ footer {
     text-align: left;
 }
 .access-info {
-    background: var(--bg-light);
+    background: var(--card-bg);
     padding: 2rem;
     border-radius: var(--radius-card);
-    border: 1.5px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
 }
 .access-method {
     margin-bottom: 2rem;
@@ -507,10 +520,11 @@ footer {
 /* Bus Countdown */
 .bus-countdown-wrapper {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 4px;
     padding: 1rem 1.5rem;
     margin-top: 1.5rem;
-    border: 1.5px dashed var(--border-dashed-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
 }
 .bus-countdown-wrapper h5 {
     font-size: 1rem;
@@ -577,17 +591,17 @@ p.next-bus-info {
     justify-content: center;
     gap: 1rem;
     background: var(--card-bg);
-    border-radius: var(--radius-card);
-    border: 1.5px solid var(--border-color);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
     padding: 1rem;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
 }
 .map-button:hover {
-    border-color: var(--primary-color);
+    border-color: rgba(255, 200, 36, 0.6);
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 0 30px rgba(255, 200, 36, 0.2);
 }
 .map-button-icon {
     font-size: 2.5rem;
@@ -611,13 +625,13 @@ p.next-bus-info {
 /* ========== Countdown Card ========== */
 .countdown-card {
     background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     padding: 2rem;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
     text-align: center;
     color: var(--text-color);
 }
@@ -728,12 +742,12 @@ p.next-bus-info {
     top: 72px; /* header top-padding(10) + pill-height(56) + gap(6) */
     left: 16px;
     right: 16px;
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(15, 15, 15, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(45, 48, 54, 0.10);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 0 25px rgba(255, 200, 36, 0.15);
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -754,7 +768,7 @@ p.next-bus-info {
     list-style: none;
 }
 .small-screen #menubar nav li + li {
-    border-top: 1px solid rgba(45, 48, 54, 0.06);
+    border-top: 1px dashed var(--border-dashed-color);
 }
 .small-screen #menubar nav a {
     display: block;
@@ -764,11 +778,13 @@ p.next-bus-info {
     font-family: "Reddit Sans", "Noto Sans JP", sans-serif;
     text-decoration: none;
     padding: 0.85rem 1.4rem;
-    transition: background-color 0.18s, color 0.18s;
+    transition: all 0.25s ease;
 }
 .small-screen #menubar nav a:hover {
-    background-color: var(--bg-light);
-    color: var(--primary-color);
+    background-color: rgba(255, 200, 36, 0.1);
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(255, 200, 36, 0.5);
+    padding-left: 1.8rem;
 }
 
 /* Utility */
@@ -787,19 +803,19 @@ p.next-bus-info {
     align-items: center;
     justify-content: center;
     background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     padding: 1.5rem 1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
     min-height: 160px;
     cursor: pointer;
     text-decoration: none;
 }
 .sponsor-tile:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border-color: var(--primary-color);
+    box-shadow: 0 0 30px rgba(255, 200, 36, 0.2);
+    border-color: rgba(255, 200, 36, 0.6);
 }
 .sponsor-tile img {
     max-height: 70px;
@@ -857,9 +873,9 @@ p.next-bus-info {
 }
 .shop-card {
     background: var(--card-bg);
-    border-radius: var(--radius-card);
-    border: 1.5px solid var(--border-color);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
     transition: all 0.3s ease;
     overflow: hidden;
     display: flex;
@@ -867,8 +883,8 @@ p.next-bus-info {
 }
 .shop-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border-color: rgba(199, 0, 10, 0.3);
+    box-shadow: 0 0 30px rgba(255, 200, 36, 0.2);
+    border-color: rgba(255, 200, 36, 0.6);
 }
 .shop-card-image {
     width: 100%;
@@ -933,31 +949,33 @@ p.next-bus-info {
 }
 .cta-button {
     display: inline-block;
-    background: var(--primary-color);
-    color: var(--primary-inverse-color);
+    background: transparent;
+    color: var(--primary-color);
     padding: 1rem 2.5rem;
+    border: 1px solid var(--primary-color);
     border-radius: var(--radius-pill);
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(199, 0, 10, 0.2);
+    box-shadow: 0 0 15px rgba(255, 107, 94, 0.15);
 }
 .cta-button:hover {
-    background: #a50008;
+    background: var(--primary-color);
     color: var(--primary-inverse-color);
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(199, 0, 10, 0.3);
+    box-shadow: 0 0 25px rgba(255, 107, 94, 0.4);
 }
 .cta-button .fas {
     margin-right: 0.8em;
 }
 .contact-notes {
     background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     padding: 1.5rem 2rem;
     margin-top: 2rem;
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
 }
 .contact-notes h3 {
     border-bottom: 1.5px solid var(--border-color);
@@ -1043,20 +1061,22 @@ p.next-bus-info {
 .feature-button {
     display: inline-block;
     margin-top: 1.5rem;
-    background: var(--primary-color);
-    color: #fff;
+    background: transparent;
+    color: var(--primary-color);
     padding: 0.8rem 2.5rem;
+    border: 1px solid var(--primary-color);
     border-radius: var(--radius-pill);
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(199, 0, 10, 0.2);
+    box-shadow: 0 0 15px rgba(255, 107, 94, 0.15);
 }
 .feature-button:hover {
-    background: #A50008;
+    background: var(--primary-color);
+    color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(199, 0, 10, 0.3);
+    box-shadow: 0 0 25px rgba(255, 107, 94, 0.4);
 }
 
 /* ========== Fixed Action Buttons ========== */
@@ -1085,25 +1105,25 @@ p.next-bus-info {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
+    color: var(--primary-color);
     font-size: 1.2rem;
     background: var(--card-bg);
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 1.5px solid var(--border-color);
+    border: 1px solid var(--border-color);
     cursor: pointer;
     padding: 0;
     text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 0 15px rgba(255, 200, 36, 0.1);
     transition: all 0.3s ease;
 }
 .pagetop a:hover,
 .fixed-button:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border-color: rgba(255, 200, 36, 0.6);
+    color: var(--accent-color);
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 0 25px rgba(255, 200, 36, 0.3);
 }
 /* 右下ボタン群 — 模擬店マップボタンを基準に下から積み上げる */
 #map-button {
@@ -1345,16 +1365,16 @@ body.modal-open {
     align-items: center;
     gap: 0.6rem;
     background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     padding: 1.4rem 1rem;
     min-width: 120px;
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-color);
     text-decoration: none;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
+    transition: all 0.25s;
 }
 .coming-soon-link-btn .fas {
     font-size: 1.6rem;
@@ -1365,14 +1385,14 @@ body.modal-open {
     white-space: nowrap;
 }
 .coming-soon-link-btn:hover {
-    background: var(--primary-color);
-    color: #fff;
-    border-color: var(--primary-color);
+    background: rgba(255, 200, 36, 0.1);
+    color: var(--accent-color);
+    border-color: rgba(255, 200, 36, 0.6);
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(199, 0, 10, 0.22);
+    box-shadow: 0 0 30px rgba(255, 200, 36, 0.2);
 }
 .coming-soon-link-btn:hover .fas {
-    color: #fff;
+    color: var(--accent-color);
 }
 /* 4ボタン 2×2 グリッド配置 */
 .coming-soon-links--grid {
@@ -1404,15 +1424,15 @@ body.modal-open {
     justify-content: center;
     gap: 0.8rem;
     background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     padding: 2rem 1.5rem;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-color);
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 20px rgba(255, 200, 36, 0.08);
 }
 .action-card .fas {
     font-size: 2.2rem;
@@ -1420,25 +1440,28 @@ body.modal-open {
     transition: color 0.25s ease;
 }
 .action-card:hover {
-    border-color: var(--primary-color);
+    border-color: rgba(255, 200, 36, 0.6);
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(199, 0, 10, 0.15);
-    color: var(--primary-color);
+    box-shadow: 0 0 30px rgba(255, 200, 36, 0.2);
+    color: var(--accent-color);
 }
 .action-card:hover .fas {
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .action-card-primary {
-    background: rgba(199, 0, 10, 0.04);
-    border-color: rgba(199, 0, 10, 0.2);
+    background: rgba(255, 107, 94, 0.05);
+    border-color: rgba(255, 107, 94, 0.4);
+    box-shadow: 0 0 25px rgba(255, 107, 94, 0.1);
 }
 .action-card-primary .fas {
     color: var(--primary-color);
 }
 .action-card-primary:hover {
-    background: var(--primary-color);
+    background: rgba(255, 107, 94, 0.1);
     color: #fff;
+    border-color: rgba(255, 107, 94, 0.7);
+    box-shadow: 0 0 35px rgba(255, 107, 94, 0.25);
 }
 .action-card-primary:hover .fas {
     color: #fff;
@@ -1454,19 +1477,20 @@ body.modal-open {
 }
 .supporter-chip {
     background: var(--card-bg);
-    border: 1.5px solid var(--border-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-pill);
     padding: 0.6rem 1.4rem;
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--text-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    box-shadow: 0 0 15px rgba(255, 200, 36, 0.1);
     transition: all 0.25s ease;
 }
 .supporter-chip:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    border-color: var(--primary-color);
+    box-shadow: 0 0 25px rgba(255, 200, 36, 0.3);
+    border-color: rgba(255, 200, 36, 0.6);
+    color: var(--accent-color);
 }
 
 /* ========== FOUC防止: サイト公開状態管理 ========== */
@@ -1538,7 +1562,7 @@ body.site-ready .site-prerender-screen {
 .prerender-ground {
     width: 70px;
     height: 12px;
-    background: radial-gradient(ellipse at center, rgba(45, 48, 54, 0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(255, 200, 36, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     margin-top: 2px;
     animation: shadow-pulse 0.45s ease-in-out infinite;
@@ -1551,7 +1575,7 @@ body.site-ready .site-prerender-screen {
     position: absolute;
     bottom: -8px;
     border-radius: 50%;
-    background: rgba(45, 48, 54, 0.12);
+    background: rgba(255, 200, 36, 0.12);
     animation: dust-particle 0.9s ease-out infinite;
 }
 .prerender-mascot-wrapper::before {
