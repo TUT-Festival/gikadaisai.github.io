@@ -183,7 +183,7 @@
 }
 .rlx-bg-text {
     position: absolute;
-    top: -30px;
+    top: -150px;
     left: -20px;
     font-size: clamp(60px, 12vw, 140px);
     font-weight: 900;
