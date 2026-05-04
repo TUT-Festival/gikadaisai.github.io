@@ -29,10 +29,57 @@
     var visibility = config.pageVisibility || {};
     var isPageVisible = visibility[pageName] !== false;
 
-    // --- FOUC防止: プリレンダースクリーンを解除（常に実行） ---
+    // --- FOUC防止: プリレンダースクリーンを解除（最低0.5秒間表示） ---
     // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
     // body.site-ready は常に付与してプリレンダースクリーンを解除する
-    document.body.classList.add('site-ready');
+    var prerenderStartTime = performance.now();
+    var MINIMUM_DISPLAY_MS = 500; // 最低表示時間（ミリ秒）
+
+    function dismissPrerender() {
+        var elapsed = performance.now() - prerenderStartTime;
+        var remaining = MINIMUM_DISPLAY_MS - elapsed;
+        if (remaining > 0) {
+            setTimeout(function() {
+                document.body.classList.add('site-ready');
+                stopMascotAnimation();
+            }, remaining);
+        } else {
+            document.body.classList.add('site-ready');
+            stopMascotAnimation();
+        }
+    }
+
+    // --- マスコット走りアニメーション（フレーム切り替え） ---
+    var mascotFrames = document.querySelectorAll('.prerender-mascot-frame');
+    var mascotCurrentIndex = 0;
+    var mascotDirection = 1; // 1: 正方向, -1: 逆方向
+    var mascotIntervalId = null;
+
+    function startMascotAnimation() {
+        if (mascotFrames.length < 2) return;
+        mascotIntervalId = setInterval(function() {
+            mascotFrames[mascotCurrentIndex].classList.remove('is-active');
+            mascotCurrentIndex += mascotDirection;
+            if (mascotCurrentIndex >= mascotFrames.length - 1) {
+                mascotCurrentIndex = mascotFrames.length - 1;
+                mascotDirection = -1;
+            } else if (mascotCurrentIndex <= 0) {
+                mascotCurrentIndex = 0;
+                mascotDirection = 1;
+            }
+            mascotFrames[mascotCurrentIndex].classList.add('is-active');
+        }, 100);
+    }
+
+    function stopMascotAnimation() {
+        if (mascotIntervalId) {
+            clearInterval(mascotIntervalId);
+            mascotIntervalId = null;
+        }
+    }
+
+    // アニメーションを開始
+    startMascotAnimation();
 
     // --- プリレンダースクリーンの祭名を更新（解除前に一瞬表示される場合に備える） ---
     var prerenderScreen = document.querySelector('.site-prerender-screen');
@@ -282,4 +329,7 @@
             supporterGrid.innerHTML = '<p class="c">寄付者情報の読み込み中にエラーが発生しました。</p>';
         }
     }
+
+    // --- すべての処理が完了したのでプリレンダースクリーンを解除 ---
+    dismissPrerender();
 })();
