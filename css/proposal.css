@@ -54,6 +54,43 @@
 .rlx-md-purple  { width: 120px; height: 120px; background: #FF6B5E; }
 .rlx-sm-purple  { width: 60px;  height: 60px;  background: #FF6B5E; }
 
+
+/* 画像シェイプ共通スタイル */
+/* 画像シェイプ共通スタイル（基底クラス＋全種別をまとめて指定） */
+.mascot-image-shape,
+.mascot-image-shape-department1,
+.mascot-image-shape-department2,
+.mascot-image-shape-department3,
+.mascot-image-shape-department4,
+.mascot-image-shape-department5,
+.mascot-image-shape-library {
+    background: none !important;
+}
+
+.mascot-image-shape::after,
+.mascot-image-shape-department1::after,
+.mascot-image-shape-department2::after,
+.mascot-image-shape-department3::after,
+.mascot-image-shape-department4::after,
+.mascot-image-shape-department5::after,
+.mascot-image-shape-library::after {
+    content: '';
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent !important;
+    transform: none; /* 菱形の回転を解除 */
+    border-radius: 0;
+}
+
+/* 画像URLだけを個別に指定 */
+.mascot-image-shape-department1::after { background-image: url('../images/department1.png'); }
+.mascot-image-shape-department2::after { background-image: url('../images/department2.png'); }
+.mascot-image-shape-department3::after { background-image: url('../images/department3.png'); }
+.mascot-image-shape-department4::after { background-image: url('../images/department4.png'); }
+.mascot-image-shape-department5::after { background-image: url('../images/department5.png'); }
+.mascot-image-shape-library::after    { background-image: url('../images/library.png'); }
+
 /* ---------- Entrance Animations for Shapes ---------- */
 @keyframes slide-in-top {
     0% { transform: translateY(-150px); opacity: 0; }
@@ -71,15 +108,15 @@
     0% { transform: translateX(150px); opacity: 0; }
     100% { transform: translateX(0); opacity: 1; }
 }
-.anim-slide-t { animation: slide-in-top 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.anim-slide-b { animation: slide-in-bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.anim-slide-l { animation: slide-in-left 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.anim-slide-r { animation: slide-in-right 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-slide-t { animation: slide-in-top    1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+.anim-slide-b { animation: slide-in-bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+.anim-slide-l { animation: slide-in-left   1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+.anim-slide-r { animation: slide-in-right  1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
 
-.anim-d1 { animation-delay: 0.1s; }
-.anim-d2 { animation-delay: 0.2s; }
-.anim-d3 { animation-delay: 0.3s; }
-.anim-d4 { animation-delay: 0.4s; }
+.anim-d1 { animation-delay: 0.6s; }
+.anim-d2 { animation-delay: 0.7s; }
+.anim-d3 { animation-delay: 0.8s; }
+.anim-d4 { animation-delay: 0.9s; }
 
 /* ---------- Hero Section ---------- */
 .proposal-hero {
@@ -97,20 +134,25 @@
 .proposal-hero::before {
     content: '';
     position: absolute;
-    top: -220px;
-    right: 80px;
+    top: 70px;
+    right: 40px;
     width: 500px;
     height: 500px;
-    background: #FFC824;
-    border-radius: 18px;
+    background-image: url('../images/TUTFESlogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border-radius: 0;
     z-index: -1;
-    transform: rotate(45deg);
-    animation: hero-bg-slide-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform: none;
+    animation: hero-bg-slide-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
 }
 @keyframes hero-bg-slide-in {
-    0% { transform: translate(150px, -150px) rotate(45deg); opacity: 0; }
-    100% { transform: translate(0, 0) rotate(45deg); opacity: 1; }
+    0% { transform: translate(150px, -150px); opacity: 0; }
+    100% { transform: translate(0, 0); opacity: 1; }
 }
+
 .proposal-hero-content {
     position: relative;
     z-index: 2;
@@ -204,6 +246,29 @@
     pointer-events: none;
     box-shadow: 0 4px 20px rgba(255, 200, 36, 0.15);
     border-left: 3px solid #FFC824;
+}
+
+/* サイドバー下マスコット画像（サイドバーと同じタイミングで表示） */
+.sidebar-mascot {
+    display: block;
+    width: 140px;
+    height: auto;
+    margin: 1rem auto 0;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sidebar-mascot.is-fixed {
+    position: fixed;
+    top: calc(80px + 350px);
+    margin-left: 30px;
+    width: 140px;
+}
+.sidebar-mascot.is-visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 .rlx-sidebar-nav.is-fixed {
     position: fixed;
@@ -922,6 +987,12 @@
         transform: translateX(-50%) !important;
     }
     .rlx-shape { display: none; }
+    .proposal-hero::before {
+        width: 200px;
+        height: 200px;
+        top: 25px;
+        right: 15px;
+    }
     .rlx-heading, .overview-lead, .events-header {
         text-align: center;
     }

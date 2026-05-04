@@ -120,11 +120,11 @@
 
 <!-- ==================== Section 1: Hero ==================== -->
 <section class="proposal-hero">
-	<div class="rlx-shape rlx-lg-purple rellax anim-slide-b" data-rellax-speed="-1.3" style="right:25%;bottom:0%;z-index:-1"></div>
-	<div class="rlx-shape rlx-sm-purple rellax anim-slide-t" data-rellax-speed="10" style="right:45%;bottom:60%;z-index:1"></div>
+	<div class="rlx-shape rlx-sm-purple rellax anim-slide-t" data-rellax-speed="10" style="right:30%;bottom:10%;z-index:1"></div>
 	<div class="rlx-shape rlx-md-green rellax anim-slide-l" data-rellax-speed="6" style="right:60%;bottom:30%;z-index:-2"></div>
 	<div class="rlx-shape rlx-md-green rellax anim-slide-r" data-rellax-speed="8" style="right:5%;bottom:-50%;z-index:-2"></div>
 	<div class="rlx-shape rlx-md-green rellax anim-slide-l" data-rellax-speed="-1" style="right:85%;bottom:-50%;z-index:-2"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department1 rellax anim-slide-b" data-rellax-speed="-6" style="right:40%;bottom:45%;z-index:-1"></div>
 
 	<div class="proposal-hero-content">
 		<span class="proposal-hero-badge anim-slide-l anim-d1">豊橋技術科学大学 開学50周年</span>
@@ -151,16 +151,17 @@
 		<a href="#Events" class="rlx-nav-link">特別企画</a>
 		<a href="#Support" class="rlx-nav-link">ご支援</a>
 	</div>
+	<img src="images/library.png" alt="" class="sidebar-mascot">
 </aside>
 <div class="rlx-content">
 
 <!-- ==================== Section 2: Last Year's Highlights ==================== -->
 <section class="rlx-section" id="Highlights">
 	<div class="rlx-bg-text rellax" data-rellax-speed="-3" style="top:-200px;z-index:-1">HIGHLIGHTS</div>
-	<div class="rlx-shape rlx-lg-green rellax" data-rellax-speed="-1.3" style="right:45%;bottom:0%;z-index:-1"></div>
 	<div class="rlx-shape rlx-sm-green rellax" data-rellax-speed="3" style="right:30%;bottom:0%;z-index:1"></div>
-	<div class="rlx-shape rlx-md-green rellax" data-rellax-speed="6" style="right:60%;bottom:30%;z-index:-2"></div>
 	<div class="rlx-shape rlx-lg-purple rellax" data-rellax-speed="1.6" style="right:0%;bottom:0%;z-index:-2"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department3 rellax anim-slide-b" data-rellax-speed="-5" style="right:15%;bottom:70%;z-index:-1"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department2 rellax anim-slide-b" data-rellax-speed="0" style="right:0%;top:0%;z-index:-1"></div>
 
 	<h2 class="rlx-heading">Highlights<br><small style="font-size:0.4em;font-weight:400;color:var(--text-color)">昨年の<span class="text-purple">"盛り上がり"</span></small></h2>
 	<span class="rlx-badge">2025 RESULT</span>
@@ -208,7 +209,7 @@
 	<div class="rlx-shape rlx-lg-green rellax" data-rellax-speed="1.6" style="right:50%;bottom:0%;z-index:-1"></div>
 	<div class="rlx-shape rlx-md-green rellax" data-rellax-speed="3" style="right:0%;bottom:0%;z-index:-1"></div>
 	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="3" style="right:80%;bottom:30%;z-index:-2"></div>
-
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department4 rellax anim-slide-b" data-rellax-speed="-3" style="right:30%;bottom:65%;z-index:-1"></div>
 
 	<h2 class="rlx-heading">Overview<br><small style="font-size:0.4em;font-weight:400;color:var(--text-color)">開催概要および予算規模案</small></h2>
 	<p class="overview-lead">50周年記念祭として、すべての項目で例年を大きく上回る規模での開催を計画しております。</p>
@@ -284,7 +285,7 @@
 	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="0" style="right:90%;bottom:0%;z-index:-1"></div>
 	<div class="rlx-shape rlx-md-green rellax" data-rellax-speed="2.5" style="right:47%;bottom:0%;z-index:-2"></div>
 	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="1" style="right:10%;bottom:40%;z-index:-1"></div>
-
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department5 rellax anim-slide-b" data-rellax-speed="-3" style="right:20%;bottom:100%;z-index:-1"></div>
 
 	<div class="events-header">
 		<h2 class="rlx-heading" style="margin-bottom: 0.5rem;">Events</h2>
@@ -424,13 +425,57 @@ SOFTWARE.
 <script src="js/page-visibility.js"></script>
 
 <script>
-// Rellax initialization
-if (typeof Rellax !== 'undefined') {
-    var rellax = new Rellax('.rellax', { speed: -2, center: false, round: true });
-}
+// Rellax initialization（入場アニメーション完了後に開始）
+(function() {
+    if (typeof Rellax === 'undefined') return;
+
+    var rellaxEls = document.querySelectorAll('.rellax');
+    // アニメーション付きの要素を収集
+    var animatedEls = [];
+    rellaxEls.forEach(function(el) {
+        if (el.classList.contains('anim-slide-t') ||
+            el.classList.contains('anim-slide-b') ||
+            el.classList.contains('anim-slide-l') ||
+            el.classList.contains('anim-slide-r')) {
+            animatedEls.push(el);
+        }
+    });
+
+    function initRellax() {
+        // 全アニメーション要素からアニメーションを解除して transform を開放
+        animatedEls.forEach(function(el) {
+            el.style.animation = 'none';
+        });
+        new Rellax('.rellax', { speed: -2, center: false, round: true });
+    }
+
+    if (animatedEls.length === 0) {
+        // アニメーション要素がなければ即初期化
+        initRellax();
+    } else {
+        // 全要素のアニメーション完了を待つ
+        var completed = 0;
+        animatedEls.forEach(function(el) {
+            el.addEventListener('animationend', function handler() {
+                el.removeEventListener('animationend', handler);
+                completed++;
+                if (completed >= animatedEls.length) {
+                    initRellax();
+                }
+            });
+        });
+        // フォールバック: 3秒経っても完了しなかった場合は強制初期化
+        setTimeout(function() {
+            if (completed < animatedEls.length) {
+                initRellax();
+            }
+        }, 3000);
+    }
+})();
 // Sidebar: position:fixed で画面固定 + 表示範囲制御
 (function() {
     var nav = document.querySelector('.rlx-sidebar-nav');
+    var mascot = document.querySelector('.sidebar-mascot');
     var sidebar = document.querySelector('.rlx-sidebar');
     var layout = document.querySelector('.rlx-layout');
     var emailBtn = document.querySelector('.cta-email-btn');
@@ -447,16 +492,23 @@ if (typeof Rellax !== 'undefined') {
             var sr = sidebar.getBoundingClientRect();
             nav.style.left = sr.left + 'px';
             nav.classList.add('is-fixed');
+            if (mascot) {
+                mascot.style.left = sr.left + 'px';
+                mascot.classList.add('is-fixed');
+            }
             requestAnimationFrame(function() {
                 nav.classList.add('is-visible');
+                if (mascot) mascot.classList.add('is-visible');
             });
         } else {
             // 非表示: is-visible を外してフェードアウト後に is-fixed を外す
             if (nav.classList.contains('is-visible')) {
                 nav.classList.remove('is-visible');
+                if (mascot) mascot.classList.remove('is-visible');
                 clearTimeout(hideTimer);
                 hideTimer = setTimeout(function() {
                     nav.classList.remove('is-fixed');
+                    if (mascot) mascot.classList.remove('is-fixed');
                 }, 500);
             }
         }
@@ -490,6 +542,8 @@ document.addEventListener('siteConfigLoaded', function(e) {
     if (thLast) thLast.textContent = '第' + (num - 1) + '回（2025年実績）';
     if (thThis) thThis.textContent = '第' + num + '回（2026年計画）';
 });
+
+
 </script>
 
 </body>
