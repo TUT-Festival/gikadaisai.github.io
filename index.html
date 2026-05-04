@@ -32,11 +32,18 @@
 	<meta name="twitter:title" content="第--回技科大祭｜豊橋技術科学大学の学園祭">
 	<meta name="twitter:description" content="豊橋技術科学大学の学園祭「第--回技科大祭」公式サイト。今年のテーマは「{{THEME}}」。">
 	<meta name="twitter:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
+	<!-- 初回訪問判定（同期実行: レンダリング前にCSSクラスを付与してマスコットのチラつきを防止） -->
+	<script>
+		if (!sessionStorage.getItem('opening_shown')) {
+			document.documentElement.classList.add('first-visit');
+		}
+	</script>
 </head>
 
 <body class="home">
 <!-- 準備中スクリーン（FOUC防止: CSSで初期表示、JSが読み込まれたら非表示にする） -->
-<div class="site-prerender-screen">
+<div class="site-prerender-screen" id="opening-screen">
+	<!-- 通常のマスコット走りアニメーション（2回目以降のページ遷移時に表示） -->
 	<div class="prerender-content">
 		<div class="prerender-runner">
 			<div class="prerender-mascot-wrapper">
@@ -48,6 +55,36 @@
 			<div class="prerender-ground"></div>
 		</div>
 		<p class="prerender-loading" aria-label="Loading">loading<span class="prerender-dots"></span></p>
+	</div>
+	<!-- オープニングアニメーション（初回訪問時のみJSで表示） -->
+	<div class="opening-overlay" style="display:none">
+		<div class="opening-grid-h"></div>
+		<div class="opening-grid-v"></div>
+		<div class="opening-corner opening-corner--tl"></div>
+		<div class="opening-corner opening-corner--tr"></div>
+		<div class="opening-corner opening-corner--bl"></div>
+		<div class="opening-corner opening-corner--br"></div>
+		<div class="opening-title-group">
+			<div class="opening-title" aria-label="GIKADAISAI">
+				<span class="opening-char" style="--i:0">G</span>
+				<span class="opening-char" style="--i:1">I</span>
+				<span class="opening-char" style="--i:2">K</span>
+				<span class="opening-char" style="--i:3">A</span>
+				<span class="opening-char" style="--i:4">D</span>
+				<span class="opening-char" style="--i:5">A</span>
+				<span class="opening-char" style="--i:6">I</span>
+				<span class="opening-char" style="--i:7">S</span>
+				<span class="opening-char" style="--i:8">A</span>
+				<span class="opening-char" style="--i:9">I</span>
+			</div>
+			<div class="opening-accent-line"></div>
+			<div class="opening-subtitle">技科大祭</div>
+		</div>
+		<div class="opening-particle opening-particle--1"></div>
+		<div class="opening-particle opening-particle--2"></div>
+		<div class="opening-particle opening-particle--3"></div>
+		<div class="opening-particle opening-particle--4"></div>
+		<div class="opening-particle opening-particle--5"></div>
 	</div>
 </div>
 <div id="container">
