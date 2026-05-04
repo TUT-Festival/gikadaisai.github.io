@@ -78,11 +78,39 @@
         }
     }
 
-    // アニメーションを開始
-    startMascotAnimation();
+    // --- オープニングアニメーション制御（初回訪問時のみ） ---
+    var prerenderScreen = document.querySelector('.site-prerender-screen');
+    var openingOverlay = prerenderScreen ? prerenderScreen.querySelector('.opening-overlay') : null;
+    var isFirstVisit = !sessionStorage.getItem('opening_shown');
+
+    if (isFirstVisit && openingOverlay && pageName === 'index') {
+        // 初回訪問 & index.html: マスコットを非表示にしてからオープニングを表示
+        sessionStorage.setItem('opening_shown', '1');
+        var prerenderContent = prerenderScreen.querySelector('.prerender-content');
+        if (prerenderContent) prerenderContent.style.display = 'none';
+        openingOverlay.style.display = '';
+        prerenderScreen.classList.add('opening-active');
+
+        // body.site-ready を付与（裏でコンテンツ描画開始）
+        document.body.classList.add('site-ready');
+
+        // アニメーション完了後にスライドアウト
+        var animDuration = 3900;
+        setTimeout(function () {
+            prerenderScreen.classList.add('opening-exit');
+            prerenderScreen.addEventListener('animationend', function (e) {
+                if (e.target !== prerenderScreen) return;
+                prerenderScreen.remove();
+            }, { once: true });
+        }, animDuration);
+    } else {
+        // 2回目以降 or 他ページ: オープニングHTMLを削除して通常のマスコットローディングを使用
+        if (openingOverlay) openingOverlay.remove();
+        startMascotAnimation();
+        dismissPrerender();
+    }
 
     // --- プリレンダースクリーンの祭名を更新（解除前に一瞬表示される場合に備える） ---
-    var prerenderScreen = document.querySelector('.site-prerender-screen');
     if (prerenderScreen) {
         var prerenderDesc = prerenderScreen.querySelector('.prerender-desc');
         if (prerenderDesc) {

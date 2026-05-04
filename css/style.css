@@ -1509,8 +1509,9 @@ body.site-ready .pagetop {
     visibility: visible;
 }
 
-/* JS が body.site-ready を付与したらプリレンダースクリーンを非表示 */
-body.site-ready .site-prerender-screen {
+/* JS が body.site-ready を付与したらプリレンダースクリーンを非表示
+   ※ opening-active クラスがある場合はJSでアニメーション後に削除 */
+body.site-ready .site-prerender-screen:not(.opening-active) {
     display: none !important;
 }
 
@@ -1525,6 +1526,14 @@ body.site-ready .site-prerender-screen {
     background: #ffffff;
     text-align: center;
     padding: 2rem;
+}
+
+/* 初回訪問時: マスコットを即非表示、オープニングを即表示（チラつき防止） */
+.first-visit .site-prerender-screen .prerender-content {
+    display: none !important;
+}
+.first-visit .site-prerender-screen .opening-overlay {
+    display: flex !important;
 }
 .site-prerender-screen .prerender-content {
     position: relative;
@@ -1652,5 +1661,272 @@ body.site-ready .site-prerender-screen {
     50%       { content: ' . .'; }
     75%       { content: ' . . .'; }
     100%      { content: ''; }
+}
+
+/* ========== Opening Animation (初回訪問時のみ表示) ========== */
+
+.opening-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1E2028;
+    text-align: center;
+    padding: 2rem;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+/* --- Grid crosshair lines --- */
+.opening-grid-h,
+.opening-grid-v {
+    position: absolute;
+    background: rgba(255,255,255,0.06);
+}
+.opening-grid-h {
+    height: 1px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: scaleX(0);
+    animation: grid-h-expand 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.1s;
+}
+.opening-grid-v {
+    width: 1px;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    transform: scaleY(0);
+    animation: grid-v-expand 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.2s;
+}
+@keyframes grid-h-expand {
+    to { transform: scaleX(1); }
+}
+@keyframes grid-v-expand {
+    to { transform: scaleY(1); }
+}
+
+/* --- Corner brackets --- */
+.opening-corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    animation: corner-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.opening-corner::before,
+.opening-corner::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,0.12);
+}
+.opening-corner::before { height: 1px; width: 100%; top: 0; }
+.opening-corner::after { width: 1px; height: 100%; left: 0; }
+
+.opening-corner--tl { top: 30px; left: 30px; animation-delay: 0.15s; }
+.opening-corner--tl::before { top: 0; left: 0; }
+.opening-corner--tl::after { top: 0; left: 0; }
+
+.opening-corner--tr { top: 30px; right: 30px; animation-delay: 0.25s; }
+.opening-corner--tr::before { top: 0; right: 0; left: auto; }
+.opening-corner--tr::after { top: 0; right: 0; left: auto; }
+
+.opening-corner--bl { bottom: 30px; left: 30px; animation-delay: 0.35s; }
+.opening-corner--bl::before { bottom: 0; top: auto; left: 0; }
+.opening-corner--bl::after { bottom: 0; top: auto; left: 0; }
+
+.opening-corner--br { bottom: 30px; right: 30px; animation-delay: 0.45s; }
+.opening-corner--br::before { bottom: 0; top: auto; right: 0; left: auto; }
+.opening-corner--br::after { bottom: 0; top: auto; right: 0; left: auto; }
+
+@keyframes corner-in {
+    from { opacity: 0; transform: scale(0.3); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* --- Title group container --- */
+.opening-title-group {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+.opening-title-group::before {
+    content: '';
+    position: absolute;
+    width: 120%;
+    aspect-ratio: 2 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse, rgba(199, 0, 10, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0;
+    animation: glow-in 1.5s ease forwards 1.0s;
+}
+@keyframes glow-in {
+    to { opacity: 1; }
+}
+
+/* --- GIKADAISAI title --- */
+.opening-title {
+    display: flex;
+    justify-content: center;
+    font-family: "Reddit Sans", sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 10vw, 7.5rem);
+    color: #fff;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    position: relative;
+}
+
+.opening-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px) rotateX(40deg);
+    animation:
+        char-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+        char-glow 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay:
+        calc(0.5s + var(--i) * 0.055s),
+        calc(1.7s + var(--i) * 0.08s);
+    transform-origin: center bottom;
+}
+
+@keyframes char-reveal {
+    0% { opacity: 0; transform: translateY(40px) rotateX(40deg); }
+    60% { opacity: 1; }
+    100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}
+
+@keyframes char-glow {
+    0% { color: #fff; text-shadow: none; }
+    20% {
+        color: #fff;
+        text-shadow:
+            0 0 4px rgba(255, 255, 255, 0.6),
+            0 0 11px rgba(199, 0, 10, 0.4),
+            0 0 19px rgba(199, 0, 10, 0.25);
+    }
+    50% {
+        color: #fff;
+        text-shadow:
+            0 0 7px rgba(255, 255, 255, 0.9),
+            0 0 15px rgba(255, 220, 220, 0.7),
+            0 0 30px rgba(199, 0, 10, 0.6),
+            0 0 50px rgba(199, 0, 10, 0.35),
+            0 0 80px rgba(199, 0, 10, 0.15);
+    }
+    75% {
+        color: #fff;
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.8),
+            0 0 12px rgba(255, 220, 220, 0.5),
+            0 0 25px rgba(199, 0, 10, 0.45),
+            0 0 45px rgba(199, 0, 10, 0.25),
+            0 0 70px rgba(199, 0, 10, 0.1);
+    }
+    100% {
+        color: #fff;
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.7),
+            0 0 10px rgba(255, 220, 220, 0.4),
+            0 0 22px rgba(199, 0, 10, 0.4),
+            0 0 40px rgba(199, 0, 10, 0.2),
+            0 0 65px rgba(199, 0, 10, 0.08);
+    }
+}
+
+/* --- Accent line --- */
+.opening-accent-line {
+    height: 2px;
+    margin: 1rem auto 0;
+    background: linear-gradient(90deg, transparent, #C7000A, transparent);
+    transform: scaleX(0);
+    animation: accent-expand 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 1.5s;
+    width: min(280px, 60vw);
+}
+@keyframes accent-expand {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+/* --- Subtitle 技科大祭 --- */
+.opening-subtitle {
+    font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    font-size: clamp(1.1rem, 3.5vw, 2.2rem);
+    font-weight: 700;
+    color: #C7000A;
+    margin-top: 0.8rem;
+    letter-spacing: 0.35em;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: subtitle-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 1.7s;
+}
+@keyframes subtitle-in {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Floating particles --- */
+.opening-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(199, 0, 10, 0.3);
+    opacity: 0;
+    animation: particle-drift 3s ease-in-out infinite;
+}
+.opening-particle--1 { width: 4px; height: 4px; top: 20%; left: 15%; animation-delay: 0.8s; }
+.opening-particle--2 { width: 3px; height: 3px; top: 70%; right: 20%; animation-delay: 1.2s; }
+.opening-particle--3 { width: 5px; height: 5px; bottom: 25%; left: 25%; animation-delay: 1.5s; }
+.opening-particle--4 { width: 3px; height: 3px; top: 35%; right: 12%; animation-delay: 1.0s; }
+.opening-particle--5 { width: 4px; height: 4px; bottom: 15%; right: 35%; animation-delay: 1.8s; }
+
+@keyframes particle-drift {
+    0%  { opacity: 0; transform: translateY(0) scale(0); }
+    20% { opacity: 0.6; transform: translateY(-10px) scale(1); }
+    80% { opacity: 0.4; transform: translateY(-30px) scale(0.8); }
+    100%{ opacity: 0; transform: translateY(-50px) scale(0); }
+}
+
+/* --- Exit animation --- */
+.site-prerender-screen.opening-exit {
+    animation: opening-exit 0.75s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+.site-prerender-screen.opening-exit .opening-title-group {
+    animation: title-group-exit 0.5s cubic-bezier(0.4, 0, 0.8, 1) forwards;
+    will-change: transform, opacity;
+}
+.site-prerender-screen.opening-exit .opening-corner,
+.site-prerender-screen.opening-exit .opening-grid-h,
+.site-prerender-screen.opening-exit .opening-grid-v,
+.site-prerender-screen.opening-exit .opening-particle {
+    animation: element-exit 0.3s ease forwards;
+}
+
+@keyframes opening-exit {
+    0%   { transform: translateY(0);     opacity: 1; }
+    100% { transform: translateY(-100%); opacity: 1; }
+}
+@keyframes title-group-exit {
+    0%   { transform: translateY(0);     opacity: 1; }
+    100% { transform: translateY(-40px); opacity: 0; }
+}
+@keyframes element-exit {
+    to { opacity: 0; }
+}
+
+/* --- Responsive adjustments --- */
+@media screen and (max-width: 600px) {
+    .opening-corner { width: 30px; height: 30px; }
+    .opening-corner--tl { top: 16px; left: 16px; }
+    .opening-corner--tr { top: 16px; right: 16px; }
+    .opening-corner--bl { bottom: 16px; left: 16px; }
+    .opening-corner--br { bottom: 16px; right: 16px; }
 }
 
