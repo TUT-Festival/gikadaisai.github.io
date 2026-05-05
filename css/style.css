@@ -168,14 +168,21 @@ header {
     font-weight: 700;
 }
 #logo a {
-    display: block;
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: var(--text-color);
     white-space: nowrap;
+    gap: 12px;
 }
-#logo img {
-    display: block;
-    width: 160px;
+.header-logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+.logo-text-group {
+    display: flex;
+    flex-direction: column;
 }
 #daigaku {
     font-size: 0.72rem;
@@ -189,6 +196,17 @@ header {
     font-weight: 800;
     line-height: 1.2;
 }
+
+/* Footer Logo styles */
+.footer-logo-img {
+    height: 120px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-top: 20px;
+    opacity: 1;
+}
+
 
 /* Desktop Navigation - integrated into header pill */
 #menubar-pc {

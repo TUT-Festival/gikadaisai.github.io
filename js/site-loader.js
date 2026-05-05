@@ -278,6 +278,7 @@
             '\t\t\t\t' + config.address.postalCode + '<br>\n' +
             '\t\t\t\t' + config.address.text + '\n' +
             '\t\t\t</address>\n' +
+            '\t\t\t<img src="images/TUTFESlogo.png" alt="技科大祭ロゴ" class="footer-logo-img">\n' +
             '\t\t</div>\n' +
             '\t\t<div class="footer-col">\n' +
             '\t\t\t<h4>Menu</h4>\n' +
