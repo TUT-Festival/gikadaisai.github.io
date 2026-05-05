@@ -78,11 +78,11 @@
     "pageVisibility": {
         "index": true,
         "proposal": true,
-        "shops": true,
-        "timetable": true,
+        "shops": false,
+        "timetable": false,
         "support": true,
         "access": true,
         "contact": true,
-        "guest": true
+        "guest": false
     }
 }
