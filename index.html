@@ -13,11 +13,12 @@
 	<link rel="icon" href="images/HP_icon.png" type="image/png">
 	<link rel="apple-touch-icon" href="images/HP_icon.png">
 	<!-- Google Fonts (4フォントを1リクエストに統合) -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP:wght@100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP:wght@100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:wght@400;600;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<!-- Site stylesheet -->
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/index.css">
 	<!-- OGP / SNSシェア用 -->
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="第--回技科大祭">
@@ -161,24 +162,306 @@
 
 <h1 class="sr-only">第--回技科大祭｜豊橋技術科学大学の学園祭</h1>
 
-<section class="feature-block">
-    <div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -120px;"></div>
-    <div class="deco-circle deco-circle--filled deco-circle--lg" style="bottom: -60px; right: -40px;"></div>
-    <div class="deco-circle deco-circle--solid deco-circle--md" style="top: 30px; right: 10%;"></div>
-    <div class="deco-circle deco-circle--dashed deco-circle--sm" style="bottom: 40px; left: 15%;"></div>
-    <div class="feature-content-text">
-        <h2 class="feature-heading">
-            <span class="feature-en-heading">Theme</span>
-            <span class="feature-ja-heading">今年のテーマ</span>
-        </h2>
-        <p class="theme-showcase-text" id="theme-text">{{THEME}}</p>
-    </div>
-    <div class="feature-poster-container">
-        <img id="poster-img" src="data/poster.png" alt="技科大祭 テーマポスター">
-    </div>
+<!-- Container for Proposal content with local background grid -->
+<div class="rlx-proposal-wrapper" style="position: relative; overflow: hidden; z-index: 5;">
+
+<!-- Top Center Banner Link -->
+<div class="rlx-top-banner-container anim-slide-t">
+	<a href="support.html" class="rlx-top-banner">
+		<span class="rlx-top-banner-text">半世紀で過去最大の学祭へ、ご協賛・ご寄付のお願い</span>
+		<i class="fas fa-chevron-right rlx-top-banner-icon"></i>
+	</a>
+</div>
+
+<!-- Background Grid -->
+<div class="rlx-grid" aria-hidden="true">
+	<div class="rlx-grid-line" style="left:8.33%"></div>
+	<div class="rlx-grid-line" style="left:16.66%"></div>
+	<div class="rlx-grid-line" style="left:25%"></div>
+	<div class="rlx-grid-line" style="left:33.33%"></div>
+	<div class="rlx-grid-line" style="left:41.66%"></div>
+	<div class="rlx-grid-line" style="left:50%"></div>
+	<div class="rlx-grid-line" style="left:58.33%"></div>
+	<div class="rlx-grid-line" style="left:66.66%"></div>
+	<div class="rlx-grid-line" style="left:75%"></div>
+	<div class="rlx-grid-line" style="left:83.33%"></div>
+	<div class="rlx-grid-line" style="left:91.66%"></div>
+</div>
+
+<!-- ==================== Section: Hero (from proposal) ==================== -->
+<section class="proposal-hero">
+	<div class="rlx-shape rlx-sm-green rellax anim-slide-t" data-rellax-speed="10" style="right:30%;bottom:10%;z-index:1"></div>
+	<div class="rlx-shape rlx-md-green rellax anim-slide-l" data-rellax-speed="6" style="right:60%;bottom:30%;z-index:-2"></div>
+	<div class="rlx-shape rlx-sm-purple rellax anim-slide-l" data-rellax-speed="2" style="right:40%;bottom:60%;z-index:-2"></div>
+	<div class="rlx-shape rlx-md-green rellax anim-slide-r" data-rellax-speed="8" style="right:5%;bottom:-50%;z-index:-2"></div>
+	<div class="rlx-shape rlx-md-green rellax anim-slide-l" data-rellax-speed="-1" style="right:85%;bottom:-50%;z-index:-2"></div>
+
+	<div class="proposal-hero-content">
+		<span class="proposal-hero-badge anim-slide-l anim-d1">豊橋技術科学大学 開学50周年</span>
+		<div class="hero-white-block anim-slide-l anim-d2"></div>
+		<h1 class="proposal-hero-title anim-slide-l anim-d3">
+			50周年の<br>
+			<span class="proposal-hero-accent">"思い出"</span>を<br>
+			一緒に作ろう。
+		</h1>
+		<div class="proposal-hero-date anim-slide-l anim-d4">
+			<i class="fas fa-calendar-days"></i>
+			第--回 技科大祭 本番：10/10(土)・11(日)
+		</div>
+	</div>
 </section>
 
-<section class="bg1">
+<!-- Layout: Sidebar + Content -->
+<div class="rlx-layout">
+<aside class="rlx-sidebar">
+	<div class="rlx-sidebar-nav">
+		<span class="rlx-nav-label">セクション</span>
+		<a href="#Highlights" class="rlx-nav-link">昨年の実績</a>
+		<a href="#Overview" class="rlx-nav-link">開催概要</a>
+		<a href="#Events" class="rlx-nav-link">特別企画</a>
+		<a href="#Support" class="rlx-nav-link">ご支援</a>
+		<span class="rlx-nav-divider">詳細情報</span>
+		<a href="#Date" class="rlx-nav-link">開催日</a>
+		<a href="#Guest" class="rlx-nav-link">ゲスト</a>
+		<a href="#Access" class="rlx-nav-link">アクセス</a>
+		<a href="#Sponsors" class="rlx-nav-link">ご協賛・ご寄付</a>
+	</div>
+	<img src="images/library.png" alt="" class="sidebar-mascot">
+</aside>
+<div class="rlx-content">
+
+<!-- ==================== Section: Last Year's Highlights ==================== -->
+<section class="rlx-section" id="Highlights">
+	<div class="rlx-bg-text rellax anim-fade-in" data-rellax-speed="-3" style="top:-200px;z-index:-1">HIGHLIGHTS</div>
+	<div class="rlx-shape rlx-sm-green rellax" data-rellax-speed="3" style="right:30%;bottom:0%;z-index:1"></div>
+	<div class="rlx-shape rlx-lg-purple rellax" data-rellax-speed="1.6" style="right:0%;bottom:0%;z-index:-2"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department3 rellax anim-slide-b" data-rellax-speed="-3" style="right:10%;top:55%;z-index:-1"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department2 rellax anim-slide-b" data-rellax-speed="-1" style="right:10%;top:0%;z-index:-1"></div>
+
+	<h2 class="rlx-heading anim-fade-in">Highlights<br><small class="anim-fade-in" style="font-size:0.4em;font-weight:400;color:var(--text-color)">昨年の<span class="text-purple">"盛り上がり"</span></small></h2>
+	<span class="rlx-badge anim-fade-in">2025 RESULT</span>
+
+	<div class="highlights-grid">
+		<!-- 来場者数 -->
+		<div class="highlight-card highlight-card--hero">
+			<i class="fas fa-users highlight-card-icon"></i>
+			<p class="highlight-label">総来場者数</p>
+			<p class="highlight-number">3,000<span class="highlight-unit">人</span></p>
+			<p class="highlight-sub">2日間で過去最大級の動員！</p>
+		</div>
+		<!-- ステージ企画 -->
+		<div class="highlight-card">
+			<i class="fas fa-microphone-stand highlight-card-icon highlight-card-icon--red"></i>
+			<h3 class="highlight-card-title">ステージ企画</h3>
+			<p class="highlight-card-desc">学生バンド、ダンス、コンテストなど、朝から夕方までノンストップの熱狂。</p>
+		</div>
+		<!-- 模擬店 -->
+		<div class="highlight-card">
+			<i class="fas fa-utensils highlight-card-icon highlight-card-icon--red"></i>
+			<h3 class="highlight-card-title">模擬店＆キッチンカー</h3>
+			<p class="highlight-card-desc">屋内外合わせて多数出店。売り切れ続出の人気グルメが集結。</p>
+		</div>
+		<!-- お笑いライブ -->
+		<div class="highlight-card">
+			<i class="fas fa-face-laugh-beam highlight-card-icon highlight-card-icon--red"></i>
+			<h3 class="highlight-card-title">お笑いライブ</h3>
+			<p class="highlight-card-desc">ハリウッドザコシショウさんなど有名芸人を招待！笑いに包まれるメインイベント!!</p>
+		</div>
+		<!-- 打ち上げ花火 -->
+		<div class="highlight-card">
+			<i class="fas fa-burst highlight-card-icon highlight-card-icon--red"></i>
+			<h3 class="highlight-card-title">初の打ち上げ花火</h3>
+			<p class="highlight-card-desc">フィナーレを飾る大迫力の花火。キャンパスの夜空を彩る感動の瞬間。</p>
+		</div>
+	</div>
+</section>
+
+<!-- ==================== Section: Overview & Comparison ==================== -->
+<section class="rlx-section" id="Overview">
+	<div class="rlx-bg-text rellax" data-rellax-speed="-3" style="top:-500px">OVERVIEW</div>
+	<div class="rlx-shape rlx-sm-purple rellax" data-rellax-speed="0.2" style="right:15%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="0" style="right:90%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-lg-green rellax" data-rellax-speed="1.6" style="right:50%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-md-green rellax" data-rellax-speed="3" style="right:0%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="3" style="right:80%;bottom:30%;z-index:-2"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department4 rellax anim-slide-b" data-rellax-speed="-3" style="right:10%;bottom:62%;z-index:-1"></div>
+
+	<h2 class="rlx-heading">Overview<br><small style="font-size:0.4em;font-weight:400;color:var(--text-color)">開催概要および予算規模案</small></h2>
+	<p class="overview-lead">50周年記念祭として、すべての項目で例年を大きく上回る規模での開催を計画しております。</p>
+
+	<div class="overview-table-container">
+		<table class="overview-table">
+			<thead>
+				<tr>
+					<th class="overview-th-label">項目</th>
+					<th class="overview-th-last" id="th-last-year">（2025年実績）</th>
+					<th class="overview-th-this" id="th-this-year">（2026年計画）</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="overview-td-label">開催日時</td>
+					<td>2025年10月11日(土)・12日(日)</td>
+					<td class="overview-td-highlight">2026年10月10日(土)・11日(日)<span class="overview-badge">予定</span></td>
+				</tr>
+				<tr>
+					<td class="overview-td-label">開催場所</td>
+					<td>豊橋技術科学大学 キャンパス内</td>
+					<td>豊橋技術科学大学 キャンパス内</td>
+				</tr>
+				<tr>
+					<td class="overview-td-label">来場者数</td>
+					<td>約3,000人</td>
+					<td class="overview-td-highlight"><strong>目標：5,000人</strong></td>
+				</tr>
+				<tr>
+					<td class="overview-td-label">予算規模</td>
+					<td>約400万円</td>
+					<td class="overview-td-highlight"><strong>計画：800万円</strong><span class="overview-sub">（最大1000万円）</span></td>
+				</tr>
+				<tr>
+					<td class="overview-td-label">主要企画</td>
+					<td>
+						<ul class="overview-list">
+							<li>お笑い芸人ステージ</li>
+							<li>学生・サークル企画</li>
+							<li>模擬店</li>
+							<li>打ち上げ花火（3分間）</li>
+						</ul>
+					</td>
+					<td class="overview-td-highlight">
+						<ul class="overview-list overview-list--enhanced">
+							<li><span class="overview-tag">拡充</span>スペシャルライブ</li>
+							<li><span class="overview-tag">拡充</span>体験型科学企画</li>
+							<li><span class="overview-tag">拡充</span>ご当地グルメ模擬店</li>
+							<li><span class="overview-tag">拡充</span>記念打ち上げ花火</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="overview-vision">
+		<div class="overview-vision-from">
+			<span>学生と地域をつなぐ</span>
+		</div>
+		<i class="fas fa-arrow-right overview-vision-arrow"></i>
+		<div class="overview-vision-to">
+			<p>学生・卒業生・地域社会が一体となり、<br>未来の技術と地域文化を共創・発信する</p>
+		</div>
+	</div>
+</section>
+
+<!-- ==================== Section: Special Events (Planned) ==================== -->
+<section class="rlx-section" id="Events">
+<div class="rlx-bg-text rellax" data-rellax-speed="-3" style="top:-830px">EVENTS</div>
+	<div class="rlx-shape rlx-sm-green rellax" data-rellax-speed="2" style="right:35%;bottom:-40%;z-index:2"></div>
+	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="0" style="right:90%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-md-green rellax" data-rellax-speed="2.5" style="right:47%;bottom:0%;z-index:-2"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department5 rellax anim-slide-b" data-rellax-speed="-3" style="right:10%;bottom:97%;z-index:-1"></div>
+
+	<div class="events-header">
+		<h2 class="rlx-heading" style="margin-bottom: 0.5rem;">Events</h2>
+		<span class="events-badge" style="margin-bottom: 1.5rem; display: inline-block;">50th ANNIVERSARY SPECIAL</span>
+		<div style="font-size: 20px; font-weight: 700; color: var(--text-color); margin-bottom: 0.5rem;">2026年の<span class="text-accent">"特別予定企画（計画中）"</span></div>
+		<p class="events-subtitle">記念年だからこそ、過去最大規模の挑戦を。</p>
+	</div>
+
+	<div class="events-grid">
+		<!-- ご当地グルメ模擬店 -->
+		<div class="event-card event-card--white">
+			<i class="fas fa-utensils event-card-icon event-card-icon--yellow"></i>
+			<h3 class="event-card-title">ご当地グルメ<br>模擬店</h3>
+			<p class="event-card-desc">全国の高専出身者が集う技科大ならでは！日本各地の「故郷の味」が集結する食の祭典を開催。</p>
+		</div>
+		<!-- お笑いライブ拡大版 -->
+		<div class="event-card event-card--white">
+			<i class="fas fa-microphone event-card-icon event-card-icon--yellow"></i>
+			<h3 class="event-card-title">お笑いライブ<br>拡大版</h3>
+			<p class="event-card-desc">50周年を記念してゲスト枠を拡大！テレビで見る有名芸人を招き、爆笑のステージを届ける。</p>
+		</div>
+		<!-- 超至近距離打上花火 -->
+		<div class="event-card event-card--white">
+			<i class="fas fa-fire event-card-icon event-card-icon--white"></i>
+			<h3 class="event-card-title">超至近距離<br>打上花火</h3>
+			<p class="event-card-desc">昨年大好評の企画を継続＆演出強化！キャンパスの夜空を埋め尽くす、感動のフィナーレ。</p>
+		</div>
+		<!-- 学祭TechFes開催 -->
+		<div class="event-card event-card--white">
+			<i class="fas fa-flask event-card-icon event-card-icon--green"></i>
+			<h3 class="event-card-title">学祭 TechFes<br>開催</h3>
+			<p class="event-card-desc">「学術」×「祭り」の融合。大学の公式技術展示企画と連携し、知的エンターテインメント空間を創出。</p>
+		</div>
+		<!-- 地域連携アート展示 -->
+		<div class="event-card event-card--white">
+			<i class="fas fa-palette event-card-icon event-card-icon--green"></i>
+			<h3 class="event-card-title">地域連携<br>アート展示</h3>
+			<p class="event-card-desc">豊橋市内の中学生による作品展示企画。地域と大学をアートで繋ぐ、新しい交流のカタチ。</p>
+		</div>
+	</div>
+	<p class="events-disclaimer" style="margin-top: 2.5rem;">※上記は計画中の企画であり、内容は予告なく変更となる場合があります。</p>
+</section>
+
+<!-- ==================== Section: Sponsorship & Donation CTA ==================== -->
+<section class="rlx-section" id="Support">
+	<div class="rlx-bg-text rellax" data-rellax-speed="-3" style="top:-1200px">SUPPORT</div>
+	<div class="rlx-shape rlx-lg-green rellax" data-rellax-speed="0.2" style="right:15%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="0" style="right:90%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-sm-green rellax" data-rellax-speed="1.6" style="right:50%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-md-purple rellax" data-rellax-speed="3" style="right:0%;bottom:0%;z-index:-1"></div>
+	<div class="rlx-shape rlx-lg-purple mascot-image-shape-department1 rellax anim-slide-b" data-rellax-speed="0" style="right:10%;bottom:0%;z-index:-1"></div>
+
+	<h2 class="rlx-heading">Support Us<br><small style="font-size:0.4em;font-weight:400;color:var(--text-color)">ご協賛・ご寄付のお願い</small></h2>
+
+	<div class="cta-container">
+		<div class="cta-message">
+			<p>技科大祭は豊橋技術科学大学の学生が主体となって企画・運営する大学祭です。<br>
+			皆様に過去最大のイベントをお届けするため、ご支援を心よりお願いしております。</p>
+			<p>いただいたご寄付は、ステージ設営・装飾・企画運営費など、技科大祭の開催に必要な費用として大切に活用させていただきます。<br>
+			少額からのご支援も大変ありがたく、皆様のご厚意が学生たちの活動を支える大きな力となります。</p>
+		</div>
+
+		<div class="cta-cards">
+			<!-- ご協賛（団体向け） -->
+			<div class="cta-card cta-card--sponsor">
+				<div class="cta-card-header">
+					<i class="fas fa-building"></i>
+					<h3>ご協賛<span class="cta-card-sub">（団体向け）</span></h3>
+				</div>
+				<div class="cta-card-actions">
+					<a href="https://drive.google.com/file/d/1-mPSpP1sCtMCyTWOUJHBlgJgblsIcP9M/view?usp=drive_link" class="cta-btn cta-btn--outline" target="_blank" rel="noopener noreferrer">プランの詳細</a>
+					<a href="https://docs.google.com/forms/d/e/1FAIpQLSdLSp2VjwMjkiS8ePOrO1tOZrOFSugx96MJHr6amTSygyZS9w/viewform" class="cta-btn cta-btn--filled cta-btn--gold" target="_blank" rel="noopener noreferrer">お申込み</a>
+				</div>
+			</div>
+			<!-- ご寄付（個人向け） -->
+			<div class="cta-card cta-card--donation">
+				<div class="cta-card-header">
+					<i class="fas fa-user"></i>
+					<h3>ご寄付<span class="cta-card-sub">（個人向け）</span></h3>
+				</div>
+				<div class="cta-card-actions">
+					<a href="https://docs.google.com/presentation/d/15koDFsxh6fDrLjPWgeG1JBRzC5ZcxjHgExnQD3-B57Q/present?slide=id.g3de7692f301_0_0" class="cta-btn cta-btn--outline cta-btn--outline-red" target="_blank" rel="noopener noreferrer">プランの詳細</a>
+					<a href="https://www.tut.ac.jp/kikin/kifu/" class="cta-btn cta-btn--filled cta-btn--red" target="_blank" rel="noopener noreferrer">お申込み</a>
+				</div>
+			</div>
+		</div>
+
+		<p class="cta-note">ご協賛、ご寄付に関するご質問・ご相談は、<a href="contact.html">お問い合わせページ</a>よりメールにてお受けしております。<br>お気軽にご連絡ください。</p>
+
+		<a href="mailto:tut.festival@gmail.com" class="cta-email-btn">
+			<i class="fas fa-envelope"></i>
+			tut.festival@gmail.com
+		</a>
+	</div>
+<style>#Support { margin-bottom: 0rem; }</style>
+</section>
+
+</div><!-- /.rlx-content -->
+</div><!-- /.rlx-layout -->
+</div><!-- /.rlx-proposal-wrapper -->
+
+<section id="Date" class="bg1">
 	<div class="deco-circle deco-circle--dashed deco-circle--lg" style="top: -30px; right: -60px;"></div>
 	<div class="deco-circle deco-circle--filled-blue deco-circle--xl" style="bottom: -100px; left: -80px;"></div>
 	<div class="deco-circle deco-circle--solid deco-circle--sm" style="top: 50%; left: 5%;"></div>
@@ -203,7 +486,7 @@
         </div>
 	</div>
 </section>
-<section class="guest-feature-text-only">
+<section id="Guest" class="guest-feature-text-only">
     <div class="deco-circle deco-circle--dashed deco-circle--md" style="top: -20px; right: 8%;"></div>
     <div class="deco-circle deco-circle--filled deco-circle--lg" style="bottom: -40px; left: -30px;"></div>
     <div class="feature-content-text">
@@ -212,11 +495,11 @@
             <span class="feature-ja-heading">今年のゲスト</span>
         </h2>
         <p class="guest-showcase-text">今年も豪華ゲストが登場！<br>詳細はイベントページをご確認ください。</p>
-        <a href="proposal.html" class="feature-button">イベントページへ</a>
+        <a href="guest.html" class="feature-button">イベントページへ</a>
     </div>
 </section>
 
-<section class="bg1">
+<section id="Access" class="bg1">
 	<div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -60px; left: -100px;"></div>
 	<div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
 	<div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
@@ -262,7 +545,7 @@
 </section>
 
 <!-- Section: Sponsors -->
-<section style="position: relative;" class="bg1">
+<section id="Sponsors" class="bg1 rlx-index-legacy-section">
     <div class="deco-circle deco-circle--dashed deco-circle--xl" style="top: -80px; left: -100px;"></div>
     <div class="deco-circle deco-circle--solid deco-circle--md" style="bottom: 20px; right: 5%;"></div>
     <div class="deco-circle deco-circle--dashed deco-circle--sm" style="top: 40%; right: -20px;"></div>
@@ -273,7 +556,7 @@
 </section>
 
 <!-- Section: Supporters -->
-<section style="position: relative;">
+<section id="Supporters" class="bg1 rlx-index-legacy-section" style="position: relative;">
     <div class="deco-circle deco-circle--filled deco-circle--md" style="top: 150px; left: -40px;"></div>
     <div class="deco-circle deco-circle--solid deco-circle--sm" style="bottom: 100px; right: 8%;"></div>
     <h2 class="c"><span>Supporters</span><span class="hosoku">ご寄付いただいた皆様</span></h2>
@@ -329,25 +612,134 @@
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 
 <script src="js/main.js"></script>
 <script src="js/site-loader.js"></script>
+
+<!-- Rellax.js -->
+<script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+
 <script src="js/page-visibility.js"></script>
 <script src="js/festival-countdown.js"></script>
 <script src="js/bus-countdown.js"></script>
 
 <script>
-// site-config 読み込み後にテーマ・ポスター・Google Maps リンクを更新
+// Rellax initialization（入場アニメーション完了後に開始）
+(function() {
+    if (typeof Rellax === 'undefined') return;
+
+    var rellaxEls = document.querySelectorAll('.rellax');
+    var animatedEls = [];
+    rellaxEls.forEach(function(el) {
+        if (el.classList.contains('anim-slide-t') ||
+            el.classList.contains('anim-slide-b') ||
+            el.classList.contains('anim-slide-l') ||
+            el.classList.contains('anim-slide-r')) {
+            animatedEls.push(el);
+        }
+    });
+
+    function initRellax() {
+        animatedEls.forEach(function(el) {
+            el.style.animation = 'none';
+        });
+        new Rellax('.rellax', { speed: -2, center: false, round: true });
+    }
+
+    if (animatedEls.length === 0) {
+        initRellax();
+    } else {
+        var completed = 0;
+        animatedEls.forEach(function(el) {
+            el.addEventListener('animationend', function handler() {
+                el.removeEventListener('animationend', handler);
+                completed++;
+                if (completed >= animatedEls.length) {
+                    initRellax();
+                }
+            });
+        });
+        setTimeout(function() {
+            if (completed < animatedEls.length) {
+                initRellax();
+            }
+        }, 3000);
+    }
+})();
+
+// Sidebar: position:fixed で画面固定 + 表示範囲制御
+(function() {
+    var nav = document.querySelector('.rlx-sidebar-nav');
+    var mascot = document.querySelector('.sidebar-mascot');
+    var sidebar = document.querySelector('.rlx-sidebar');
+    var supporters = document.getElementById('Supporters'); // 表示終了の基準点
+    var highlights = document.getElementById('Highlights');
+    if (!nav || !sidebar || !highlights) return;
+    var hideTimer = null;
+    function updateSidebar() {
+        var hr = highlights.getBoundingClientRect();
+        var sectionVisible = hr.top < 80;
+        // Supporters セクションの底が画面内にあるうちは表示を維持
+        var pastSupporters = supporters ? supporters.getBoundingClientRect().bottom < (80 + nav.offsetHeight) : true;
+        if (sectionVisible && !pastSupporters) {
+            clearTimeout(hideTimer);
+            var sr = sidebar.getBoundingClientRect();
+            nav.style.left = sr.left + 'px';
+            nav.classList.add('is-fixed');
+            if (mascot) {
+                mascot.style.left = sr.left + 'px';
+                mascot.classList.add('is-fixed');
+            }
+            requestAnimationFrame(function() {
+                nav.classList.add('is-visible');
+                if (mascot) mascot.classList.add('is-visible');
+            });
+        } else {
+            if (nav.classList.contains('is-visible')) {
+                nav.classList.remove('is-visible');
+                if (mascot) mascot.classList.remove('is-visible');
+                clearTimeout(hideTimer);
+                hideTimer = setTimeout(function() {
+                    nav.classList.remove('is-fixed');
+                    if (mascot) mascot.classList.remove('is-fixed');
+                }, 500);
+            }
+        }
+    }
+    window.addEventListener('scroll', updateSidebar, { passive: true });
+    window.addEventListener('resize', updateSidebar);
+    updateSidebar();
+})();
+
+// Sidebar active link on scroll
+(function() {
+    var links = document.querySelectorAll('.rlx-nav-link');
+    var sections = [];
+    links.forEach(function(l) {
+        var s = document.querySelector(l.getAttribute('href'));
+        if (s) sections.push({ el: s, link: l });
+    });
+    window.addEventListener('scroll', function() {
+        var st = window.scrollY + 120;
+        sections.forEach(function(s) {
+            var top = s.el.offsetTop, bot = top + s.el.offsetHeight;
+            s.link.classList.toggle('active', st >= top && st < bot);
+        });
+    });
+})();
+
+// site-config 読み込み後にテーブル見出しとマップリンクを更新
 document.addEventListener('siteConfigLoaded', function(e) {
     var config = e.detail;
-    // テーマ
-    var themeText = document.getElementById('theme-text');
-    if (themeText) themeText.textContent = config.theme;
-    // ポスター画像
-    var posterImg = document.getElementById('poster-img');
-    if (posterImg) posterImg.src = config.images.poster;
+    var num = config.festivalNumber;
+    
+    // テーブル見出しの回数更新
+    var thLast = document.getElementById('th-last-year');
+    var thThis = document.getElementById('th-this-year');
+    if (thLast) thLast.textContent = '第' + (num - 1) + '回（2025年実績）';
+    if (thThis) thThis.textContent = '第' + num + '回（2026年計画）';
+    
     // Google Maps 経路リンク
     var mapLink = document.getElementById('map-direction-link');
     if (mapLink) mapLink.href = config.access.googleMapsDirection;

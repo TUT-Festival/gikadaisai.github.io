@@ -107,7 +107,6 @@ body:not(.home) #container {
    (#contents の overflow-x: hidden がページ境界でクリップする) */
 main section,
 .bg1,
-.feature-block,
 .guest-feature-text-only {
     position: relative;
     isolation: isolate;
@@ -1011,36 +1010,20 @@ p.next-bus-info {
 }
 
 /* ========== Feature Blocks (Theme & Guest) ========== */
-.feature-block {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    padding: 5vw var(--global-space);
-    margin: 5vw 0;
-    overflow: hidden;
-    position: relative;
-}
+/* index.html の既存セクションで使用 */
 .guest-feature-text-only {
-    padding: 5vw var(--global-space);
-    margin: 5vw 0;
+    padding: 4rem var(--global-space);
+    margin: var(--section-gap) calc(-1 * var(--global-space));
     position: relative;
-}
-.feature-poster-container img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: var(--radius-card);
-    border: 1.5px solid var(--border-color);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-    transition: all 0.4s ease;
-}
-.feature-poster-container img:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    background: #fff; /* 背景グリッドを隠す */
+    z-index: 1;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 .feature-content-text {
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 .feature-heading {
     margin-bottom: 2rem;
@@ -1057,25 +1040,18 @@ p.next-bus-info {
 .feature-ja-heading {
     display: block;
     font-family: "Noto Sans JP", sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 500;
     margin-top: 0.5rem;
     color: var(--text-color);
     opacity: 0.6;
-}
-.theme-showcase-text {
-    font-family: "Zen Maru Gothic", "Noto Sans JP", serif;
-    font-size: clamp(4rem, 20vw, 9rem);
-    font-weight: 500;
-    line-height: 1;
-    margin: 0;
-    color: var(--primary-color);
 }
 .guest-showcase-text {
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 1.8;
     margin-bottom: 2.5rem;
+    color: var(--text-color);
 }
 .feature-button {
     display: inline-block;
@@ -1097,6 +1073,17 @@ p.next-bus-info {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(255, 107, 94, 0.3);
 }
+
+/* ========== Section backgrounds (Sponsors/Supporters) ========== */
+.bg1 {
+    background: #fff;
+    z-index: 1;
+}
+section[style*="position: relative"] {
+    background: #fff;
+    z-index: 1;
+}
+
 
 /* ========== Fixed Action Buttons ========== */
 /* ページトップボタン: opacity/visibility でフェード制御 (display:none は使わない) */
@@ -1318,15 +1305,7 @@ body.modal-open {
         font-size: 16px;
     }
 }
-@media screen and (max-width: 768px) {
-    .feature-block {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-    .feature-poster-container {
-        order: 2;
-    }
-}
+
 @media screen and (min-width: 769px) {
     .map-instruction-overlay {
         display: none;

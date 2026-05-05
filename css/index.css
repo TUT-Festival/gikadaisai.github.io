@@ -14,13 +14,13 @@
 
 /* ---------- Background Grid ---------- */
 .rlx-grid {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    z-index: 0;
+    height: 100%;
     pointer-events: none;
+    z-index: -1;
 }
 .rlx-grid-line {
     position: absolute;
@@ -123,6 +123,54 @@
 .anim-d2 { animation-delay: 0.7s; }
 .anim-d3 { animation-delay: 0.8s; }
 .anim-d4 { animation-delay: 0.9s; }
+.anim-d5 { animation-delay: 1.0s; }
+
+/* ---------- Top Center Banner ---------- */
+.rlx-top-banner-container {
+    position: fixed;
+    top: 70px; /* ヘッダーの下付近に固定 */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1001; /* ヘッダー(100)より前面 */
+    pointer-events: none;
+}
+.rlx-top-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    padding: 8px 24px;
+    border-radius: 999px;
+    text-decoration: none;
+    pointer-events: auto;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+.rlx-top-banner:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 94, 0.15);
+    border-color: rgba(255, 107, 94, 0.4);
+}
+.rlx-top-banner-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: 0.05em;
+}
+.rlx-top-banner-icon {
+    font-size: 10px;
+    color: #FF6B5E;
+    transition: transform 0.3s ease;
+}
+.rlx-top-banner:hover .rlx-top-banner-icon {
+    transform: translateX(3px);
+}
 
 /* ---------- Hero Section ---------- */
 .proposal-hero {
@@ -171,7 +219,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--text-color);
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.2rem;
     background: none;
     border: none;
     padding: 0;
@@ -228,22 +276,22 @@
     display: flex;
     gap: 3rem;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     margin-top: 4rem;
 }
 .rlx-sidebar {
-    width: 240px;
+    width: 180px;
     flex-shrink: 0;
 }
 .rlx-sidebar-nav {
-    z-index: 4;
+    z-index: 110;
     border-radius: 4px;
     border: 1px solid var(--border-color);
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    padding: 2rem;
-    width: 240px;
+    padding: 1.2rem;
+    width: 180px;
     opacity: 0;
     transform: translateX(-16px);
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -257,20 +305,21 @@
 /* サイドバー下マスコット画像（サイドバーと同じタイミングで表示） */
 .sidebar-mascot {
     display: block;
-    width: 140px;
+    width: 100px;
     height: auto;
     margin: 1rem auto 0;
     pointer-events: none;
     opacity: 0;
+    z-index: 110;
     transform: translateX(-16px);
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .sidebar-mascot.is-fixed {
     position: fixed;
-    top: calc(80px + 350px);
-    margin-left: 30px;
-    width: 140px;
+    top: calc(80px + 470px);
+    margin-left: 20px;
+    width: 100px;
 }
 .sidebar-mascot.is-visible {
     opacity: 1;
@@ -287,11 +336,11 @@
 }
 .rlx-nav-label {
     display: block;
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.25em;
     color: var(--accent-text-color);
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.8rem;
     font-weight: 800;
     opacity: 0.9;
     text-shadow: none;
@@ -309,10 +358,10 @@
 }
 .rlx-nav-link {
     display: block;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text-color) !important;
-    padding: 0.7rem 0;
+    padding: 0.5rem 0;
     text-decoration: none !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-bottom: 1px solid var(--border-color);
