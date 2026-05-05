@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>タイムテーブル｜第--回技科大祭</title>
+	<title>予定イベント｜第--回技科大祭</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="第--回技科大祭のタイムテーブル。ステージイベントの時間割を掲載しています。豊橋技術科学大学にて開催。">
+	<meta name="description" content="豊橋技術科学大学 第--回技科大祭の予定イベント一覧。">
 	<!-- Preconnect -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,25 +13,12 @@
 	<link rel="icon" href="images/HP_icon.png" type="image/png">
 	<link rel="apple-touch-icon" href="images/HP_icon.png">
 	<!-- Google Fonts -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP:wght@100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP:wght@100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:wght@400;600;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<!-- Site stylesheet -->
 	<link rel="stylesheet" href="css/style.css">
-	<!-- OGP / SNSシェア用 -->
-	<meta property="og:type" content="website">
-	<meta property="og:site_name" content="第--回技科大祭">
-	<meta property="og:title" content="タイムテーブル｜第--回技科大祭">
-	<meta property="og:description" content="第--回技科大祭のタイムテーブル。豊橋技術科学大学にて開催。">
-	<meta property="og:url" content="https://sea.tut.ac.jp/gikadaisai/timetable.html">
-	<meta property="og:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
-	<meta property="og:locale" content="ja_JP">
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@tut_festival">
-	<meta name="twitter:title" content="タイムテーブル｜第--回技科大祭">
-	<meta name="twitter:description" content="第--回技科大祭のタイムテーブル。豊橋技術科学大学にて開催。">
-	<meta name="twitter:image" content="https://sea.tut.ac.jp/gikadaisai/data/poster.png">
+	<link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -102,44 +89,31 @@
 </header>
 
 <div id="contents">
-
-<main>
-
-<section style="position: relative;">
-	<div class="deco-circle deco-circle--dashed deco-circle--lg" style="top: -40px; left: -60px;"></div>
-	<div class="deco-circle deco-circle--filled-blue deco-circle--md" style="top: 80px; right: -30px;"></div>
-	<h1><span>Timetable</span><span class="hosoku">タイムテーブル</span></h1>
-
-	<div class="c" style="margin-top: 2rem;">
-		<img id="timetable-img" src="" alt="技科大祭 タイムテーブル">
-	</div>
-
-</section>
-
-</main>
-
+	<main>
+		<section class="rlx-section">
+			<h2 class="rlx-heading">予定イベント</h2>
+			<p>現在、イベント情報を準備中です。最新情報はトップページをご覧ください。</p>
+			<div style="margin-top: 2rem;">
+				<a href="index.html" class="cta-btn cta-btn--filled cta-btn--red" style="display: inline-block;">トップページへ戻る</a>
+			</div>
+		</section>
+	</main>
 </div>
-<footer></footer>
+
+<footer>
+	<div class="footer-inner">
+		<p class="copyright">&copy; 第--回技科大祭実行委員会</p>
+	</div>
+</footer>
+
 <div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
 
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
-
 <script src="js/main.js"></script>
 <script src="js/site-loader.js"></script>
 <script src="js/page-visibility.js"></script>
-
-<script>
-// site-config 読み込み後にタイムテーブル画像を設定
-document.addEventListener('siteConfigLoaded', function(e) {
-    var config = e.detail;
-    var img = document.getElementById('timetable-img');
-    if (img) img.src = config.images.timetable;
-});
-</script>
 
 </body>
 </html>

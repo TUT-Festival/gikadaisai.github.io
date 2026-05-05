@@ -70,9 +70,9 @@ iframe {
 input {
     font-size: 1rem;
 }
-section + section {
+/* section + section {
     margin-top: 3rem;
-}
+} */
 a {
     color: var(--text-color);
     transition: 0.3s;
@@ -141,7 +141,38 @@ main section,
 .deco-circle--lg { width: 200px; height: 200px; }
 .deco-circle--xl { width: 340px; height: 340px; }
 
-/* ========== Header ========== */
+/* ========== Full-width White Sections ========== */
+/* 
+   全ての標準的なセクションを端まで白背景にし、
+   例外として index.html のプロポーザル関連セクションを除外する。
+*/
+main section:not(.proposal-hero):not(.rlx-section) {
+    background: var(--bg-light); /* 白背景 */
+    color: var(--text-color);
+    /* 親要素（#contents）のパディング 5vw を打ち消して端まで広げる */
+    margin-left: calc(-1 * var(--global-space));
+    margin-right: calc(-1 * var(--global-space));
+    /* コンテンツの位置を保持するためのパディング */
+    padding-left: var(--global-space);
+    padding-right: var(--global-space);
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    /* セクション間のグレーの隙間 */
+    margin-top: var(--section-gap);
+    margin-bottom: var(--section-gap);
+    /* 境界線と影 */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    position: relative;
+    isolation: isolate;
+}
+
+/* ページ最上部のセクションは上部マージンを不要とする */
+main section:first-of-type:not(.proposal-hero):not(.rlx-section) {
+    margin-top: 0;
+}
+
 header {
     position: fixed;
     top: 0;
