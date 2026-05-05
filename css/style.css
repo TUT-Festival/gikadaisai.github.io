@@ -147,7 +147,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 2000; /* お知らせバナー(1001)より前面に */
     padding: 10px 4vw;
 }
 .header-inner {
@@ -771,7 +771,7 @@ p.next-bus-info {
     visibility: hidden;
     transform: translateY(-6px);
     transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
-    z-index: 999;
+    z-index: 2001; /* ヘッダーよりさらに前面に */
 }
 .small-screen #menubar.is-open {
     opacity: 1;
