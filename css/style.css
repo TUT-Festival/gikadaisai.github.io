@@ -1441,9 +1441,23 @@ body.modal-open {
     margin: 3rem auto;
     max-width: 700px;
 }
+/* 奇数番目の最後のカードを中央寄りに */
+.action-grid > a:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
 @media (max-width: 600px) {
     .action-grid {
         grid-template-columns: 1fr;
+    }
+    .action-grid > a:last-child:nth-child(odd) {
+        grid-column: auto;
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 .action-card {
