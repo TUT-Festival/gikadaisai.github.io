@@ -33,7 +33,7 @@
     // page-visibility.js が非公開ページを「準備中」画面に差し替えるため、
     // body.site-ready は常に付与してプリレンダースクリーンを解除する
     var prerenderStartTime = performance.now();
-    var MINIMUM_DISPLAY_MS = 500; // 最低表示時間（ミリ秒）
+    var MINIMUM_DISPLAY_MS = 0; // 一時的に0に変更 (元は 500)
 
     function dismissPrerender() {
         var elapsed = performance.now() - prerenderStartTime;
