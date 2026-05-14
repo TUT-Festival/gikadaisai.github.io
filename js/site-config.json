@@ -49,6 +49,10 @@
             "label": "タイムテーブル"
         },
         {
+            "href": "painting-contest.html",
+            "label": "絵画コンテスト"
+        },
+        {
             "href": "support.html",
             "label": "ご協賛・ご寄付"
         },
@@ -80,6 +84,7 @@
         "events": false,
         "shops": false,
         "timetable": false,
+        "painting-contest": false,
         "support": true,
         "access": true,
         "contact": true,
