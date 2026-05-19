@@ -248,9 +248,65 @@
     };
     replaceTextInNode(document.body);
 
-    // --- ヘッダーの更新 ---
-    const headerGikadaisai = document.getElementById('gikadaisai');
-    if (headerGikadaisai) headerGikadaisai.textContent = fullName;
+    // --- ヘッダーの動的生成 ---
+    const headerEl = document.querySelector('header');
+    if (headerEl) {
+        // pc用ナビゲーション
+        const pcNavItems = (config.headerNav || []).map(function(item) {
+            if (item.children) {
+                const childrenHtml = item.children.map(function(child) {
+                    return '<li><a href="' + child.href + '">' + child.label + '</a></li>';
+                }).join('\n\t\t\t\t\t\t\t\t');
+                return '<li class="ddmenu_parent"><a href="#">' + item.label + '</a>\n\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t' + childrenHtml + '\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</li>';
+            } else {
+                return '<li><a href="' + item.href + '">' + item.label + '</a></li>';
+            }
+        }).join('\n\t\t\t\t\t\t');
+
+        // sp用ナビゲーション (フラット化)
+        let spNavItems = '';
+        (config.headerNav || []).forEach(function(item) {
+            if (item.children) {
+                item.children.forEach(function(child) {
+                    spNavItems += '<li><a href="' + child.href + '">' + child.label + '</a></li>\n\t\t\t\t\t\t';
+                });
+            } else {
+                spNavItems += '<li><a href="' + item.href + '">' + item.label + '</a></li>\n\t\t\t\t\t\t';
+            }
+        });
+
+        const actionBtn = config.headerActions && config.headerActions.button ? 
+            '<a href="' + config.headerActions.button.href + '" class="header-contact-btn">' + config.headerActions.button.label + '</a>' : '';
+
+        headerEl.innerHTML =
+            '<div class="header-inner">\n' +
+            '\t\t<div id="logo">\n' +
+            '\t\t\t<a href="index.html">\n' +
+            '\t\t\t\t<img src="images/TUTFESlogo.png" alt="技科大祭ロゴ" class="header-logo-img">\n' +
+            '\t\t\t\t<div class="logo-text-group">\n' +
+            '\t\t\t\t\t<div id="daigaku">' + univName + '</div>\n' +
+            '\t\t\t\t\t<div id="gikadaisai">' + fullName + '</div>\n' +
+            '\t\t\t\t</div>\n' +
+            '\t\t\t</a>\n' +
+            '\t\t</div>\n\n' +
+            '\t\t<nav id="menubar-pc">\n' +
+            '\t\t\t<ul>\n' +
+            '\t\t\t\t' + pcNavItems + '\n' +
+            '\t\t\t</ul>\n' +
+            '\t\t</nav>\n\n' +
+            '\t\t<div class="header-actions">\n' +
+            '\t\t\t' + actionBtn + '\n' +
+            '\t\t\t<div id="menubar_hdr"><span></span><span></span><span></span></div>\n' +
+            '\t\t</div>\n' +
+            '\t</div>\n\n' +
+            '\t<div id="menubar">\n' +
+            '\t\t<nav id="menubar-sp">\n' +
+            '\t\t\t<ul>\n' +
+            '\t\t\t\t' + spNavItems.trim() + '\n' +
+            '\t\t\t</ul>\n' +
+            '\t\t</nav>\n' +
+            '\t</div>';
+    }
 
     // --- フッターの動的生成 ---
     const footerEl = document.querySelector('footer');
