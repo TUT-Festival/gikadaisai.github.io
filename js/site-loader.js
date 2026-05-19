@@ -364,19 +364,30 @@
         try {
             const resSponsors = await fetch('js/sponsors.json');
             if (resSponsors.ok) {
-                const sponsors = await resSponsors.json();
-                const validSponsors = sponsors.filter(s => !s._memo);
+                const sponsorsData = await resSponsors.json();
                 let htmlSponsors = '';
-                if (validSponsors.length > 0) {
-                    validSponsors.forEach(function(s) {
-                        const href = s.url || '#';
-                        const logo = s.img ? 'data/kyousan/' + s.img : 'data/kyousan/no.png';
-                        const safeName = s.name ? String(s.name).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
-                        htmlSponsors += '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="sponsor-tile">';
-                        htmlSponsors += '<img src="' + logo + '" alt="' + safeName + ' ロゴ">';
-                        htmlSponsors += '<span class="sponsor-name">' + safeName + '</span>';
-                        htmlSponsors += '</a>';
-                    });
+                
+                // tier1, tier2, tier3 の順番で描画
+                ['tier1', 'tier2', 'tier3'].forEach(function(tierKey) {
+                    const tierItems = sponsorsData[tierKey];
+                    if (tierItems && tierItems.length > 0) {
+                        const tierNum = tierKey.replace('tier', '');
+                        // ティアの前に横棒を入れる
+                        htmlSponsors += '<div class="sponsor-tier-divider"></div>';
+                        htmlSponsors += '<div class="sponsor-tier sponsor-tier-' + tierNum + '">';
+                        tierItems.forEach(function(s) {
+                            const safeName = s.name ? String(s.name).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+                            const amountComment = s.amount ? '<!-- ' + s.amount + ' -->' : '';
+                            htmlSponsors += '<span class="sponsor-item">' + amountComment + safeName + '</span>';
+                        });
+                        htmlSponsors += '</div>';
+                    }
+                });
+
+                if (htmlSponsors) {
+                    // 最後に締めの横棒
+                    htmlSponsors += '<div class="sponsor-tier-divider"></div>';
+                    sponsorGrid.classList.add('text-only-sponsors');
                 } else {
                     htmlSponsors = '<p class="c" style="width: 100%;">本年度のご協賛企業様を募集しております。</p>';
                 }
@@ -395,7 +406,9 @@
             if (resSupporters.ok) {
                 const supporters = await resSupporters.json();
                 const validSupporters = supporters.filter(sp => !sp._memo);
-                let htmlSupporters = '';
+                // 芳名帳（PDF）リンクを先頭に一元管理で追加
+                let htmlSupporters = '<div class="c" style="margin-top: 1.5rem; margin-bottom: 2rem;"><a href="https://www.tut.ac.jp/kikin/download/houmei_gikadaisai.pdf" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2rem; background: transparent; color: #d32f2f; border: 2px solid #d32f2f; border-radius: 50px; text-decoration: none; font-weight: bold; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=\'0.7\'" onmouseout="this.style.opacity=\'1\'"><i class="fas fa-file-pdf"></i> 芳名帳（PDF）はこちら</a></div>';
+
                 if (validSupporters.length > 0) {
                     validSupporters.forEach(function(sp) {
                         const rawName = typeof sp === 'string' ? sp : sp.name;
@@ -405,7 +418,7 @@
                         }
                     });
                 } else {
-                    htmlSupporters = '<p class="c" style="width: 100%;">皆様からのご支援を引き続きお待ちしております。</p>';
+                    htmlSupporters += '<p class="c" style="width: 100%;">皆様からのご支援を引き続きお待ちしております。</p>';
                 }
                 supporterGrid.innerHTML = htmlSupporters;
             }

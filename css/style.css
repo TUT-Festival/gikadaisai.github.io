@@ -880,6 +880,49 @@ p.next-bus-info {
     font-size: 0.9rem;
 }
 
+/* テキストベース協賛表示 */
+.sponsor-grid.text-only-sponsors {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+}
+.sponsor-tier-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 1.5rem auto;
+    width: 100%;
+    max-width: 1000px;
+}
+.sponsor-tier {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem 3rem;
+    padding: 1rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.sponsor-item {
+    white-space: nowrap; /* 会社名が途中で改行しないように */
+    line-height: 1.4;
+}
+.sponsor-tier-1 .sponsor-item {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--dark-color);
+}
+.sponsor-tier-2 .sponsor-item {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.sponsor-tier-3 .sponsor-item {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+
 /* ========== View Options ========== */
 .view-options {
     margin-bottom: 2rem;
