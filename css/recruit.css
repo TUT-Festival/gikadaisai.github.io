@@ -1,4 +1,48 @@
-/* ========== Recruit (学際Techフェス・応募企画) Page ========== */
+/* ========== Recruit (学祭Techフェス・応募企画) Page ========== */
+
+/* ページ上部のジャンプボタン（Techフェス／応募企画へすぐ移動） */
+.recruit-jump-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  padding-top: 1rem;
+}
+
+.recruit-jump-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  background: transparent;
+  color: var(--primary-color) !important;
+  border: 2px solid var(--primary-color);
+  transition: all 0.25s ease;
+}
+
+.recruit-jump-btn:hover {
+  background: var(--primary-color);
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 107, 94, 0.35);
+}
+
+@media (max-width: 480px) {
+  .recruit-jump-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .recruit-jump-btn {
+    justify-content: center;
+  }
+}
 
 .recruit-section-lead {
   max-width: 640px;
@@ -121,6 +165,21 @@
 }
 
 .recruit-card-cta--disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* 予約不要の見た目 */
+.recruit-card-cta--no-reservation {
+  background: #ffffff;
+  color: #555 !important;
+  border: 2px solid #ddd;
+  cursor: default;
+  pointer-events: none;
+  font-weight: 700;
+}
+
+.recruit-card-cta--no-reservation:hover {
   transform: none;
   box-shadow: none;
 }
