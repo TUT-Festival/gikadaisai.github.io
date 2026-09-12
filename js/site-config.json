@@ -90,7 +90,7 @@
         { "href": "painting-contest.html", "label": "絵画コンテスト" },
         {
           "href": "recruit.html",
-          "label": "学際Techフェス・応募企画"
+          "label": "学祭Techフェス・応募企画"
         }
       ]
     },
@@ -136,7 +136,7 @@
     },
     {
       "href": "recruit.html",
-      "label": "学際Techフェス・応募企画"
+      "label": "学祭Techフェス・応募企画"
     },
     {
       "href": "support.html",

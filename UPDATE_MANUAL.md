@@ -34,7 +34,7 @@ gikadaisai/
 ├── shops.html            ← 模擬店・キッチンカー
 ├── timetable.html        ← タイムテーブル
 ├── painting-contest.html ← アイデア・デザインコンテスト
-├── recruit.html          ← 学際Techフェス・応募企画
+├── recruit.html          ← 学祭Techフェス・応募企画
 ├── support.html          ← ご協賛・ご寄付
 ├── access.html           ← アクセス
 ├── contact.html          ← お問い合わせ
@@ -46,7 +46,7 @@ gikadaisai/
 │   ├── site-config.json    ★ サイト全体の設定（最重要・毎年ここから始める）
 │   ├── guest.json          ★ ゲスト情報
 │   ├── shop.json           ★ 模擬店・キッチンカー情報
-│   ├── recruit.json        ★ 学際Techフェス・応募企画情報
+│   ├── recruit.json        ★ 学祭Techフェス・応募企画情報
 │   ├── timetable.json      ★ バス時刻表
 │   │
 │   ├── site-loader.js      ← 共通部分の生成（編集不要）
@@ -70,7 +70,7 @@ gikadaisai/
 │   └── kyousan/            △ 旧・協賛企業ロゴ画像（未使用・後述）
 │
 ├── images/                 ← サイトのデザインで使う画像（通常は変更不要）
-│   └── recruit/            ★ 学際Techフェス・応募企画の企画写真
+│   └── recruit/            ★ 学祭Techフェス・応募企画の企画写真
 │
 └── sitemap.xml             ← 検索エンジン向けのページ一覧
 ```
@@ -90,7 +90,7 @@ gikadaisai/
 - [ ] `js/site-config.json` — 回数・日程・テーマ・メールアドレス等（**最初にここ**）
 - [ ] `js/guest.json` — ゲスト情報
 - [ ] `js/shop.json` — 模擬店・キッチンカーのデータ
-- [ ] `js/recruit.json` / `images/recruit/` — 学際Techフェス・応募企画のデータと写真
+- [ ] `js/recruit.json` / `images/recruit/` — 学祭Techフェス・応募企画のデータと写真
 - [ ] `sponsors.js` — 協賛企業・個人寄附者の情報（`logos/` のロゴ画像も合わせて）
 - [ ] `js/timetable.json` — バス時刻表（ダイヤ改正があった場合のみ）
 - [ ] `data/poster.png` — テーマポスター画像の差し替え
@@ -325,13 +325,13 @@ index.html と access.html の**両方**に同じ内容が表示されます。
 - `place` は `"室内"` か `"屋外"` のいずれか。ページ上の絞り込み（屋内企画／屋外企画）で使われます
 - キッチンカーのアイコンは `A.png`〜`D.png` のようにアルファベットを使っています
 
-### 4-4. recruit.json（学際Techフェス・応募企画）
+### 4-4. recruit.json（学祭Techフェス・応募企画）
 
 ```json
 [
   {
     "id": "techfest-01",                        ← 半角英数字の一意なID（重複不可）
-    "category": "techfest",                     ← "techfest"（学際Techフェス）または "boshu"（応募企画）
+    "category": "techfest",                     ← "techfest"（学祭Techフェス）または "boshu"（応募企画）
     "circle": "○○サークル",                     ← 団体名（省略可）
     "title": "光る電子工作を作ろう！",            ← 企画名
     "img": "denshi-kousaku.jpg",                 ← 写真ファイル名（images/recruit/ 内）
@@ -550,7 +550,7 @@ const individualDonorsData = {
 **ファイル名を変更した場合**は、対応するJSONのパスも更新してください。
 
 `images/` フォルダはサイトのデザインで使う画像（ロゴ・マスコット・花火の装飾など）で、通常は変更しません。
-ただし `images/recruit/` だけは例外で、学際Techフェス・応募企画の写真を置くための専用フォルダです
+ただし `images/recruit/` だけは例外で、学祭Techフェス・応募企画の写真を置くための専用フォルダです
 （詳しくは `images/recruit/README.md` 参照）。
 
 ---
@@ -795,7 +795,7 @@ git config user.email "（GitHubのnoreplyアドレス）"
    → data/shop/icon/ にアイコン画像を配置
 
 4. js/recruit.json を開く
-   → 学際Techフェス・応募企画のデータを来年度のものに差し替え
+   → 学祭Techフェス・応募企画のデータを来年度のものに差し替え
    → images/recruit/ に企画写真を配置、formUrl に予約・応募フォームのURLを設定
 
 5. sponsors.js を開く
