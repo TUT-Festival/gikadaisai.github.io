@@ -43,6 +43,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sea.tut.ac.jp/gikadaisai/alumni-lecture.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sea.tut.ac.jp/gikadaisai/support.html</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
