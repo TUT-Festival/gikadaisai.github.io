@@ -91,6 +91,10 @@
         {
           "href": "recruit.html",
           "label": "学祭Techフェス・応募企画"
+        },
+        {
+          "href": "alumni-lecture.html",
+          "label": "講演会 『技科大の顔』"
         }
       ]
     },
@@ -172,6 +176,7 @@
     "timetable": false,
     "painting-contest": true,
     "recruit": true,
+    "alumni-lecture": true,
     "support": true,
     "access": true,
     "contact": true,
