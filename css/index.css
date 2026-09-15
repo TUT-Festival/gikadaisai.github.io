@@ -309,7 +309,7 @@
 .proposal-hero-content {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  width: 100%;
 }
 .proposal-hero-badge {
   display: block;
@@ -338,13 +338,22 @@
   line-height: 1.15;
   color: var(--text-color);
   margin: 0 0 2.5rem;
+  max-width: 900px;
 }
 .proposal-hero-accent {
   color: #ff6b5e;
   font-style: normal;
 }
-.proposal-hero-date {
-  display: inline-block;
+.proposal-hero-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+  gap: clamp(20px, 2.5vw, 44px);
+  align-items: stretch;
+  width: 100%;
+}
+.proposal-hero-date,
+.proposal-hero-flyer {
+  min-width: 0;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -360,7 +369,12 @@
   border: 1px solid var(--border-color);
   box-shadow: 0 4px 20px rgba(255, 200, 36, 0.15);
 }
-.proposal-hero-date:hover {
+.proposal-hero-date {
+  display: flex;
+  align-items: center;
+}
+.proposal-hero-date:hover,
+.proposal-hero-flyer:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(255, 200, 36, 0.25);
   border-color: rgba(255, 200, 36, 0.8);
@@ -375,6 +389,42 @@
   font-weight: 800;
   letter-spacing: 0.03em;
   white-space: nowrap;
+}
+.proposal-hero-flyer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: clamp(28px, 3vw, 52px);
+  padding-left: clamp(28px, 3vw, 52px);
+}
+.proposal-hero-flyer-title {
+  margin: 0 0 0.45rem;
+  color: var(--text-color);
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: clamp(16px, 1.35vw, 21px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.proposal-hero-flyer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  color: #d8564c;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: clamp(14px, 1.15vw, 18px);
+  font-weight: 700;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: color 0.25s ease;
+}
+.proposal-hero-flyer-link:hover {
+  color: #a9362e;
+}
+.proposal-hero-flyer-link .fa-arrow-up-right-from-square {
+  font-size: 0.72em;
 }
 
 /* ---------- Layout: Sidebar + Content ---------- */
@@ -1204,6 +1254,9 @@
   .rlx-layout {
     gap: 0;
   }
+  .proposal-hero-actions {
+    grid-template-columns: 1fr;
+  }
   .proposal-hero::before {
     width: 300px;
     height: 300px;
@@ -1237,10 +1290,24 @@
     min-height: 60vh;
     padding: 5rem var(--global-space) 3rem;
   }
+  .proposal-hero-actions {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
   .proposal-hero-date {
+    display: block;
     padding: 18px 24px;
     font-size: 16px;
     line-height: 1.5;
+  }
+  .proposal-hero-flyer {
+    padding: 18px 24px;
+  }
+  .proposal-hero-flyer-title {
+    font-size: 16px;
+  }
+  .proposal-hero-flyer-link {
+    font-size: 14px;
   }
   .proposal-hero-date-emphasis {
     display: block;
