@@ -53,18 +53,19 @@ gikadaisai/
 │   ├── page-visibility.js  ← 公開・非公開切り替え（編集不要）
 │   ├── festival-countdown.js ← 開催カウントダウン（編集不要）
 │   ├── bus-countdown.js    ← バスカウントダウン（編集不要）
+│   ├── timetable-page.js   ← タイムテーブルの機能（編集不要）
 │   ├── escape-html.js      ← 安全対策の共通処理（編集不要）
 │   └── main.js             ← メニュー・スクロール（編集不要）
 │
 ├── css/
 │   ├── style.css           ← 全ページ共通のデザイン
 │   ├── index.css           ← トップページ専用のデザイン
+│   ├── timetable.css       ← タイムテーブル専用のデザイン
 │   └── painting-contest.css ← コンテストページ専用のデザイン
 │
 ├── data/
 │   ├── poster.png          ★ テーマポスター画像
 │   ├── poster_live.png     ★ イベントポスター画像
-│   ├── timetable.png       ★ タイムテーブル画像
 │   ├── map/                ★ 会場マップ画像（inside.png / outside.png）
 │   ├── shop/icon/          ★ 模擬店アイコン画像
 │   └── kyousan/            △ 旧・協賛企業ロゴ画像（未使用・後述）
@@ -95,10 +96,10 @@ gikadaisai/
 - [ ] `js/timetable.json` — バス時刻表（ダイヤ改正があった場合のみ）
 - [ ] `data/poster.png` — テーマポスター画像の差し替え
 - [ ] `data/poster_live.png` — イベントポスター画像の差し替え
-- [ ] `data/timetable.png` — タイムテーブル画像の差し替え
 - [ ] `data/map/` — 会場マップ画像の差し替え（inside.png, outside.png）
 - [ ] `data/shop/icon/` — 模擬店アイコン画像の差し替え
 - [ ] `index.html` — トップページ本文（実績・開催概要など。[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
+- [ ] `timetable.html` — ステージ企画の日付・時刻・名称（[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
 - [ ] `painting-contest.html` — コンテストの締切・テーマ（[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
 - [ ] `sitemap.xml` — ページを増減した場合のみ
 
@@ -199,8 +200,7 @@ Google検索用の構造化データ（JSON-LD）の日付・住所・メール�
 
   "images": {
     "poster": "data/poster.png",
-    "posterLive": "data/poster_live.png",
-    "timetable": "data/timetable.png"
+    "posterLive": "data/poster_live.png"
   }
 }
 ```
@@ -495,7 +495,7 @@ const individualDonorsData = {
 
 ## 6. JSONでは管理していない箇所（HTMLを直接編集する場所）
 
-ほとんどはJSONで完結しますが、次の3箇所だけはHTMLを直接編集します。
+ほとんどはJSONで完結しますが、次の4箇所だけはHTMLを直接編集します。
 
 ### 6-1. index.html のトップページ本文
 
@@ -531,6 +531,22 @@ const individualDonorsData = {
 イベント一覧を掲載する場合はこのHTMLの `<main>` 内を編集してください。
 掲載予定がない年は `pageVisibility` の `events` を `false` にしておくのが簡単です。
 
+### 6-4. timetable.html
+
+ステージ企画は `timetable.html` 内の `.tt-event` を1企画につき1件記載します。
+次の値は一覧表示と「次の企画」の時刻判定で共通利用するため、必ず同じ内容にそろえてください。
+
+| 項目       | 記載場所                                                            |
+| ---------- | ------------------------------------------------------------------- |
+| 開催日     | 親要素 `.tt-day-panel` の `data-date`                               |
+| 企画名     | `data-title` と `.tt-event-title`                                   |
+| 開始・終了 | `data-start` / `data-end` と `<time>`                               |
+| ジャンル   | `data-category`、`.tt-event--○○`、`.tt-category`（左端の色分け）    |
+| 詳細ページ | `data-detail-url` と企画名の `<a href>`（詳細ページがある場合のみ） |
+
+`data-event-id` は「時刻表で見る」ボタンの移動先に使います。同じ年の中で重複させないでください。
+「準備」「転換」は掲載せず、企画本編のみを記載します。
+
 ---
 
 ## 7. 画像ファイルの差し替え
@@ -541,7 +557,6 @@ const individualDonorsData = {
 | ---------------- | ---------------------- | ------------------------------------------------- |
 | テーマポスター   | `data/poster.png`      | できるだけ軽量化（1MB以下推奨）                   |
 | イベントポスター | `data/poster_live.png` | 同上                                              |
-| タイムテーブル   | `data/timetable.png`   | 同上                                              |
 | 屋外マップ       | `data/map/outside.png` | -                                                 |
 | 屋内マップ       | `data/map/inside.png`  | -                                                 |
 | 模擬店アイコン   | `data/shop/icon/{img}` | shop.json の `img` と一致させる                   |
@@ -806,9 +821,9 @@ git config user.email "（GitHubのnoreplyアドレス）"
    → バスダイヤに変更があれば更新
 
 7. data/ フォルダの画像を差し替え
-   → poster.png, poster_live.png, timetable.png, map/
+   → poster.png, poster_live.png, map/
 
-8. index.html と painting-contest.html の本文を更新（第6章参照）
+8. index.html、timetable.html、painting-contest.html の本文を更新（第6章参照）
 
 9. ローカルサーバーで動作確認（第9章参照）
 
