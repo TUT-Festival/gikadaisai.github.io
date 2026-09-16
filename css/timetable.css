@@ -204,7 +204,7 @@
   --tt-event-color: var(--tt-ceremony);
   position: relative;
   display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
+  grid-template-columns: 126px minmax(0, 1fr);
   align-items: center;
   gap: 0.65rem;
   min-height: 100%;
@@ -287,7 +287,7 @@
   column-gap: 0.25rem;
   color: var(--tt-navy);
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
@@ -316,7 +316,7 @@
   margin: 0;
   color: var(--tt-navy);
   border: 0;
-  font-size: clamp(0.78rem, 1.3vw, 0.94rem);
+  font-size: clamp(0.9rem, 1.45vw, 1.08rem);
   font-weight: 800;
   line-height: 1.35;
   text-overflow: ellipsis;
@@ -419,23 +419,23 @@
   }
 
   .tt-event {
-    grid-template-columns: 102px minmax(0, 1fr);
+    grid-template-columns: 116px minmax(0, 1fr);
   }
 
   .tt-page-section .tt-event-title {
-    font-size: 0.88rem;
+    font-size: 0.98rem;
   }
 }
 
 @media screen and (max-width: 380px) {
   .tt-event {
-    grid-template-columns: 94px minmax(0, 1fr);
+    grid-template-columns: 108px minmax(0, 1fr);
     gap: 0.45rem;
     padding-inline: 0.55rem;
   }
 
   .tt-event-time {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
   }
 }
 
