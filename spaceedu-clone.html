@@ -1,0 +1,1839 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>spaceedu — scroll scene reproduction</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ==========================================================================
+   1. デザイントークン（仕様書 §2 の実測値をそのまま反映）
+   ========================================================================== */
+      :root {
+        --bg-deep: #05070f;
+        --accent: #3fa9c9;
+        --ink: #eaf2ff;
+        --btn-ink: #0a1020;
+
+        /* 実測タイプスケール：H1≈9.44vw / eyebrow≈1.9vw / body≈1.1vw */
+        --fs-display: clamp(48px, 9.44vw, 190px);
+        --fs-eyebrow: clamp(12px, 1.9vw, 27px);
+        --fs-body: clamp(13px, 1.1vw, 17px);
+        --fs-nav: clamp(12px, 0.95vw, 15px);
+        --fs-label: clamp(11px, 1vw, 15px);
+
+        --nav-h: clamp(56px, 9.5vh, 86px);
+        --pad-x: clamp(18px, 2.4vw, 40px);
+
+        --font-display:
+          "Playfair Display", "Bodoni Moda", Didot, "Bodoni MT", Georgia,
+          "Times New Roman", serif;
+        --font-ui:
+          "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        background:
+          radial-gradient(
+            120% 80% at 42% -12%,
+            #16224a 0%,
+            #0b1226 38%,
+            #05070f 78%
+          ),
+          var(--bg-deep);
+        color: var(--ink);
+        font-family: var(--font-ui);
+        overflow-x: hidden;
+      }
+      /* 星空（生成した data URL を JS が流し込む） */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: var(--stars, none);
+        background-size: 1200px 900px;
+        opacity: 0.55;
+        pointer-events: none;
+        z-index: 0;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ==========================================================================
+   2. 共通コンポーネント
+   ========================================================================== */
+      .eyebrow {
+        margin: 0;
+        font-size: var(--fs-eyebrow);
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .display {
+        margin: 0.06em 0 0;
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: var(--fs-display);
+        line-height: 0.92;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow: 0 0 60px rgba(120, 180, 255, 0.22);
+      }
+      .rule {
+        display: block;
+        width: clamp(60px, 7vw, 108px);
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.35)
+        );
+        border-radius: 2px;
+      }
+      .body {
+        margin: 0;
+        font-size: var(--fs-body);
+        font-weight: 600;
+        line-height: 1.75;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: clamp(42px, 5.7vh, 58px);
+        padding-inline: clamp(22px, 2.6vw, 42px);
+        border-radius: 999px;
+        background: linear-gradient(180deg, #ffffff 0%, #dcefff 100%);
+        color: var(--btn-ink);
+        font-size: clamp(10px, 0.86vw, 13px);
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        box-shadow:
+          0 0 44px rgba(180, 220, 255, 0.28),
+          0 2px 10px rgba(0, 0, 0, 0.35);
+        transition:
+          transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1),
+          box-shadow 0.25s;
+      }
+      .pill:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 0 60px rgba(190, 228, 255, 0.45),
+          0 6px 18px rgba(0, 0, 0, 0.4);
+      }
+      .circle-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: clamp(42px, 5.7vh, 58px);
+        height: clamp(42px, 5.7vh, 58px);
+        border-radius: 999px;
+        border: 1.5px solid rgba(234, 242, 255, 0.75);
+        box-shadow: 0 0 34px rgba(160, 210, 255, 0.18);
+        transition:
+          background 0.25s,
+          transform 0.25s;
+      }
+      .circle-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: scale(1.06);
+      }
+      .circle-btn svg {
+        width: 38%;
+        height: 38%;
+        transform: translateX(1px);
+      }
+
+      /* ==========================================================================
+   3. グローバルナビ
+   ========================================================================== */
+      .nav {
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: var(--nav-h);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: var(--pad-x);
+        border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+        z-index: 60;
+      }
+      .nav__logo {
+        font-size: clamp(14px, 1.15vw, 19px);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #fff;
+      }
+      .nav__logo i {
+        font-style: normal;
+        color: var(--accent);
+      }
+      .nav__menu {
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 3.5vw, 54px);
+      }
+      .nav__link {
+        position: relative;
+        font-size: var(--fs-nav);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        padding-block: 6px;
+      }
+      .nav__link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+      .nav__link:hover::after,
+      .nav__link.is-active::after {
+        transform: scaleX(1);
+      }
+      .nav .pill {
+        height: clamp(32px, 4.4vh, 44px);
+        padding-inline: clamp(16px, 1.7vw, 28px);
+      }
+
+      /* ==========================================================================
+   4. Section 1+2：ヒーロー + 地球ズーム
+   ========================================================================== */
+      #gl {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .scene {
+        position: relative;
+        height: 100vh;
+        z-index: 10;
+      }
+      .scene__layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 10.5vw;
+        padding-top: 29.5vh;
+        max-width: 62vw;
+        will-change: opacity, filter, transform;
+      }
+      .hero .rule {
+        margin-top: 8.4vh;
+      }
+      .hero .body {
+        margin-top: 3.8vh;
+        max-width: 38.3vw;
+      }
+      .hero__cta {
+        display: flex;
+        align-items: center;
+        gap: clamp(10px, 1.2vw, 20px);
+        margin-top: 7.3vh;
+      }
+
+      .caption {
+        position: absolute;
+        right: 10.5vw;
+        bottom: 22vh;
+        width: min(42vw, 560px);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+        opacity: 0;
+        will-change: opacity, filter;
+      }
+      .caption .rule {
+        margin-bottom: 2.2vh;
+        background: linear-gradient(
+          270deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.35)
+        );
+      }
+
+      /* ==========================================================================
+   5. Section 3：惑星カルーセル
+   ========================================================================== */
+      .planets {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 20;
+      }
+
+      .stage {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+      .planet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: 50% 50%;
+        will-change: transform, opacity;
+      }
+      .planet canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .planet[data-emissive="1"] {
+        filter: drop-shadow(0 0 70px rgba(255, 150, 60, 0.6));
+      }
+
+      .copy {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20vh;
+        text-align: center;
+        will-change: opacity, filter;
+      }
+      .copy .rule {
+        margin-top: 4.1vh;
+      }
+      .copy .body {
+        margin-top: 3.4vh;
+        max-width: 51.4vw;
+      }
+      .copy .pill {
+        margin-top: 10.4vh;
+      }
+
+      .side-label {
+        position: absolute;
+        top: 59.7vh;
+        transform: translateY(-50%);
+        font-family: var(--font-display);
+        font-size: var(--fs-label);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(234, 242, 255, 0.78);
+        white-space: nowrap;
+      }
+      .side-label--l {
+        left: 8vw;
+      }
+      .side-label--r {
+        right: 8vw;
+      }
+
+      .scroll-hint {
+        position: absolute;
+        left: 50%;
+        top: 95vh;
+        transform: translate(-50%, -50%);
+        width: clamp(28px, 4vw, 50px);
+        height: clamp(28px, 4vw, 50px);
+        border-radius: 999px;
+        border: 1px solid rgba(234, 242, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+      }
+      .scroll-hint span {
+        display: flex;
+      }
+      .scroll-hint svg {
+        width: clamp(10px, 1.4vw, 17px);
+        height: auto;
+      }
+
+      /* ==========================================================================
+   6. ローダー
+   ========================================================================== */
+      .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        background: var(--bg-deep);
+        transition:
+          opacity 0.7s ease,
+          visibility 0.7s;
+      }
+      .loader.is-done {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loader__logo {
+        font-size: clamp(15px, 1.3vw, 20px);
+        font-weight: 700;
+        color: #fff;
+      }
+      .loader__logo i {
+        font-style: normal;
+        color: var(--accent);
+      }
+      .loader__bar {
+        width: min(260px, 50vw);
+        height: 2px;
+        background: rgba(234, 242, 255, 0.16);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .loader__fill {
+        width: 0%;
+        height: 100%;
+        background: var(--accent);
+        transition: width 0.16s linear;
+      }
+      .loader__txt {
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(234, 242, 255, 0.62);
+      }
+
+      /* ==========================================================================
+   7. スマホ簡易版（PC 優先。重い表現を落とす）
+   ========================================================================== */
+      @media (max-width: 900px) {
+        :root {
+          --fs-display: clamp(40px, 15vw, 90px);
+          --fs-eyebrow: clamp(11px, 3.2vw, 16px);
+          --fs-body: clamp(12px, 3.4vw, 15px);
+          --fs-label: clamp(9px, 2.6vw, 12px);
+        }
+        .nav__menu {
+          display: none;
+        }
+        .hero {
+          padding-left: 8vw;
+          padding-top: 23vh;
+          max-width: 86vw;
+        }
+        .hero .body {
+          max-width: 80vw;
+        }
+        .caption {
+          right: 8vw;
+          width: 78vw;
+          bottom: 16vh;
+        }
+        .copy {
+          padding-top: 15vh;
+        }
+        .copy .body {
+          max-width: 82vw;
+        }
+        .side-label--l {
+          left: 4vw;
+        }
+        .side-label--r {
+          right: 4vw;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .pill,
+        .circle-btn,
+        .nav__link::after {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader" id="loader">
+      <div class="loader__logo">space<i>edu</i></div>
+      <div class="loader__bar">
+        <div class="loader__fill" id="loaderFill"></div>
+      </div>
+      <div class="loader__txt" id="loaderTxt">generating textures</div>
+    </div>
+
+    <canvas id="gl"></canvas>
+
+    <header class="nav">
+      <a class="nav__logo" href="#">space<i>edu</i></a>
+      <nav class="nav__menu">
+        <a class="nav__link is-active" href="#">Planets</a>
+        <a class="nav__link" href="#">Trailer</a>
+        <a class="nav__link" href="#">Tickets</a>
+        <a class="nav__link" href="#">Blog</a>
+        <a class="pill" href="#">Enroll</a>
+      </nav>
+    </header>
+
+    <section class="scene" id="scene">
+      <div class="scene__layer">
+        <div class="hero" id="hero">
+          <p class="eyebrow">The Blue Planet</p>
+          <h1 class="display">Earth</h1>
+          <span class="rule"></span>
+          <p class="body">
+            Earth orbits third from the Sun, and the tilt of its rotational axis
+            against the orbital plane is what gives the planet its seasons. The
+            Moon pulls on the oceans, steadies that tilt, and slowly bleeds away
+            the spin.
+          </p>
+          <div class="hero__cta">
+            <a class="pill" href="#">Learn more</a>
+            <a class="circle-btn" href="#" aria-label="Play the trailer">
+              <svg viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
+                <path d="M0 0l12 7-12 7z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="caption" id="caption">
+          <span class="rule"></span>
+          <p class="body">
+            A rocky, terrestrial world with a restless surface of mountains,
+            valleys, canyons and plains. What sets it apart is water: oceans
+            cover roughly seventy percent of it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="planets" id="planets">
+      <div class="stage" id="stage"></div>
+
+      <!-- コピーは 2 レイヤー重ねて連続クロスフェード（元サイトの blur 重なりを再現） -->
+      <div class="copy" data-copy="a">
+        <p class="eyebrow">Planet</p>
+        <h2 class="display" data-title></h2>
+        <span class="rule"></span>
+        <p class="body" data-desc></p>
+        <a class="pill" href="#">Get started</a>
+        <span class="side-label side-label--l" data-label-l></span>
+        <span class="side-label side-label--r" data-label-r></span>
+      </div>
+      <div class="copy" data-copy="b">
+        <p class="eyebrow">Planet</p>
+        <h2 class="display" data-title></h2>
+        <span class="rule"></span>
+        <p class="body" data-desc></p>
+        <a class="pill" href="#">Get started</a>
+        <span class="side-label side-label--l" data-label-l></span>
+        <span class="side-label side-label--r" data-label-r></span>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true">
+        <span id="hintArrow">
+          <svg
+            viewBox="0 0 12 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          >
+            <path d="M6 0v14M1 9l5 5 5-5" />
+          </svg>
+        </span>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+      "use strict";
+      /* ============================================================================
+   spaceedu — 忠実再現版
+   外部素材ゼロ。地球・惑星のテクスチャはすべてコードで生成しています。
+   ========================================================================== */
+
+      var REDUCE = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      var SIMPLE =
+        window.matchMedia("(max-width:900px)").matches ||
+        window.matchMedia("(pointer: coarse)").matches;
+
+      var EQ_W = SIMPLE ? 512 : 1024; // equirect テクスチャ幅（2の冪＝ミップマップ用）
+      var EQ_H = EQ_W / 2;
+      var SPH = SIMPLE ? 448 : 832; // カルーセル用スフィア描画サイズ
+      var BLUR_MAX = SIMPLE || REDUCE ? 0 : 14;
+
+      /* ----------------------------------------------------------------------------
+   0. ユーティリティ
+   -------------------------------------------------------------------------- */
+      function clamp01(v) {
+        return v < 0 ? 0 : v > 1 ? 1 : v;
+      }
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+      function smoothstep(e0, e1, x) {
+        var t = clamp01((x - e0) / (e1 - e0));
+        return t * t * (3 - 2 * t);
+      }
+
+      /** キーフレーム [[p,value],...] を区間ごとに smoothstep 補間 */
+      function pw(stops, p) {
+        if (p <= stops[0][0]) return stops[0][1];
+        for (var i = 1; i < stops.length; i++) {
+          if (p <= stops[i][0]) {
+            var p0 = stops[i - 1][0],
+              v0 = stops[i - 1][1];
+            var p1 = stops[i][0],
+              v1 = stops[i][1];
+            var t = (p - p0) / (p1 - p0);
+            return lerp(v0, v1, t * t * (3 - 2 * t));
+          }
+        }
+        return stops[stops.length - 1][1];
+      }
+
+      function makeCanvas(w, h) {
+        var c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        return c;
+      }
+
+      /* ----------------------------------------------------------------------------
+   1. ノイズ（x 方向にシームレスな value noise / fBm）
+   -------------------------------------------------------------------------- */
+      function makeNoise(seed) {
+        function hash(ix, iy) {
+          var n =
+            (Math.imul(ix, 374761393) +
+              Math.imul(iy, 668265263) +
+              Math.imul(seed, 1442695041)) |
+            0;
+          n = (n ^ (n >>> 13)) | 0;
+          n = Math.imul(n, 1274126177) | 0;
+          return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
+        }
+        // period で x を巻き戻すので equirect の継ぎ目が出ない
+        return function (x, y, period) {
+          var ix = Math.floor(x),
+            iy = Math.floor(y);
+          var fx = x - ix,
+            fy = y - iy;
+          var ux = fx * fx * (3 - 2 * fx),
+            uy = fy * fy * (3 - 2 * fy);
+          var x0 = ((ix % period) + period) % period;
+          var x1 = (((ix + 1) % period) + period) % period;
+          var a = hash(x0, iy),
+            b = hash(x1, iy);
+          var c = hash(x0, iy + 1),
+            d = hash(x1, iy + 1);
+          var top = a + (b - a) * ux;
+          var bot = c + (d - c) * ux;
+          return top + (bot - top) * uy;
+        };
+      }
+
+      function fbm(noise, u, v, oct, base, gain, yScale) {
+        var amp = 1,
+          sum = 0,
+          norm = 0,
+          p = base;
+        var ys = yScale === undefined ? 0.5 : yScale;
+        for (var i = 0; i < oct; i++) {
+          sum += noise(u * p, v * p * ys, p) * amp;
+          norm += amp;
+          amp *= gain;
+          p *= 2;
+        }
+        return sum / norm;
+      }
+
+      /* ----------------------------------------------------------------------------
+   2. 地球テクスチャ（昼 / 街明かり / 雲）— 64 行ごとに yield
+   -------------------------------------------------------------------------- */
+      function* genEarth(w, h) {
+        var dayC = makeCanvas(w, h),
+          nightC = makeCanvas(w, h),
+          cloudC = makeCanvas(w, h);
+        var dctx = dayC.getContext("2d"),
+          nctx = nightC.getContext("2d"),
+          cctx = cloudC.getContext("2d");
+        var dImg = dctx.createImageData(w, h),
+          nImg = nctx.createImageData(w, h),
+          cImg = cctx.createImageData(w, h);
+        var D = dImg.data,
+          N = nImg.data,
+          C = cImg.data;
+
+        var nLand = makeNoise(20260820),
+          nCont = makeNoise(515),
+          nWarp = makeNoise(4711),
+          nWarp2 = makeNoise(4712),
+          nBio = makeNoise(90210),
+          nCity = makeNoise(31337),
+          nCld = makeNoise(8125);
+
+        /* 標高場：ドメインワープ + 低周波の「大陸マスク」で塊にまとめる */
+        function elev(u, v, alat, lat) {
+          var wx = u + (fbm(nWarp, u, v, 4, 5, 0.55) - 0.5) * 0.2;
+          var wv = v + (fbm(nWarp2, u, v, 4, 5, 0.55) - 0.5) * 0.12;
+          var e =
+            fbm(nLand, wx, wv, 7, 6, 0.55) * 0.66 +
+            fbm(nCont, wx, wv, 3, 3, 0.5) * 0.34;
+          e += smoothstep(1.2, 1.52, alat) * 0.3; // 南極大陸
+          e += smoothstep(0.6, 1.3, lat) * 0.11; // 北半球のほうが陸が多い
+          return e;
+        }
+
+        /* 海面はシード依存なので、面積重み付きパーセンタイルから自動決定（陸 29%） */
+        var samples = [],
+          wsum = 0;
+        for (var sy = 0; sy < 64; sy++) {
+          var sv = (sy + 0.5) / 64,
+            slat = (0.5 - sv) * Math.PI,
+            sw2 = Math.cos(slat);
+          for (var sx = 0; sx < 128; sx++) {
+            samples.push([
+              elev((sx + 0.5) / 128, sv, Math.abs(slat), slat),
+              sw2,
+            ]);
+            wsum += sw2;
+          }
+        }
+        samples.sort(function (p, q) {
+          return p[0] - q[0];
+        });
+        var acc = 0,
+          SEA = 0.5;
+        for (var si = 0; si < samples.length; si++) {
+          acc += samples[si][1];
+          if (acc / wsum >= 0.71) {
+            SEA = samples[si][0];
+            break;
+          }
+        }
+        yield 0.08;
+
+        for (var y = 0; y < h; y++) {
+          var v = y / h,
+            lat = (0.5 - v) * Math.PI,
+            alat = Math.abs(lat);
+          for (var x = 0; x < w; x++) {
+            var u = x / w,
+              i = (y * w + x) * 4;
+            var e = elev(u, v, alat, lat);
+            var land = e > SEA;
+            var dry = fbm(nBio, u, v * 1.2, 5, 8, 0.55);
+
+            var r, g, b;
+            if (!land) {
+              var dep = clamp01((SEA - e) / 0.26);
+              r = lerp(26, 4, dep);
+              g = lerp(86, 20, dep);
+              b = lerp(150, 54, dep);
+              var shelf =
+                smoothstep(0, 0.045, SEA - e) *
+                (1 - smoothstep(0.045, 0.11, SEA - e));
+              r += shelf * 30;
+              g += shelf * 58;
+              b += shelf * 62;
+            } else {
+              var alt = clamp01((e - SEA) / 0.26);
+              // 砂漠：緯度だけだと縞になるので乾燥ノイズを強めに混ぜる
+              var latBand =
+                smoothstep(0.22, 0.42, alat) *
+                (1 - smoothstep(0.52, 0.76, alat));
+              var desert = clamp01((latBand * 0.55 + (dry - 0.42) * 1.9) * 1.1);
+              r = lerp(40, 150, desert);
+              g = lerp(92, 124, desert);
+              b = lerp(48, 72, desert);
+              var rock = smoothstep(0.45, 0.88, alt);
+              r = lerp(r, 128, rock);
+              g = lerp(g, 120, rock);
+              b = lerp(b, 106, rock);
+              var cold = smoothstep(
+                1.06,
+                1.4,
+                alat + alt * 0.1 + (dry - 0.5) * 0.28,
+              );
+              r = lerp(r, 232, cold);
+              g = lerp(g, 240, cold);
+              b = lerp(b, 250, cold);
+            }
+            var ice = smoothstep(
+              1.32,
+              1.52,
+              alat + (fbm(nBio, u, v, 3, 7, 0.5) - 0.5) * 0.1,
+            );
+            r = lerp(r, 244, ice);
+            g = lerp(g, 249, ice);
+            b = lerp(b, 255, ice);
+            D[i] = r;
+            D[i + 1] = g;
+            D[i + 2] = b;
+            D[i + 3] = 255;
+
+            /* 夜の街明かり：陸・中緯度・海岸寄りに集中 */
+            var ni = 0;
+            if (land && alat < 1.12) {
+              var pop = fbm(nCity, u, v * 1.2, 5, 22, 0.55);
+              var coastal = 1 - smoothstep(0, 0.12, e - SEA);
+              var tt = (pop - 0.54) / 0.46;
+              if (tt > 0) ni = clamp01(tt) * (0.3 + 0.7 * coastal);
+              if (fbm(nCity, u, v * 6, 2, 360, 0.5) > 0.87)
+                ni = Math.max(ni, 0.9);
+            }
+            N[i] = 255 * ni;
+            N[i + 1] = 214 * ni;
+            N[i + 2] = 150 * ni;
+            N[i + 3] = 255;
+
+            /* 雲：渦 + ゆるい緯度バンド */
+            var cw = u + (fbm(nWarp, u, v * 1.5, 4, 11, 0.5) - 0.5) * 0.14;
+            var cf = fbm(nCld, cw, v, 8, 6, 0.56);
+            var band = 0.8 + 0.2 * Math.abs(Math.sin(lat * 3.0 + 0.4));
+            cf = clamp01((cf * band - 0.31) / 0.26);
+            var cval = 255 * cf * cf;
+            C[i] = cval;
+            C[i + 1] = cval;
+            C[i + 2] = cval;
+            C[i + 3] = 255;
+          }
+          if ((y & 63) === 0) yield 0.08 + 0.92 * (y / h);
+        }
+        dctx.putImageData(dImg, 0, 0);
+        nctx.putImageData(nImg, 0, 0);
+        cctx.putImageData(cImg, 0, 0);
+
+        /* カルーセル用に「昼 + 雲」を合成したものも作る */
+        var compC = makeCanvas(w, h),
+          pctx = compC.getContext("2d");
+        var pImg = pctx.createImageData(w, h),
+          P = pImg.data;
+        for (var k = 0; k < P.length; k += 4) {
+          var a2 = Math.pow(C[k] / 255, 1.35) * 0.58;
+          P[k] = lerp(D[k], 238, a2);
+          P[k + 1] = lerp(D[k + 1], 244, a2);
+          P[k + 2] = lerp(D[k + 2], 252, a2);
+          P[k + 3] = 255;
+        }
+        pctx.putImageData(pImg, 0, 0);
+
+        return { day: dayC, night: nightC, cloud: cloudC, composite: compC };
+      }
+
+      /* ----------------------------------------------------------------------------
+   3. 岩石惑星 / 縞模様の惑星 / 恒星
+   -------------------------------------------------------------------------- */
+      function* genRock(w, h, opt) {
+        var cv = makeCanvas(w, h),
+          ctx = cv.getContext("2d");
+        var img = ctx.createImageData(w, h),
+          P = img.data;
+        var n1 = makeNoise(opt.seed),
+          n2 = makeNoise(opt.seed + 91),
+          n3 = makeNoise(opt.seed + 733);
+        var c0 = opt.palette[0],
+          c1 = opt.palette[1],
+          c2 = opt.palette[2];
+        var albedo = opt.albedo === undefined ? 0.35 : opt.albedo;
+
+        for (var y = 0; y < h; y++) {
+          var v = y / h,
+            alat = Math.abs((0.5 - v) * Math.PI);
+          for (var x = 0; x < w; x++) {
+            var u = x / w,
+              i = (y * w + x) * 4;
+            var e = fbm(n1, u, v, 6, 3, 0.53);
+            var md = fbm(n2, u, v * 1.6, 4, 8, 0.55);
+            var t = clamp01((e - 0.35) / 0.42);
+            var dark = smoothstep(0.58, 0.86, md) * albedo;
+
+            var r = lerp(lerp(c0[0], c1[0], t), c2[0], dark);
+            var g = lerp(lerp(c0[1], c1[1], t), c2[1], dark);
+            var b = lerp(lerp(c0[2], c1[2], t), c2[2], dark);
+
+            var grain = (fbm(n3, u, v * 4, 3, 96, 0.5) - 0.5) * 26;
+            r += grain;
+            g += grain;
+            b += grain;
+
+            if (opt.ice) {
+              var ic =
+                smoothstep(1.3, 1.47, alat) *
+                (0.7 + 0.3 * fbm(n3, u, v, 3, 8, 0.5));
+              r = lerp(r, 240, ic);
+              g = lerp(g, 246, ic);
+              b = lerp(b, 252, ic);
+            }
+            P[i] = r;
+            P[i + 1] = g;
+            P[i + 2] = b;
+            P[i + 3] = 255;
+          }
+          if ((y & 63) === 0) yield y / h;
+        }
+        ctx.putImageData(img, 0, 0);
+
+        /* クレーターは ImageData の後から arc で重ねるほうが安く綺麗 */
+        if (opt.craters) {
+          var s = opt.seed >>> 0;
+          var rnd = function () {
+            s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+            return s / 4294967296;
+          };
+          for (var k = 0; k < opt.craters; k++) {
+            var cx = rnd() * w;
+            var cy = h * (0.08 + rnd() * 0.84);
+            var rad = (3 + Math.pow(rnd(), 3) * 46) * (w / 1024);
+            var grad = ctx.createRadialGradient(cx, cy, rad * 0.1, cx, cy, rad);
+            grad.addColorStop(0, "rgba(0,0,0,.30)");
+            grad.addColorStop(0.72, "rgba(0,0,0,.12)");
+            grad.addColorStop(0.88, "rgba(255,255,255,.20)");
+            grad.addColorStop(1, "rgba(255,255,255,0)");
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+            ctx.fill();
+            if (k % 24 === 0) yield 0.9;
+          }
+        }
+        return cv;
+      }
+
+      function* genBanded(w, h, opt) {
+        var cv = makeCanvas(w, h),
+          ctx = cv.getContext("2d");
+        var img = ctx.createImageData(w, h),
+          P = img.data;
+        var n1 = makeNoise(opt.seed),
+          n2 = makeNoise(opt.seed + 17);
+        var c0 = opt.palette[0],
+          c1 = opt.palette[1];
+
+        for (var y = 0; y < h; y++) {
+          var v = y / h;
+          for (var x = 0; x < w; x++) {
+            var u = x / w,
+              i = (y * w + x) * 4;
+            // 帯を横に強く引き伸ばす（金星・木星の縞）
+            var warp = (fbm(n2, u, v * 2.2, 4, 2, 0.55) - 0.5) * opt.warp;
+            var band =
+              0.5 +
+              0.5 *
+                Math.sin(
+                  (v + warp) * Math.PI * opt.bands +
+                    fbm(n1, u, v * 3, 3, 2, 0.5) * 2.2,
+                );
+            var detail = fbm(n1, u, v * 3.4, 5, 5, 0.55);
+            var t = clamp01((band * 0.78 + detail * 0.4 - 0.12) * 1.18);
+            P[i] = lerp(c0[0], c1[0], t);
+            P[i + 1] = lerp(c0[1], c1[1], t);
+            P[i + 2] = lerp(c0[2], c1[2], t);
+            P[i + 3] = 255;
+          }
+          if ((y & 63) === 0) yield y / h;
+        }
+        ctx.putImageData(img, 0, 0);
+        return cv;
+      }
+
+      function* genSun(w, h) {
+        var cv = makeCanvas(w, h),
+          ctx = cv.getContext("2d");
+        var img = ctx.createImageData(w, h),
+          P = img.data;
+        var n1 = makeNoise(555),
+          n2 = makeNoise(556);
+        for (var y = 0; y < h; y++) {
+          var v = y / h;
+          for (var x = 0; x < w; x++) {
+            var u = x / w,
+              i = (y * w + x) * 4;
+            var t = clamp01(
+              fbm(n1, u, v * 2.4, 5, 24, 0.55) * 0.75 +
+                fbm(n2, u, v * 1.1, 3, 4, 0.5) * 0.45,
+            );
+            P[i] = lerp(232, 255, t);
+            P[i + 1] = lerp(120, 214, t);
+            P[i + 2] = lerp(28, 96, t);
+            P[i + 3] = 255;
+          }
+          if ((y & 63) === 0) yield y / h;
+        }
+        ctx.putImageData(img, 0, 0);
+        return cv;
+      }
+
+      /* ----------------------------------------------------------------------------
+   4. equirect → 球体を 2D canvas に投影（カルーセル用・1 惑星 1 回）
+   -------------------------------------------------------------------------- */
+      function* renderSphere(size, getSrc, opt) {
+        var src = getSrc();
+        var sw = src.width,
+          sh = src.height;
+        var sd = src.getContext("2d").getImageData(0, 0, sw, sh).data;
+        var out = makeCanvas(size, size);
+        var octx = out.getContext("2d");
+        var od = octx.createImageData(size, size);
+        var O = od.data;
+
+        var R = size / 2 - 1,
+          cx = size / 2,
+          cy = size / 2;
+        var L = opt.light || [0.58, 0.4, 0.71];
+        var cr = Math.cos(opt.rot || 0),
+          sr = Math.sin(opt.rot || 0);
+        var emissive = !!opt.emissive;
+        var rim = opt.rim || [58, 62, 78];
+
+        /* バイリニア（最近傍だと海岸線と雲が階段状になる） */
+        function bil(fx, fy, o) {
+          var x0 = Math.floor(fx),
+            y0 = Math.floor(fy);
+          var tx = fx - x0,
+            ty = fy - y0;
+          var x1 = x0 + 1,
+            y1 = y0 + 1;
+          x0 = ((x0 % sw) + sw) % sw;
+          x1 = ((x1 % sw) + sw) % sw;
+          y0 = y0 < 0 ? 0 : y0 >= sh ? sh - 1 : y0;
+          y1 = y1 < 0 ? 0 : y1 >= sh ? sh - 1 : y1;
+          var a = sd[(y0 * sw + x0) * 4 + o],
+            b = sd[(y0 * sw + x1) * 4 + o];
+          var c = sd[(y1 * sw + x0) * 4 + o],
+            d = sd[(y1 * sw + x1) * 4 + o];
+          var t = a + (b - a) * tx;
+          return t + (c + (d - c) * tx - t) * ty;
+        }
+
+        for (var y = 0; y < size; y++) {
+          var ny = (cy - y) / R;
+          for (var x = 0; x < size; x++) {
+            var nx = (x - cx) / R;
+            var r2 = nx * nx + ny * ny;
+            var i = (y * size + x) * 4;
+            if (r2 > 1) {
+              O[i + 3] = 0;
+              continue;
+            }
+            var nz = Math.sqrt(1 - r2);
+
+            // Y 軸まわりに回してから equirect をサンプル
+            var rx = nx * cr + nz * sr;
+            var rz = -nx * sr + nz * cr;
+            var lon = Math.atan2(rx, rz);
+            var lat = Math.asin(ny > 1 ? 1 : ny < -1 ? -1 : ny);
+            var fx = (lon / (Math.PI * 2) + 0.5) * sw - 0.5;
+            var fy = (0.5 - lat / Math.PI) * sh - 0.5;
+
+            var r = bil(fx, fy, 0),
+              g = bil(fx, fy, 1),
+              b = bil(fx, fy, 2);
+            var litv = 1;
+            if (!emissive) {
+              litv = smoothstep(-0.12, 0.34, nx * L[0] + ny * L[1] + nz * L[2]);
+              var shade = 0.055 + 1.06 * litv;
+              r *= shade;
+              g *= shade;
+              b *= shade;
+            }
+            var f = Math.pow(1 - nz, 3.2) * litv; // リムは昼側だけ光らせる
+            r += rim[0] * f;
+            g += rim[1] * f;
+            b += rim[2] * f;
+
+            O[i] = r > 255 ? 255 : r;
+            O[i + 1] = g > 255 ? 255 : g;
+            O[i + 2] = b > 255 ? 255 : b;
+            O[i + 3] = r2 > 0.988 ? ((1 - r2) / 0.012) * 255 : 255; // 縁をアンチエイリアス
+          }
+          if ((y & 63) === 0) yield y / size;
+        }
+        octx.putImageData(od, 0, 0);
+        return out;
+      }
+
+      /* ----------------------------------------------------------------------------
+   5. 星空（一度描いて CSS 変数に流し込む）
+   -------------------------------------------------------------------------- */
+      function buildStars() {
+        var c = makeCanvas(1200, 900),
+          g = c.getContext("2d");
+        var n = SIMPLE ? 220 : 460;
+        for (var i = 0; i < n; i++) {
+          g.globalAlpha = Math.random() * 0.65 + 0.15;
+          g.fillStyle = "#dfeaff";
+          g.beginPath();
+          g.arc(
+            Math.random() * 1200,
+            Math.random() * 900,
+            Math.random() * 1.05 + 0.2,
+            0,
+            7,
+          );
+          g.fill();
+        }
+        document.body.style.setProperty(
+          "--stars",
+          "url(" + c.toDataURL("image/png") + ")",
+        );
+      }
+
+      /* ----------------------------------------------------------------------------
+   6. 惑星データ
+      元動画では MERCURY / VENUS / EARTH が中央に来て、両脇に SUN・MARS の
+      ラベルが出ていた。SUN と JUPITER は「隣人専用」で中央には来ない。
+   -------------------------------------------------------------------------- */
+      var PLANETS = [
+        { name: "Sun", desc: "", kind: "sun" },
+        {
+          name: "Mercury",
+          kind: "rock",
+          desc: "The smallest planet in the solar system, only a little wider than our Moon. It sits closest to the Sun, though it is not the hottest world out here.",
+          palette: [
+            [96, 90, 84],
+            [176, 168, 158],
+            [62, 56, 52],
+          ],
+          craters: 190,
+          seed: 11,
+        },
+        {
+          name: "Venus",
+          kind: "band",
+          desc: "The hottest planet we know of. A crushing carbon dioxide atmosphere and clouds of sulfuric acid trap the heat and never let it go.",
+          palette: [
+            [176, 132, 68],
+            [236, 214, 158],
+          ],
+          bands: 7,
+          warp: 0.22,
+          seed: 22,
+        },
+        {
+          name: "Earth",
+          kind: "earth",
+          desc: "The one ocean planet. Water covers about seventy percent of the surface, and the atmosphere keeps it liquid. So far it is the only world we have found like it.",
+        },
+        {
+          name: "Mars",
+          kind: "rock",
+          desc: "A cold desert world holding the tallest volcano and one of the deepest canyons in the solar system. Iron oxide dust is what gives it the rust color.",
+          palette: [
+            [122, 58, 34],
+            [214, 132, 86],
+            [78, 38, 26],
+          ],
+          craters: 120,
+          ice: true,
+          seed: 33,
+        },
+        {
+          name: "Jupiter",
+          desc: "",
+          kind: "band",
+          palette: [
+            [150, 110, 78],
+            [228, 204, 176],
+          ],
+          bands: 11,
+          warp: 0.16,
+          seed: 44,
+        },
+      ];
+      var FIRST = 1,
+        LAST = 4,
+        STEPS = LAST - FIRST; // 中央に来るのは Mercury..Mars
+
+      /* ============================================================================
+   ASSET BUILD（ローダーを動かしながら分割生成）
+   ========================================================================== */
+      var loaderEl = document.getElementById("loader");
+      var fillEl = document.getElementById("loaderFill");
+      var txtEl = document.getElementById("loaderTxt");
+      var stage = document.getElementById("stage");
+
+      var ASSETS = {};
+      var planetEls = [];
+
+      function srcOf(i) {
+        var k = PLANETS[i].kind;
+        if (k === "sun") return ASSETS.sun;
+        if (k === "earth") return ASSETS.earth.composite;
+        return ASSETS[PLANETS[i].name.toLowerCase()];
+      }
+
+      var tasks = [
+        {
+          label: "building earth",
+          make: function () {
+            return genEarth(EQ_W, EQ_H);
+          },
+          store: function (v) {
+            ASSETS.earth = v;
+          },
+        },
+        {
+          label: "building mercury",
+          make: function () {
+            return genRock(EQ_W, EQ_H, PLANETS[1]);
+          },
+          store: function (v) {
+            ASSETS.mercury = v;
+          },
+        },
+        {
+          label: "building venus",
+          make: function () {
+            return genBanded(EQ_W, EQ_H, PLANETS[2]);
+          },
+          store: function (v) {
+            ASSETS.venus = v;
+          },
+        },
+        {
+          label: "building mars",
+          make: function () {
+            return genRock(EQ_W, EQ_H, PLANETS[4]);
+          },
+          store: function (v) {
+            ASSETS.mars = v;
+          },
+        },
+        {
+          label: "building jupiter",
+          make: function () {
+            return genBanded(EQ_W, EQ_H, PLANETS[5]);
+          },
+          store: function (v) {
+            ASSETS.jupiter = v;
+          },
+        },
+        {
+          label: "igniting the sun",
+          make: function () {
+            return genSun(EQ_W, EQ_H);
+          },
+          store: function (v) {
+            ASSETS.sun = v;
+          },
+        },
+      ];
+
+      // 球体レンダリングもタスク化（同期実行するとローダーが固まるため）
+      PLANETS.forEach(function (pl, i) {
+        tasks.push({
+          label: "shading " + pl.name.toLowerCase(),
+          make: function () {
+            return renderSphere(
+              SPH,
+              function () {
+                return srcOf(i);
+              },
+              {
+                light: pl.kind === "sun" ? null : [0.58, 0.4, 0.71],
+                rot: i * 1.1,
+                emissive: pl.kind === "sun",
+                rim:
+                  pl.kind === "earth"
+                    ? [40, 95, 190]
+                    : pl.kind === "sun"
+                      ? [90, 40, 0]
+                      : [58, 62, 78],
+              },
+            );
+          },
+          store: function (cv) {
+            var el = document.createElement("div");
+            el.className = "planet";
+            el.dataset.emissive = pl.kind === "sun" ? "1" : "0";
+            el.appendChild(cv);
+            stage.appendChild(el);
+            planetEls[i] = el;
+          },
+        });
+      });
+
+      function runTasks(list, onDone) {
+        var ti = 0,
+          gen = null,
+          sub = 0;
+        function step() {
+          var t0 = performance.now();
+          while (performance.now() - t0 < 13) {
+            if (!gen) {
+              if (ti >= list.length) {
+                fillEl.style.width = "100%";
+                onDone();
+                return;
+              }
+              txtEl.textContent = list[ti].label;
+              gen = list[ti].make();
+              sub = 0;
+            }
+            var r = gen.next();
+            if (r.done) {
+              list[ti].store(r.value);
+              gen = null;
+              ti++;
+              sub = 0;
+            } else {
+              sub = r.value;
+            }
+          }
+          fillEl.style.width =
+            (((ti + sub) / list.length) * 100).toFixed(1) + "%";
+          requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      buildStars();
+      runTasks(tasks, boot);
+
+      /* ============================================================================
+   BOOT
+   ========================================================================== */
+      function boot() {
+        txtEl.textContent = "assembling scene";
+        initGL();
+        initScroll();
+        requestAnimationFrame(function () {
+          loaderEl.classList.add("is-done");
+          ScrollTrigger.refresh();
+        });
+      }
+
+      /* ----------------------------------------------------------------------------
+   7. WebGL：地球シーン
+   -------------------------------------------------------------------------- */
+      var renderer, scene, camera, earthGroup, earthMat, atmoMat, glCanvas;
+      var sceneP = 0; // Section1+2 の進行度
+      var entryP = 0; // Section3 が下から入ってくる進行度（重なり演出用）
+      var idleSpin = 0;
+
+      var EARTH_VS = [
+        "varying vec2 vUv;",
+        "varying vec3 vNW;",
+        "varying vec3 vPW;",
+        "void main(){",
+        "  vUv = uv;",
+        "  vNW = normalize(mat3(modelMatrix) * normal);",
+        "  vec4 wp = modelMatrix * vec4(position, 1.0);",
+        "  vPW = wp.xyz;",
+        "  gl_Position = projectionMatrix * viewMatrix * wp;",
+        "}",
+      ].join("\n");
+
+      var EARTH_FS = [
+        "precision highp float;",
+        "uniform sampler2D uDay, uNight, uCloud;",
+        "uniform vec3 uSun, uCam;",
+        "uniform float uDetail;",
+        "varying vec2 vUv;",
+        "varying vec3 vNW;",
+        "varying vec3 vPW;",
+        "float h21(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }",
+        "float vn(vec2 p){",
+        "  vec2 i = floor(p), f = fract(p);",
+        "  vec2 u = f * f * (3.0 - 2.0 * f);",
+        "  return mix(mix(h21(i), h21(i + vec2(1.0, 0.0)), u.x),",
+        "             mix(h21(i + vec2(0.0, 1.0)), h21(i + vec2(1.0, 1.0)), u.x), u.y);",
+        "}",
+        "void main(){",
+        "  vec3 N = normalize(vNW);",
+        "  vec3 L = normalize(uSun);",
+        "  vec3 V = normalize(uCam - vPW);",
+        "  float lit = smoothstep(-0.16, 0.30, dot(N, L));",
+        "  vec3 day   = texture2D(uDay,   vUv).rgb;",
+        "  vec3 night = texture2D(uNight, vUv).rgb;",
+        "  float cl   = texture2D(uCloud, vUv).r;",
+        // 接近時だけ高周波ディテールを足して 1024px テクスチャの粗さを隠す
+        "  float n1 = vn(vUv * vec2(1400.0, 700.0));",
+        "  float n2 = vn(vUv * vec2(380.0, 190.0));",
+        "  day *= 1.0 + ((n1 - 0.5) * 0.26 + (n2 - 0.5) * 0.14) * uDetail;",
+        "  vec3 col = day * (0.09 + 1.06 * lit);",
+        "  col += night * (1.0 - lit) * 2.40;",
+        "  float cn = clamp(cl * (0.55 + 0.55 * n2), 0.0, 1.0);",
+        "  col = mix(col, vec3(0.93, 0.96, 1.0) * (0.10 + lit), cn * 0.82);",
+        "  float fres = pow(1.0 - max(dot(N, V), 0.0), 2.6);",
+        "  col += vec3(0.17, 0.40, 0.80) * fres * lit * 1.05;",
+        "  gl_FragColor = vec4(col, 1.0);",
+        "}",
+      ].join("\n");
+
+      var ATMO_VS = [
+        "varying vec3 vNV;",
+        "varying vec3 vNW;",
+        "void main(){",
+        "  vNV = normalize(normalMatrix * normal);",
+        "  vNW = normalize(mat3(modelMatrix) * normal);",
+        "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
+        "}",
+      ].join("\n");
+
+      var ATMO_FS = [
+        "precision highp float;",
+        "uniform vec3 uSun;",
+        "uniform float uInt;",
+        "varying vec3 vNV;",
+        "varying vec3 vNW;",
+        "void main(){",
+        "  float i = pow(max(0.62 - dot(vNV, vec3(0.0, 0.0, 1.0)), 0.0), 3.0);",
+        "  float s = smoothstep(-0.45, 0.55, dot(normalize(vNW), normalize(uSun)));",
+        "  gl_FragColor = vec4(vec3(0.24, 0.55, 1.0) * i * uInt * (0.25 + 0.95 * s), 1.0);",
+        "}",
+      ].join("\n");
+
+      function initGL() {
+        glCanvas = document.getElementById("gl");
+        renderer = new THREE.WebGLRenderer({
+          canvas: glCanvas,
+          antialias: !SIMPLE,
+          alpha: true,
+        });
+        renderer.setPixelRatio(
+          Math.min(window.devicePixelRatio, SIMPLE ? 1 : 2),
+        );
+        renderer.setSize(window.innerWidth, window.innerHeight, false);
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          42,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          120,
+        );
+
+        function tex(cv) {
+          var t = new THREE.CanvasTexture(cv);
+          t.wrapS = THREE.RepeatWrapping;
+          t.wrapT = THREE.ClampToEdgeWrapping;
+          t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+          t.minFilter = THREE.LinearMipmapLinearFilter;
+          return t;
+        }
+
+        earthMat = new THREE.ShaderMaterial({
+          vertexShader: EARTH_VS,
+          fragmentShader: EARTH_FS,
+          uniforms: {
+            uDay: { value: tex(ASSETS.earth.day) },
+            uNight: { value: tex(ASSETS.earth.night) },
+            uCloud: { value: tex(ASSETS.earth.cloud) },
+            uSun: { value: new THREE.Vector3(0.56, 0.32, 0.83) },
+            uCam: { value: new THREE.Vector3() },
+            uDetail: { value: 0 },
+          },
+        });
+
+        atmoMat = new THREE.ShaderMaterial({
+          vertexShader: ATMO_VS,
+          fragmentShader: ATMO_FS,
+          uniforms: { uSun: earthMat.uniforms.uSun, uInt: { value: 1.25 } },
+          side: THREE.BackSide,
+          blending: THREE.AdditiveBlending,
+          transparent: true,
+          depthWrite: false,
+        });
+
+        earthGroup = new THREE.Group();
+        var seg = SIMPLE ? [64, 44] : [128, 84];
+        earthGroup.add(
+          new THREE.Mesh(new THREE.SphereGeometry(1, seg[0], seg[1]), earthMat),
+        );
+        earthGroup.add(
+          new THREE.Mesh(new THREE.SphereGeometry(1.055, 48, 32), atmoMat),
+        );
+        earthGroup.rotation.z = 0.41; // 地軸の傾き
+        scene.add(earthGroup);
+
+        // 遠景の星（DOM の星空とは別レイヤーで視差を作る）
+        var N = SIMPLE ? 700 : 1800;
+        var pos = new Float32Array(N * 3);
+        for (var i = 0; i < N; i++) {
+          var rr = 34 + Math.random() * 26;
+          var th = Math.random() * Math.PI * 2;
+          var ph = Math.acos(2 * Math.random() - 1);
+          pos[i * 3] = rr * Math.sin(ph) * Math.cos(th);
+          pos[i * 3 + 1] = rr * Math.sin(ph) * Math.sin(th);
+          pos[i * 3 + 2] = rr * Math.cos(ph);
+        }
+        var g = new THREE.BufferGeometry();
+        g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+        scene.add(
+          new THREE.Points(
+            g,
+            new THREE.PointsMaterial({
+              color: 0xdfeaff,
+              size: 0.14,
+              sizeAttenuation: true,
+              transparent: true,
+              opacity: 0.85,
+            }),
+          ),
+        );
+
+        window.addEventListener("resize", onResizeGL);
+        onResizeGL();
+        renderScene();
+      }
+
+      function onResizeGL() {
+        if (!renderer) return;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight, false);
+      }
+
+      /* --- キーフレーム（仕様書 §4 のタイムラインに対応） --- */
+      var KF = {
+        // カメラ距離：4.8(ヒーロー) → 1.32(地表すれすれ) → 2.45(引き)
+        dist: [
+          [0, 4.8],
+          [0.2, 3.05],
+          [0.4, 1.9],
+          [0.5, 1.46],
+          [0.7, 1.43],
+          [0.84, 2.45],
+          [1.0, 3.45],
+        ],
+        // ヒーローでは地球を右上に逃がす（実測 中心 70.3vw / 37.7vh）
+        offX: [
+          [0, 1.33],
+          [0.24, 0.3],
+          [0.42, 0.0],
+        ],
+        offY: [
+          [0, -0.38],
+          [0.42, 0.0],
+        ],
+        // 自転：接近中に「陸のある経度」の上を通るよう調整してある
+        spin: [
+          [0, 0.0],
+          [0.28, -1.2],
+          [0.48, -2.25],
+          [0.7, -2.35],
+          [0.86, -3.1],
+          [1.0, -3.5],
+        ],
+        // 太陽方位：0.62rad(昼) → 2.2rad(逆光=夜側) → 1.05rad へ戻す
+        sunAz: [
+          [0, 0.62],
+          [0.42, 0.95],
+          [0.62, 2.18],
+          [0.8, 2.32],
+          [1.0, 1.05],
+        ],
+        dropY: [
+          [0.88, 0.0],
+          [1.0, -1.9],
+        ],
+        detail: [
+          [0.3, 0.0],
+          [0.48, 1.0],
+          [0.76, 1.0],
+          [0.86, 0.0],
+        ],
+      };
+
+      function renderScene() {
+        if (!renderer) return;
+        var p = sceneP,
+          q = entryP;
+
+        // カメラは lookAt せず正面を向いたまま横にずらす → 地球が右にオフセットされる
+        camera.position.set(-pw(KF.offX, p), pw(KF.offY, p), pw(KF.dist, p));
+        camera.rotation.set(0, 0, 0);
+
+        // Section3 が入ってくるあいだも地球は落ち続ける（元動画の重なりを再現）
+        earthGroup.position.y = pw(KF.dropY, p) - q * 3.4;
+        earthGroup.rotation.y = pw(KF.spin, p) + idleSpin;
+
+        var az = pw(KF.sunAz, p),
+          el = 0.34;
+        earthMat.uniforms.uSun.value.set(
+          Math.sin(az) * Math.cos(el),
+          Math.sin(el),
+          Math.cos(az) * Math.cos(el),
+        );
+        earthMat.uniforms.uCam.value.copy(camera.position);
+        earthMat.uniforms.uDetail.value = pw(KF.detail, p);
+        atmoMat.uniforms.uInt.value = lerp(1.25, 2.1, smoothstep(0.55, 0.9, p));
+
+        glCanvas.style.opacity = (1 - q).toFixed(3);
+        renderer.render(scene, camera);
+      }
+
+      /* ----------------------------------------------------------------------------
+   8. カルーセル配置：|offset| から x / y / scale を導出（仕様書 §5-7）
+   -------------------------------------------------------------------------- */
+      var BIGD = 0,
+        VW = 0,
+        VH = 0,
+        currentPos = FIRST;
+
+      function measure() {
+        VW = window.innerWidth;
+        VH = window.innerHeight;
+        BIGD = Math.min(0.66 * VW, 1.15 * VH);
+        for (var i = 0; i < planetEls.length; i++) {
+          if (!planetEls[i]) continue;
+          planetEls[i].style.width = BIGD + "px";
+          planetEls[i].style.height = BIGD + "px";
+        }
+      }
+
+      function place(el, o) {
+        var a = Math.min(Math.abs(o), 2.4);
+        var sgn = o < 0 ? -1 : o > 0 ? 1 : 0;
+        var t = Math.min(a, 1);
+
+        var yBig = 0.72 * VH + BIGD / 2; // 中央：球の上端が 72vh
+        var ySmall = 0.597 * VH; // 隣人：59.7vh
+
+        var scale = 1 - (1 - 0.144) * Math.pow(t, 2.2);
+        var x =
+          a <= 1
+            ? sgn * 0.5 * VW * Math.pow(t, 0.62)
+            : sgn * (0.5 * VW + (a - 1) * 0.34 * VW);
+        var y = yBig - (yBig - ySmall) * Math.pow(t, 1.5);
+
+        el.style.transform =
+          "translate3d(" +
+          (x - BIGD / 2).toFixed(2) +
+          "px," +
+          (y - BIGD / 2).toFixed(2) +
+          "px,0) scale(" +
+          scale.toFixed(4) +
+          ")";
+        el.style.zIndex = String(100 - Math.round(a * 20));
+        el.style.opacity =
+          a > 1.75 ? "0" : a > 1.35 ? (1 - (a - 1.35) / 0.4).toFixed(3) : "1";
+      }
+
+      function layout(pos) {
+        for (var i = 0; i < planetEls.length; i++) {
+          if (planetEls[i]) place(planetEls[i], i - pos);
+        }
+      }
+
+      /* --- コピーの連続クロスフェード（blur 重ね） --- */
+      var copyA = document.querySelector('[data-copy="a"]');
+      var copyB = document.querySelector('[data-copy="b"]');
+      var copyIdx = { a: -1, b: -1 };
+
+      function fillCopy(layer, key, idx) {
+        if (copyIdx[key] === idx) return;
+        copyIdx[key] = idx;
+        var pl = PLANETS[idx];
+        layer.querySelector("[data-title]").textContent = pl.name;
+        layer.querySelector("[data-desc]").textContent = pl.desc;
+        layer.querySelector("[data-label-l]").textContent = PLANETS[idx - 1]
+          ? PLANETS[idx - 1].name
+          : "";
+        layer.querySelector("[data-label-r]").textContent = PLANETS[idx + 1]
+          ? PLANETS[idx + 1].name
+          : "";
+      }
+
+      function applyCopy(pos) {
+        var base = Math.min(Math.max(Math.floor(pos), FIRST), LAST);
+        var next = Math.min(base + 1, LAST);
+        var t = smoothstep(0.18, 0.82, clamp01(pos - base));
+
+        fillCopy(copyA, "a", base);
+        fillCopy(copyB, "b", next);
+
+        copyA.style.opacity = (1 - t).toFixed(3);
+        copyB.style.opacity = t.toFixed(3);
+        copyA.style.filter =
+          t > 0.002 && BLUR_MAX
+            ? "blur(" + (t * BLUR_MAX).toFixed(2) + "px)"
+            : "none";
+        copyB.style.filter =
+          1 - t > 0.002 && BLUR_MAX
+            ? "blur(" + ((1 - t) * BLUR_MAX).toFixed(2) + "px)"
+            : "none";
+        copyA.style.pointerEvents = t < 0.5 ? "auto" : "none";
+        copyB.style.pointerEvents = t >= 0.5 ? "auto" : "none";
+      }
+
+      /* ----------------------------------------------------------------------------
+   9. スクロール制御
+   -------------------------------------------------------------------------- */
+      function initScroll() {
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
+        if (SIMPLE) ScrollTrigger.normalizeScroll(true);
+
+        measure();
+        layout(FIRST);
+        applyCopy(FIRST);
+
+        var hero = document.getElementById("hero");
+        var caption = document.getElementById("caption");
+
+        /* ---- Section 1+2 : pin + scrub ---- */
+        ScrollTrigger.create({
+          trigger: "#scene",
+          start: "top top",
+          end: SIMPLE ? "+=320%" : "+=520%",
+          pin: true,
+          scrub: SIMPLE ? true : 0.7,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            sceneP = self.progress;
+            renderScene();
+
+            // ヒーローテキスト：blur + fade（0.02 → 0.13）
+            var th = smoothstep(0.02, 0.13, sceneP);
+            hero.style.opacity = (1 - th).toFixed(3);
+            hero.style.filter =
+              th > 0.002 && BLUR_MAX
+                ? "blur(" + (th * BLUR_MAX).toFixed(2) + "px)"
+                : "none";
+            hero.style.transform =
+              "translateY(" + (-th * 26).toFixed(1) + "px)";
+
+            // 右下キャプション：0.34→0.44 で出て 0.74→0.82 で消える
+            var inT = smoothstep(0.34, 0.44, sceneP);
+            var outT = smoothstep(0.74, 0.82, sceneP);
+            caption.style.opacity = (inT * (1 - outT)).toFixed(3);
+            var cb = 1 - inT + outT;
+            caption.style.filter =
+              cb > 0.002 && BLUR_MAX
+                ? "blur(" + (cb * 12).toFixed(2) + "px)"
+                : "none";
+          },
+        });
+
+        /* ---- Section 3 の「せり上がり」：地球の退出と重ねる ---- */
+        ScrollTrigger.create({
+          trigger: "#planets",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          onUpdate: function (self) {
+            entryP = self.progress;
+            renderScene();
+          },
+          onLeave: function () {
+            entryP = 1;
+            renderScene();
+          },
+          onLeaveBack: function () {
+            entryP = 0;
+            renderScene();
+          },
+        });
+
+        /* ---- Section 3 : pin + scrub + snap ---- */
+        ScrollTrigger.create({
+          trigger: "#planets",
+          start: "top top",
+          end: "+=" + STEPS * 100 + "%",
+          pin: true,
+          scrub: SIMPLE ? true : 0.8,
+          invalidateOnRefresh: true,
+          snap: REDUCE
+            ? false
+            : {
+                snapTo: 1 / STEPS,
+                duration: { min: 0.22, max: 0.6 },
+                delay: 0.03,
+                ease: "power2.inOut",
+              },
+          onUpdate: function (self) {
+            currentPos = FIRST + self.progress * STEPS;
+            layout(currentPos);
+            applyCopy(currentPos);
+          },
+        });
+
+        ScrollTrigger.addEventListener("refresh", function () {
+          measure();
+          layout(currentPos);
+        });
+        window.addEventListener("resize", function () {
+          measure();
+          layout(currentPos);
+        });
+
+        if (!REDUCE) {
+          gsap.to("#hintArrow", {
+            y: 8,
+            duration: 1.1,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          });
+        }
+
+        /* ---- 待機中の微小自転（ヒーローで地球がゆっくり回る） ---- */
+        var last = performance.now();
+        (function tick(now) {
+          requestAnimationFrame(tick);
+          var dt = Math.min((now - last) / 1000, 0.05);
+          last = now;
+          if (entryP < 0.999) {
+            idleSpin += dt * 0.018;
+            renderScene();
+          }
+        })(last);
+      }
+
+      /* ----------------------------------------------------------------------------
+   10. reduced-motion：pin と scrub を捨てて素直な縦スクロールにする
+   -------------------------------------------------------------------------- */
+      if (REDUCE) {
+        window.addEventListener("load", function () {
+          ScrollTrigger.getAll().forEach(function (t) {
+            if (t.vars.pin) t.kill();
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
