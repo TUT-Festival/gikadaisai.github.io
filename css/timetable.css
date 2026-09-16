@@ -1,0 +1,451 @@
+@charset "utf-8";
+
+/* Timetable page: the full two-day schedule fits in one desktop view. */
+.tt-page-section {
+  --tt-navy: #172237;
+  --tt-muted: #687386;
+  --tt-line: #e3e8ef;
+  --tt-soft: #f6f8fa;
+  --tt-guest: #e9ad00;
+  --tt-music: #65a844;
+  --tt-participation: #4f7fd7;
+  --tt-performance: #c8649e;
+  --tt-ceremony: #77808f;
+  --tt-special: #ef6559;
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.tt-shell {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+}
+
+/* Current / next program */
+.tt-live-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 72px;
+  overflow: hidden;
+  margin: 0 0 1rem;
+  padding: 0.8rem 1rem;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 200, 36, 0.2), transparent 24%),
+    linear-gradient(120deg, #172237, #273958);
+  box-shadow: 0 16px 38px rgba(23, 34, 55, 0.16);
+}
+
+.tt-live-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tt-live-icon span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0 0 0 6px rgba(255, 200, 36, 0.14);
+}
+
+.tt-live-card[data-state="live"] .tt-live-icon span {
+  background: #70d65c;
+  box-shadow: 0 0 0 6px rgba(112, 214, 92, 0.16);
+  animation: tt-pulse 1.8s ease-out infinite;
+}
+
+.tt-live-copy p {
+  margin: 0;
+}
+
+.tt-live-label {
+  color: rgba(255, 255, 255, 0.64);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+}
+
+.tt-live-title {
+  margin-top: 0.08rem !important;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.tt-live-meta {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+.tt-live-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 38px;
+  padding: 0.55rem 0.85rem;
+  color: var(--tt-navy);
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tt-live-jump:hover {
+  background: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+/* Two-day overview */
+.tt-overview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.tt-day-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 0.8rem;
+  border: 1px solid var(--tt-line);
+  border-radius: 16px;
+  background: var(--tt-soft);
+  scroll-margin-top: 90px;
+}
+
+.tt-day-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 52px;
+  margin-bottom: 0.55rem;
+  padding: 0 0.2rem 0.55rem;
+  border-bottom: 1px solid var(--tt-line);
+}
+
+.tt-page-section .tt-day-kicker {
+  margin: 0 0 0.12rem;
+  color: var(--primary-color);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.25;
+}
+
+.tt-page-section .tt-day-heading h2 {
+  margin: 0;
+  color: var(--tt-navy);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.tt-page-section .tt-day-heading h2 small {
+  margin-left: 0.25rem;
+  color: var(--tt-muted);
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.tt-day-heading > p {
+  margin: 0 0 0.1rem;
+  color: var(--tt-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.07em;
+  line-height: 1.2;
+}
+
+.tt-day-heading > p strong {
+  color: var(--tt-navy);
+  font-size: 1.2rem;
+}
+
+.tt-event-list {
+  display: grid;
+  flex: 1;
+  grid-auto-rows: minmax(43px, 1fr);
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tt-page-section .tt-event-list > li {
+  min-width: 0;
+  margin: 0;
+}
+
+.tt-event {
+  --tt-event-color: var(--tt-ceremony);
+  position: relative;
+  display: grid;
+  grid-template-columns: 126px minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 100%;
+  overflow: hidden;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--tt-line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(23, 34, 55, 0.035);
+  scroll-margin-top: 90px;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.tt-event::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--tt-event-color);
+  content: "";
+}
+
+.tt-event--guest {
+  --tt-event-color: var(--tt-guest);
+  background:
+    linear-gradient(100deg, rgba(255, 200, 36, 0.12), transparent 45%), #fff;
+}
+
+.tt-event--music {
+  --tt-event-color: var(--tt-music);
+}
+
+.tt-event--participation {
+  --tt-event-color: var(--tt-participation);
+}
+
+.tt-event--performance {
+  --tt-event-color: var(--tt-performance);
+}
+
+.tt-event--ceremony {
+  --tt-event-color: var(--tt-ceremony);
+}
+
+.tt-event--special {
+  --tt-event-color: var(--tt-special);
+  background:
+    linear-gradient(100deg, rgba(239, 101, 89, 0.09), transparent 45%), #fff;
+}
+
+.tt-event.is-live {
+  border-color: var(--tt-event-color);
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--tt-event-color) 16%, transparent);
+}
+
+.tt-event.is-live .tt-event-title::after {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.12rem 0.38rem;
+  color: #246716;
+  border-radius: 999px;
+  background: #dff6da;
+  content: "開催中";
+  font-size: 0.52rem;
+  font-weight: 800;
+  vertical-align: 0.15em;
+}
+
+.tt-event.is-next:not(.is-live) {
+  border-color: color-mix(in srgb, var(--tt-event-color) 48%, var(--tt-line));
+}
+
+.tt-event-time {
+  display: grid;
+  grid-template-columns: auto 8px auto;
+  align-items: baseline;
+  justify-content: start;
+  column-gap: 0.25rem;
+  color: var(--tt-navy);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.tt-event-time > span {
+  color: #a7afba;
+  font-weight: 400;
+  text-align: center;
+}
+
+.tt-event-time small,
+.tt-category,
+.tt-event-note {
+  display: none;
+}
+
+.tt-event-main {
+  min-width: 0;
+}
+
+.tt-page-section .tt-event-title {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  color: var(--tt-navy);
+  border: 0;
+  font-size: clamp(0.9rem, 1.45vw, 1.08rem);
+  font-weight: 800;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tt-event-title a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--tt-event-color) 60%,
+    transparent
+  );
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.tt-event-title a:hover {
+  color: #7e5e00;
+  text-decoration-color: var(--tt-event-color);
+}
+
+.tt-event-title a i {
+  margin-left: 0.25rem;
+  color: var(--tt-event-color);
+  font-size: 0.64em;
+}
+
+@keyframes tt-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(112, 214, 92, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(112, 214, 92, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(112, 214, 92, 0);
+  }
+}
+
+@media screen and (min-width: 721px) and (max-height: 850px) {
+  .tt-page-section {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .tt-live-card {
+    min-height: 60px;
+    margin-bottom: 0.65rem;
+    padding-block: 0.55rem;
+  }
+
+  .tt-day-panel {
+    padding: 0.6rem;
+  }
+
+  .tt-day-heading {
+    min-height: 44px;
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .tt-event-list {
+    grid-auto-rows: minmax(38px, 1fr);
+    gap: 0.22rem;
+  }
+
+  .tt-event {
+    padding-block: 0.3rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .tt-page-section {
+    padding-top: 1.25rem !important;
+  }
+
+  .tt-live-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.8rem;
+  }
+
+  .tt-live-jump {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .tt-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .tt-day-panel {
+    padding: 0.65rem;
+  }
+
+  .tt-event-list {
+    grid-auto-rows: minmax(47px, auto);
+  }
+
+  .tt-event {
+    grid-template-columns: 116px minmax(0, 1fr);
+  }
+
+  .tt-page-section .tt-event-title {
+    font-size: 0.98rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .tt-event {
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 0.45rem;
+    padding-inline: 0.55rem;
+  }
+
+  .tt-event-time {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-live-card[data-state="live"] .tt-live-icon span {
+    animation: none;
+  }
+
+  .tt-live-jump,
+  .tt-event {
+    transition: none;
+  }
+}

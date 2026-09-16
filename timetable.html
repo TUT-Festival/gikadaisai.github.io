@@ -37,6 +37,7 @@
     />
     <!-- Site stylesheet -->
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/timetable.css" />
     <!-- OGP / SNSシェア用 -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="第--回技科大祭" />
@@ -68,7 +69,7 @@
     />
   </head>
 
-  <body>
+  <body class="timetable-page">
     <!-- 準備中スクリーン（FOUC防止: js/site-loader.js が解除する） -->
     <div class="site-prerender-screen"></div>
     <div id="container">
@@ -76,21 +77,543 @@
 
       <div id="contents">
         <main>
-          <section style="position: relative">
-            <div
-              class="deco-circle deco-circle--dashed deco-circle--lg"
-              style="top: -40px; left: -60px"
-            ></div>
-            <div
-              class="deco-circle deco-circle--filled-blue deco-circle--md"
-              style="top: 80px; right: -30px"
-            ></div>
-            <h1>
-              <span>Timetable</span><span class="hosoku">タイムテーブル</span>
-            </h1>
+          <section class="tt-page-section">
+            <div class="tt-shell">
+              <h1 class="sr-only">タイムテーブル</h1>
+              <aside class="tt-live-card" aria-labelledby="tt-live-label">
+                <div class="tt-live-icon" aria-hidden="true">
+                  <span></span>
+                </div>
+                <div class="tt-live-copy">
+                  <p id="tt-live-label" class="tt-live-label">開催情報</p>
+                  <p id="tt-live-title" class="tt-live-title">
+                    最新の開催状況を確認中です
+                  </p>
+                  <p id="tt-live-meta" class="tt-live-meta"></p>
+                </div>
+                <button
+                  id="tt-live-jump"
+                  class="tt-live-jump"
+                  type="button"
+                  hidden
+                >
+                  時刻表で見る
+                  <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                </button>
+              </aside>
+              <div class="tt-overview">
+                <div
+                  id="day-1010"
+                  class="tt-day-panel"
+                  data-date="2026-10-10"
+                  role="region"
+                  aria-labelledby="day-1010-title"
+                >
+                  <div class="tt-day-heading">
+                    <div>
+                      <p class="tt-day-kicker">DAY 1 · SATURDAY</p>
+                      <h2 id="day-1010-title">
+                        10月10日 <small>土曜日</small>
+                      </h2>
+                    </div>
+                    <p><strong>8</strong> PROGRAMS</p>
+                  </div>
 
-            <div class="c" style="margin-top: 2rem">
-              <img id="timetable-img" src="" alt="技科大祭 タイムテーブル" />
+                  <ol class="tt-event-list">
+                    <li>
+                      <article
+                        class="tt-event tt-event--ceremony"
+                        data-event-id="1010-opening"
+                        data-category="ceremony"
+                        data-title="OPセレモニー"
+                        data-start="10:00"
+                        data-end="10:15"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T10:00:00+09:00"
+                            >10:00</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T10:15:00+09:00"
+                            >10:15</time
+                          >
+                          <small>15 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">セレモニー</span>
+                          <h3 class="tt-event-title">OPセレモニー</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--music"
+                        data-event-id="1010-jazz"
+                        data-category="music"
+                        data-title="JAZZ研究会"
+                        data-start="10:35"
+                        data-end="11:15"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T10:35:00+09:00"
+                            >10:35</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T11:15:00+09:00"
+                            >11:15</time
+                          >
+                          <small>40 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">音楽</span>
+                          <h3 class="tt-event-title">JAZZ研究会</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--guest"
+                        data-event-id="1010-comedy"
+                        data-category="guest"
+                        data-title="お笑いライブ①"
+                        data-start="11:30"
+                        data-end="12:30"
+                        data-detail-url="guest.html"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T11:30:00+09:00"
+                            >11:30</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T12:30:00+09:00"
+                            >12:30</time
+                          >
+                          <small>60 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">SPECIAL GUEST</span>
+                          <h3 class="tt-event-title">
+                            <a href="guest.html">
+                              お笑いライブ①
+                              <i
+                                class="fas fa-arrow-up-right-from-square"
+                                aria-hidden="true"
+                              ></i>
+                            </a>
+                          </h3>
+                          <p class="tt-event-note">出演者・観覧案内を見る</p>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--performance"
+                        data-event-id="1010-talent"
+                        data-category="performance"
+                        data-title="特技披露"
+                        data-start="12:40"
+                        data-end="13:40"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T12:40:00+09:00"
+                            >12:40</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T13:40:00+09:00"
+                            >13:40</time
+                          >
+                          <small>60 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">パフォーマンス</span>
+                          <h3 class="tt-event-title">特技披露</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--participation"
+                        data-event-id="1010-bingo"
+                        data-category="participation"
+                        data-title="ビンゴ大会"
+                        data-start="13:50"
+                        data-end="14:30"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T13:50:00+09:00"
+                            >13:50</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T14:30:00+09:00"
+                            >14:30</time
+                          >
+                          <small>40 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">参加型</span>
+                          <h3 class="tt-event-title">ビンゴ大会</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--participation"
+                        data-event-id="1010-game-final"
+                        data-category="participation"
+                        data-title="ゲーム大会決勝①"
+                        data-start="14:40"
+                        data-end="15:20"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T14:40:00+09:00"
+                            >14:40</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T15:20:00+09:00"
+                            >15:20</time
+                          >
+                          <small>40 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">参加型</span>
+                          <h3 class="tt-event-title">ゲーム大会決勝①</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--music"
+                        data-event-id="1010-light-music"
+                        data-category="music"
+                        data-title="軽音部"
+                        data-start="15:40"
+                        data-end="17:50"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T15:40:00+09:00"
+                            >15:40</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T17:50:00+09:00"
+                            >17:50</time
+                          >
+                          <small>130 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">音楽</span>
+                          <h3 class="tt-event-title">軽音部</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--ceremony"
+                        data-event-id="1010-closing"
+                        data-category="ceremony"
+                        data-title="司会挨拶"
+                        data-start="17:50"
+                        data-end="18:00"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-10T17:50:00+09:00"
+                            >17:50</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-10T18:00:00+09:00"
+                            >18:00</time
+                          >
+                          <small>10 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">セレモニー</span>
+                          <h3 class="tt-event-title">司会挨拶</h3>
+                        </div>
+                      </article>
+                    </li>
+                  </ol>
+                </div>
+
+                <div
+                  id="day-1011"
+                  class="tt-day-panel"
+                  data-date="2026-10-11"
+                  role="region"
+                  aria-labelledby="day-1011-title"
+                >
+                  <div class="tt-day-heading">
+                    <div>
+                      <p class="tt-day-kicker">DAY 2 · SUNDAY</p>
+                      <h2 id="day-1011-title">
+                        10月11日 <small>日曜日</small>
+                      </h2>
+                    </div>
+                    <p><strong>10</strong> PROGRAMS</p>
+                  </div>
+
+                  <ol class="tt-event-list">
+                    <li>
+                      <article
+                        class="tt-event tt-event--music"
+                        data-event-id="1011-wind-orchestra"
+                        data-category="music"
+                        data-title="吹奏楽"
+                        data-start="10:25"
+                        data-end="10:55"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T10:25:00+09:00"
+                            >10:25</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T10:55:00+09:00"
+                            >10:55</time
+                          >
+                          <small>30 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">音楽</span>
+                          <h3 class="tt-event-title">吹奏楽</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--music"
+                        data-event-id="1011-jazz-wind"
+                        data-category="music"
+                        data-title="ジャズ×吹奏楽"
+                        data-start="11:15"
+                        data-end="11:45"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T11:15:00+09:00"
+                            >11:15</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T11:45:00+09:00"
+                            >11:45</time
+                          >
+                          <small>30 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">音楽</span>
+                          <h3 class="tt-event-title">ジャズ×吹奏楽</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--music"
+                        data-event-id="1011-music-tech"
+                        data-category="music"
+                        data-title="音楽技術部"
+                        data-start="12:00"
+                        data-end="12:40"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T12:00:00+09:00"
+                            >12:00</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T12:40:00+09:00"
+                            >12:40</time
+                          >
+                          <small>40 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">音楽</span>
+                          <h3 class="tt-event-title">音楽技術部</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--participation"
+                        data-event-id="1011-lottery"
+                        data-category="participation"
+                        data-title="抽選会"
+                        data-start="12:50"
+                        data-end="13:50"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T12:50:00+09:00"
+                            >12:50</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T13:50:00+09:00"
+                            >13:50</time
+                          >
+                          <small>60 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">参加型</span>
+                          <h3 class="tt-event-title">抽選会</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--performance"
+                        data-event-id="1011-karaoke"
+                        data-category="performance"
+                        data-title="カラオケ"
+                        data-start="14:00"
+                        data-end="15:00"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T14:00:00+09:00"
+                            >14:00</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T15:00:00+09:00"
+                            >15:00</time
+                          >
+                          <small>60 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">パフォーマンス</span>
+                          <h3 class="tt-event-title">カラオケ</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--performance"
+                        data-event-id="1011-dance"
+                        data-category="performance"
+                        data-title="ダンス"
+                        data-start="15:10"
+                        data-end="16:20"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T15:10:00+09:00"
+                            >15:10</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T16:20:00+09:00"
+                            >16:20</time
+                          >
+                          <small>70 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">パフォーマンス</span>
+                          <h3 class="tt-event-title">ダンス</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--guest"
+                        data-event-id="1011-comedy"
+                        data-category="guest"
+                        data-title="お笑いライブ②"
+                        data-start="16:30"
+                        data-end="17:30"
+                        data-detail-url="guest.html"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T16:30:00+09:00"
+                            >16:30</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T17:30:00+09:00"
+                            >17:30</time
+                          >
+                          <small>60 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">SPECIAL GUEST</span>
+                          <h3 class="tt-event-title">
+                            <a href="guest.html">
+                              お笑いライブ②
+                              <i
+                                class="fas fa-arrow-up-right-from-square"
+                                aria-hidden="true"
+                              ></i>
+                            </a>
+                          </h3>
+                          <p class="tt-event-note">出演者・観覧案内を見る</p>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--participation"
+                        data-event-id="1011-game-final"
+                        data-category="participation"
+                        data-title="ゲーム大会決勝②"
+                        data-start="17:40"
+                        data-end="18:10"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T17:40:00+09:00"
+                            >17:40</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T18:10:00+09:00"
+                            >18:10</time
+                          >
+                          <small>30 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">参加型</span>
+                          <h3 class="tt-event-title">ゲーム大会決勝②</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--special"
+                        data-event-id="1011-fireworks"
+                        data-category="special"
+                        data-title="花火"
+                        data-start="18:15"
+                        data-end="18:30"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T18:15:00+09:00"
+                            >18:15</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T18:30:00+09:00"
+                            >18:30</time
+                          >
+                          <small>15 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">フィナーレ</span>
+                          <h3 class="tt-event-title">花火</h3>
+                        </div>
+                      </article>
+                    </li>
+                    <li>
+                      <article
+                        class="tt-event tt-event--ceremony"
+                        data-event-id="1011-closing"
+                        data-category="ceremony"
+                        data-title="司会挨拶"
+                        data-start="18:30"
+                        data-end="18:40"
+                      >
+                        <div class="tt-event-time">
+                          <time datetime="2026-10-11T18:30:00+09:00"
+                            >18:30</time
+                          >
+                          <span>–</span>
+                          <time datetime="2026-10-11T18:40:00+09:00"
+                            >18:40</time
+                          >
+                          <small>10 min</small>
+                        </div>
+                        <div class="tt-event-main">
+                          <span class="tt-category">セレモニー</span>
+                          <h3 class="tt-event-title">司会挨拶</h3>
+                        </div>
+                      </article>
+                    </li>
+                  </ol>
+                </div>
+              </div>
             </div>
           </section>
         </main>
@@ -114,13 +637,6 @@
     <script src="js/main.js"></script>
     <script src="js/site-loader.js"></script>
     <script src="js/page-visibility.js"></script>
-
-    <script>
-      // site-config 読み込み後にタイムテーブル画像を設定
-      window.onSiteConfig(function (config) {
-        var img = document.getElementById("timetable-img");
-        if (img) img.src = config.images.timetable;
-      });
-    </script>
+    <script src="js/timetable-page.js"></script>
   </body>
 </html>

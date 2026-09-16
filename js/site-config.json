@@ -24,8 +24,7 @@
   },
   "images": {
     "poster": "data/poster.png",
-    "posterLive": "data/poster_live.png",
-    "timetable": "data/timetable.png"
+    "posterLive": "data/poster_live.png"
   },
   "access": {
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.1582743817758!2d137.40748281152807!3d34.70118767280656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6004d486441646c7%3A0xb819d28be7a7df7f!2z6LGK5qmL5oqA6KGT56eR5a2m5aSn5a2m!5e0!3m2!1sja!2sjp!4v1754376149619!5m2!1sja!2sjp",
@@ -173,7 +172,7 @@
     "index": true,
     "events": false,
     "shops": true,
-    "timetable": false,
+    "timetable": true,
     "painting-contest": true,
     "recruit": true,
     "alumni-lecture": true,
