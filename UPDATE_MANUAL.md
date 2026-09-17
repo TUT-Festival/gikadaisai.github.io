@@ -30,7 +30,7 @@
 gikadaisai/
 ├── index.html            ← トップページ
 ├── guest.html            ← 今年のゲスト（ヘッダー右のボタンから遷移）
-├── events.html           ← 予定イベント
+├── events.html           ← recruit.html への転送専用
 ├── shops.html            ← 模擬店・キッチンカー
 ├── timetable.html        ← タイムテーブル
 ├── painting-contest.html ← アイデア・デザインコンテスト
@@ -247,7 +247,6 @@ index.html と access.html の**両方**に同じ内容が表示されます。
   {
     "label": "予定企画",                    ← href がない項目はドロップダウンになる
     "children": [
-      { "href": "events.html", "label": "予定イベント" },
       { "href": "shops.html", "label": "模擬店・キッチンカー" }
     ]
   }
@@ -527,9 +526,9 @@ const individualDonorsData = {
 
 ### 6-3. events.html
 
-現在は「準備中です」という案内のみのページです。
-イベント一覧を掲載する場合はこのHTMLの `<main>` 内を編集してください。
-掲載予定がない年は `pageVisibility` の `events` を `false` にしておくのが簡単です。
+`recruit.html` への転送専用ページです。
+ヘッダー、モバイルメニュー、フッター、サイトマップには掲載しません。
+転送先を変更する場合は `location.replace("recruit.html")` のURLだけを変更してください。
 
 ### 6-4. timetable.html
 
