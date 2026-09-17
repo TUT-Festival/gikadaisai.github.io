@@ -83,7 +83,6 @@
     {
       "label": "予定企画",
       "children": [
-        { "href": "events.html", "label": "予定イベント" },
         { "href": "shops.html", "label": "模擬店・キッチンカー" },
         { "href": "timetable.html", "label": "タイムテーブル" },
         { "href": "painting-contest.html", "label": "絵画コンテスト" },
@@ -120,10 +119,6 @@
     {
       "href": "index.html",
       "label": "トップ"
-    },
-    {
-      "href": "events.html",
-      "label": "予定イベント"
     },
     {
       "href": "shops.html",
