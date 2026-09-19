@@ -9,3 +9,18 @@ tmp.md
 
 # ローカル生成のセキュリティ監査レポート(コミット対象外)
 security-audit-report.md
+
+# Codexのローカル設定（MCPサーバー実行設定を含むため共有しない）
+.codex/config.toml
+
+# ローカル環境変数（公開用サンプルは除外対象外）
+.env
+.env.*
+!.env.example
+
+# 秘密鍵・Google Drive OAuth認証情報
+*.pem
+*.key
+gcp-oauth.keys.json
+.gdrive-server-credentials.json
+credentials.json
