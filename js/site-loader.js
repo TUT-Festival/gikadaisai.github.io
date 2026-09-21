@@ -253,6 +253,24 @@ window.siteSections = (function () {
     .replace(themeReg, theme)
     .replace(univReg, univName);
 
+  // --- SNS(OGP / Twitter Card)用画像 ---
+  // 通常ポスター(images.poster)とは分離し、images.ogp があればそれを使う。
+  // SNS側は画像URLをキャッシュするため、年度ごとにファイル名を変えること。
+  // og:image / twitter:image は絶対URLが必要なので、ページURL基準で絶対URLに変換する。
+  const ogpImage = new URL(
+    config.images.ogp || config.images.poster,
+    window.location.href,
+  ).href;
+
+  // ページ専用のOGP画像（例: alumni-lecture.html）は上書きしない。
+  // HTML側が共通画像（images.ogp / images.poster）を指している、または未設定の場合だけ
+  // ogpImage に揃え、それ以外はページ専用画像とみなしてそのまま維持する。
+  const commonImagePaths = [config.images.ogp, config.images.poster].filter(
+    Boolean,
+  );
+  const isCommonImage = (url) =>
+    !url || commonImagePaths.some((p) => url === p || url.endsWith("/" + p));
+
   // --- 各種 Meta タグの更新 (Description, OGP, Twitter, Images) ---
   const metaUpdates = [
     { selector: 'meta[name="description"]', attr: "content" },
@@ -264,14 +282,16 @@ window.siteSections = (function () {
     {
       selector: 'meta[property="og:image"]',
       attr: "content",
-      val: config.images.poster,
+      val: ogpImage,
       overwrite: true,
+      keepPageImage: true,
     },
     {
       selector: 'meta[name="twitter:image"]',
       attr: "content",
-      val: config.images.poster,
+      val: ogpImage,
       overwrite: true,
+      keepPageImage: true,
     },
   ];
 
@@ -307,6 +327,8 @@ window.siteSections = (function () {
     const el = document.querySelector(m.selector);
     if (el) {
       if (m.overwrite) {
+        // ページ専用の画像が設定されているタグは維持する
+        if (m.keepPageImage && !isCommonImage(el.getAttribute(m.attr))) return;
         el.setAttribute(m.attr, m.val);
       } else {
         let content = el.getAttribute(m.attr);

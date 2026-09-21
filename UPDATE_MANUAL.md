@@ -66,6 +66,7 @@ gikadaisai/
 ├── data/
 │   ├── poster.png          ★ テーマポスター画像
 │   ├── poster_live.png     ★ イベントポスター画像
+│   ├── ogp-49th-2026-wide.png ★ SNSシェア（OGP）用の横長画像 1200×630（年度ごとにファイル名を変える）
 │   ├── map/                ★ 会場マップ画像（inside.png / outside.png）
 │   ├── shop/icon/          ★ 模擬店アイコン画像
 │   └── kyousan/            △ 旧・協賛企業ロゴ画像（未使用・後述）
@@ -96,6 +97,8 @@ gikadaisai/
 - [ ] `js/timetable.json` — バス時刻表（ダイヤ改正があった場合のみ）
 - [ ] `data/poster.png` — テーマポスター画像の差し替え
 - [ ] `data/poster_live.png` — イベントポスター画像の差し替え
+- [ ] `data/ogp-○○th-○○○○-wide.png` — SNSシェア用の**横長画像（1200×630）**を**新しいファイル名**で追加し、`site-config.json` の `images.ogp` と、各HTMLの `og:image` / `twitter:image` を書き換え（[3-3](#3-3-htmlの-head-について)参照）
+- [ ] 各HTMLの `og:` / `twitter:` — 回数（第○回）・テーマ・画像URLを直接書き換え（[3-3](#3-3-htmlの-head-について)参照）
 - [ ] `data/map/` — 会場マップ画像の差し替え（inside.png, outside.png）
 - [ ] `data/shop/icon/` — 模擬店アイコン画像の差し替え
 - [ ] `index.html` — トップページ本文（実績・開催概要など。[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
@@ -153,13 +156,30 @@ gikadaisai/
 - `<meta name="description">` … 検索結果に出る説明文
 - `og:` / `twitter:` … SNSでシェアしたときの見え方（OGP）
 
-ただし、この中の `第--回` や `{{THEME}}` といった**プレースホルダーは自動で置き換わる**ため、
-回数やテーマが変わっても手を入れる必要はありません。
+この中の `<title>` と `<meta name="description">` に書いた `第--回` や `{{THEME}}` といった
+**プレースホルダーは、ブラウザで表示したときに自動で置き換わります。**
+
+> **⚠ SNSのプレビュー（`og:` / `twitter:`）だけは自動で置き換わりません**
+> X・Instagram・LINE などのクローラーは JavaScript を実行せず、HTMLに書かれた文字をそのまま読み取ります。
+> そのため `og:` / `twitter:` に `第--回` や `{{THEME}}` を残すと、SNSに「第--回技科大祭」とそのまま表示されてしまいます。
+> **年度が変わったら、各HTMLの `og:` / `twitter:` の回数・テーマ・画像URLを直接書き換えてください。**
+>
+> また、SNS側は画像をURL単位でキャッシュします。`og:image` / `twitter:image` の画像は、
+> 同じファイル名で上書きせず、**年度ごとに新しいファイル名**（例：`data/ogp-49th-2026-wide.png`）にしてください。
+> 新しい画像のパスは `js/site-config.json` の `images.ogp` にも設定します（JS実行後の値と揃えるため）。
+>
+> **画像は横長の 1200×630px にしてください。** 縦長のポスターをそのまま使うと、X・LINE・Facebook などの横長カードでは
+> 中央だけが切り取られ、文字が見切れます。大事な文字（テーマ・回数・日付など）は、左右の端（目安：端から130px以内）に置かないでください。
+> 画像を横長にしたら、`og:image` の直後に置く `og:image:width`（1200）・`og:image:height`（630）も画像サイズに合わせます。
+>
+> ページ専用のOGP画像を使いたいページ（例：`alumni-lecture.html`）は、そのHTMLの `og:image` / `twitter:image` に
+> 専用画像のURLを書いてください。共通画像（`images.ogp` / `images.poster`）以外のURLが書かれている場合は、
+> JSに上書きされず、そのまま維持されます。
 
 | プレースホルダー | 置き換わる内容                           |
 | ---------------- | ---------------------------------------- |
 | `第--回`         | `festivalNumber`（例：第49回）           |
-| `{{THEME}}`      | `theme`（例：繋ぐ）                      |
+| `{{THEME}}`      | `theme`（例：新章）                      |
 | `{{DATE}}`       | `dates.displayText`（例：10月10日(土)…） |
 | `{{UNIVERSITY}}` | `universityName`（例：豊橋技術科学大学） |
 
@@ -178,7 +198,7 @@ Google検索用の構造化データ（JSON-LD）の日付・住所・メール�
   "festivalNumber": 49,                  ← 開催回数（数値。クォート不要）
   "festivalName": "技科大祭",             ← 基本変更不要
   "universityName": "豊橋技術科学大学",    ← 基本変更不要
-  "theme": "繋ぐ",                        ← 今年のテーマ
+  "theme": "新章",                        ← 今年のテーマ
 
   "dates": {
     "start": "2026-10-10T10:00:00",       ← 1日目の開場日時
@@ -200,10 +220,13 @@ Google検索用の構造化データ（JSON-LD）の日付・住所・メール�
 
   "images": {
     "poster": "data/poster.png",
-    "posterLive": "data/poster_live.png"
+    "posterLive": "data/poster_live.png",
+    "ogp": "data/ogp-49th-2026-wide.png"
   }
 }
 ```
+
+`ogp` は SNSシェア用の横長画像（1200×630）です（`og:image` / `twitter:image` に使われます）。年度ごとに新しいファイル名にしてください。
 
 **日付の書き方**: `"2026-10-10T10:00:00"` の形式です。`T` の左が日付、右が時刻。
 `start` は1日目の開場時刻、`end` は最終日の終了時刻を指定します。
@@ -550,7 +573,7 @@ const individualDonorsData = {
 
 ## 7. 画像ファイルの差し替え
 
-画像は**同じファイル名で上書き**すれば、HTMLやJSONの変更は不要です。
+画像は**同じファイル名で上書き**すれば、HTMLやJSONの変更は不要です（**SNSシェア用のOGP画像だけは例外**で、新しいファイル名にする必要があります。[3-3](#3-3-htmlの-head-について)参照）。
 
 | 画像             | パス                   | 推奨事項                                          |
 | ---------------- | ---------------------- | ------------------------------------------------- |
@@ -832,4 +855,5 @@ git config user.email "（GitHubのnoreplyアドレス）"
 ```
 
 **共通部分（ヘッダー・フッター・アクセス案内）は `js/site-config.json` の1箇所を直すだけで全ページに反映されます。**
-「第--回」や `{{THEME}}` などのプレースホルダー、SNSシェア時の見え方（OGP）、Google検索用の構造化データ（JSON-LD）も自動で最新化されます。
+`<title>` などの「第--回」や `{{THEME}}` のプレースホルダー、Google検索用の構造化データ（JSON-LD）も自動で最新化されます。
+**ただし SNSシェア時の見え方（`og:` / `twitter:`）は自動では最新化されません**（[3-3](#3-3-htmlの-head-について)参照）。
