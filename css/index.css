@@ -1605,6 +1605,19 @@ a.event-card:hover .event-card-more i {
   transform: translateX(4px);
 }
 
+/* 背景文字「CONTENTS」の初期位置を、右側のマスコット（ギカジカ）と揃える。
+   マスコットは高さ160px・bottom:97% で配置されているので、
+   文字側も同じ基準・同じ箱の高さにすることで、
+   セクションの高さが変わっても位置がずれない。
+   ※スマホ（768px以下）は既存の中央寄せ指定を使うため対象外。 */
+@media screen and (min-width: 769px) {
+  #Contents > .rlx-bg-text {
+    top: auto;
+    bottom: 97%;
+    line-height: 160px;
+  }
+}
+
 /* rlx-content 内の最終セクション。
    セクション下にはみ出す装飾が .rlx-proposal-wrapper の
    overflow: hidden で切れないよう、既定の 8rem より詰めつつ余白を残す。 */
