@@ -74,9 +74,13 @@ $(function () {
   // スムーススクロールを実行する関数
   // targetにはスクロール先の要素のセレクターまたは'#'（ページトップ）を指定
   function smoothScroll(target) {
+    // 存在しないアンカー（過去に配布したURLの #Highlights など）は何もしない。
+    // $().offset() が undefined になり TypeError で落ちるのを防ぐ。
+    var $target = target === "#" ? null : $(target);
+    if ($target && $target.length === 0) return;
     // スクロール先の位置を計算（ページトップの場合は0、それ以外は要素の位置）
     var scrollTo =
-      target === "#" ? 0 : $(target).offset().top - totalHeaderHeight;
+      target === "#" ? 0 : $target.offset().top - totalHeaderHeight;
     // アニメーションでスムーススクロールを実行
     $("html, body").animate({ scrollTop: scrollTo }, 500);
   }

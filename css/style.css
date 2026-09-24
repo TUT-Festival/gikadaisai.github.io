@@ -1665,6 +1665,46 @@ body.modal-open {
   }
 }
 
+/* PCレイアウトに切り替わった直後の狭い幅では、ナビの項目数によっては
+   ロゴの文字とメニューが重なってしまう。この範囲だけ全体を詰めて収める。
+   （ナビの項目は site-config.json の headerNav で増減する） */
+@media screen and (min-width: 900px) and (max-width: 1199px) {
+  .header-inner {
+    padding-left: 14px;
+    gap: 0.5rem;
+  }
+
+  #logo {
+    flex-shrink: 0;
+  }
+
+  .header-logo-img {
+    height: 34px;
+  }
+
+  #gikadaisai {
+    font-size: 0.86rem;
+  }
+
+  #daigaku {
+    font-size: 0.64rem;
+  }
+
+  .large-screen #menubar-pc > ul {
+    font-size: 0.76rem;
+    gap: 0;
+  }
+
+  .large-screen #menubar-pc > ul > li > a {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .header-contact-btn {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.74rem;
+  }
+}
+
 @media screen and (min-width: 769px) {
   .map-instruction-overlay {
     display: none;
