@@ -1605,15 +1605,16 @@ a.event-card:hover .event-card-more i {
   transform: translateX(4px);
 }
 
-/* 背景文字「CONTENTS」の初期位置を、右側のマスコット（ギカジカ）と揃える。
-   マスコットは高さ160px・bottom:97% で配置されているので、
-   文字側も同じ基準・同じ箱の高さにすることで、
-   セクションの高さが変わっても位置がずれない。
+/* 背景文字「CONTENTS」の位置。
+   右側のマスコット（ギカジカ）と同じ基準（高さ160px・bottom:97%）に揃えたうえで、
+   そこから文字サイズの4倍（4em）だけ上に持ち上げている。
+   固定のpx値ではなく em と % で指定しているので、
+   画面幅やセクションの高さが変わっても位置関係は保たれる。
    ※スマホ（768px以下）は既存の中央寄せ指定を使うため対象外。 */
 @media screen and (min-width: 769px) {
   #Contents > .rlx-bg-text {
     top: auto;
-    bottom: 97%;
+    bottom: calc(97% + 4em);
     line-height: 160px;
   }
 }
