@@ -82,12 +82,9 @@
       "label": "トップ"
     },
     {
-      "href": "journey.html",
-      "label": "昨年から今年へ"
-    },
-    {
       "label": "予定企画",
       "children": [
+        { "href": "guest.html", "label": "お笑いライブ" },
         { "href": "shops.html", "label": "模擬店・キッチンカー" },
         { "href": "timetable.html", "label": "タイムテーブル" },
         { "href": "painting-contest.html", "label": "絵画コンテスト" },
@@ -112,6 +109,10 @@
     {
       "href": "contact.html",
       "label": "お問い合わせ"
+    },
+    {
+      "href": "journey.html",
+      "label": "昨年から今年へ"
     }
   ],
   "headerActions": {
