@@ -127,8 +127,8 @@
       "label": "トップ"
     },
     {
-      "href": "journey.html",
-      "label": "昨年から今年へ"
+      "href": "guest.html",
+      "label": "お笑いライブ"
     },
     {
       "href": "shops.html",
@@ -147,6 +147,10 @@
       "label": "学祭Techフェス・応募企画"
     },
     {
+      "href": "alumni-lecture.html",
+      "label": "講演会 『技科大の顔』"
+    },
+    {
       "href": "support.html",
       "label": "ご協賛・ご寄付"
     },
@@ -157,6 +161,10 @@
     {
       "href": "contact.html",
       "label": "お問い合わせ"
+    },
+    {
+      "href": "journey.html",
+      "label": "昨年から今年へ"
     }
   ],
   "footerLinks": [
