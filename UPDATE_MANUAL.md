@@ -28,7 +28,8 @@
 
 ```
 gikadaisai/
-├── index.html            ← トップページ
+├── index.html            ← トップページ（今年の開催概要・見どころ）
+├── journey.html          ← 昨年から今年へ（昨年の実績・今年の開催計画・特別企画）
 ├── guest.html            ← 今年のゲスト（ヘッダー右のボタンから遷移）
 ├── events.html           ← recruit.html への転送専用
 ├── shops.html            ← 模擬店・キッチンカー
@@ -51,6 +52,9 @@ gikadaisai/
 │   │
 │   ├── site-loader.js      ← 共通部分の生成（編集不要）
 │   ├── page-visibility.js  ← 公開・非公開切り替え（編集不要）
+│   ├── rlx-page.js         ← index/journey のサイドバー・視差スクロール（編集不要）
+│   ├── sponsor-wall.js     ← トップページの協賛ロゴ一覧（編集不要）
+│   ├── sponsor-modal.js    ← 協賛企業の紹介モーダル（編集不要）
 │   ├── festival-countdown.js ← 開催カウントダウン（編集不要）
 │   ├── bus-countdown.js    ← バスカウントダウン（編集不要）
 │   ├── timetable-page.js   ← タイムテーブルの機能（編集不要）
@@ -59,7 +63,7 @@ gikadaisai/
 │
 ├── css/
 │   ├── style.css           ← 全ページ共通のデザイン
-│   ├── index.css           ← トップページ専用のデザイン
+│   ├── index.css           ← index.html / journey.html 専用のデザイン
 │   ├── timetable.css       ← タイムテーブル専用のデザイン
 │   └── painting-contest.css ← コンテストページ専用のデザイン
 │
@@ -101,7 +105,8 @@ gikadaisai/
 - [ ] 各HTMLの `og:` / `twitter:` — 回数（第○回）・テーマ・画像URLを直接書き換え（[3-3](#3-3-htmlの-head-について)参照）
 - [ ] `data/map/` — 会場マップ画像の差し替え（inside.png, outside.png）
 - [ ] `data/shop/icon/` — 模擬店アイコン画像の差し替え
-- [ ] `index.html` — トップページ本文（実績・開催概要など。[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
+- [ ] `index.html` — トップページ本文（テーマ紹介・開催概要カード・見どころカード。[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
+- [ ] `journey.html` — 昨年の実績・今年の開催計画・特別企画（[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
 - [ ] `timetable.html` — ステージ企画の日付・時刻・名称（[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
 - [ ] `painting-contest.html` — コンテストの締切・テーマ（[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
 - [ ] `sitemap.xml` — ページを増減した場合のみ
@@ -382,7 +387,7 @@ index.html と access.html の**両方**に同じ内容が表示されます。
 | ページ         | 表示内容                                                                     |
 | -------------- | ---------------------------------------------------------------------------- |
 | `support.html` | ロゴウォール・ランク別一覧・企業モーダル・個人寄附者の五十音別一覧（フル版） |
-| `index.html`   | ランク別ロゴのみの簡易版＋芳名帳PDFボタン（`#Sponsors` セクション）          |
+| `index.html`   | ランク別ロゴ＋企業モーダル＋芳名帳PDFボタン（`#Sponsors` セクション）        |
 
 準備中ページ（`pageVisibility` が `false`）には一覧を出しません。
 
@@ -465,6 +470,7 @@ const individualDonorsData = {
 ```json
 "pageVisibility": {
     "index":            true,
+    "journey":          true,
     "guest":            true,
     "events":           true,
     "shops":            true,
@@ -519,19 +525,35 @@ const individualDonorsData = {
 
 ほとんどはJSONで完結しますが、次の4箇所だけはHTMLを直接編集します。
 
-### 6-1. index.html のトップページ本文
+### 6-1. index.html / journey.html の本文
 
-「昨年の実績（Highlights）」「開催概要（Overview）」「特別企画（Events）」「ご支援（Support）」の各セクションは、
-その年ごとに文章も構成も大きく変わるため、HTMLに直接書いています。
+この2ページは「来訪者にまず伝えたい今年の情報」と「昨年からの変遷（実績と計画）」で役割を分けています。
+どちらも年ごとに文章も構成も大きく変わるため、HTMLに直接書いています。
 
-具体的には以下を毎年見直してください。
+**index.html（トップページ＝今年の開催概要）**
 
-- 来場者数などの実績値
-- 開催概要の表（前年実績 / 今年計画の各行）
-- 特別企画のカード
-- ご協賛・ご寄付の申込フォームURL（Googleフォーム等）
+| 見直す場所                      | 書かれているもの                                             |
+| ------------------------------- | ------------------------------------------------------------ |
+| ヒーロー（`proposal-hero`）     | キャッチコピー、`開学50周年` のバッジ、チラシPDFのファイル名 |
+| 開催概要カード（`fact-grid`）   | 「2026年・雨天決行」など日付以外の補足文、入場料             |
+| テーマ紹介（`theme-block`）     | テーマの説明文（ポスター画像は `data/poster.png`）           |
+| 見どころカード（`events-grid`） | 各企画の紹介文とリンク先ページ                               |
+| `rlx-badge`（`2026 開催`）      | 年の表記                                                     |
 
-> 表の見出しにある「第○回」の部分は `festivalNumber` から自動計算されるため、編集不要です。
+> 「第○回技科大祭」「`{{THEME}}`」「`{{DATE}}`」と書いた箇所は `site-config.json` の値に自動で置き換わるため、
+> 回数・テーマ・日程そのものを書き換える必要はありません。
+> 開場時間と住所も `site-config.json` から自動で入ります。
+
+**journey.html（昨年から今年へ）**
+
+- 「昨年の実績（Highlights）」の来場者数などの実績値、`2025 RESULT` バッジの年
+- 「今年の開催計画（Overview）」の比較表（前年実績 / 今年計画の各行）
+- 「特別企画（Events）」のカード
+
+> 比較表の見出しにある「第○回」の部分は `festivalNumber` から自動計算されるため、編集不要です。
+
+企画がすべて確定して「計画」を載せる必要がなくなった年は、`site-config.json` の
+`pageVisibility.journey` を `false` にすれば準備中画面に切り替えられます（[第5章](#5-ページの公開非公開を切り替える)）。
 
 ### 6-2. painting-contest.html
 
