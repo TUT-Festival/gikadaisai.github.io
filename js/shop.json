@@ -612,21 +612,21 @@
     "comment": "的にボールを投げて、何枚倒せるかを競うストラックアウトです！最高得点を目指して、ぜひ挑戦してください！"
   },
   {
-    "circle": "本多電子株式会社",
-    "title": "本多電子株式会社",
-    "place": "屋外",
-    "category": "企業ブース",
-    "location": "企業ブース 2",
-    "img": "sponsor_honda_el.png",
-    "comment": ""
-  },
-  {
     "circle": "日建学院",
     "title": "日建学院",
     "place": "屋外",
     "category": "企業ブース",
     "location": "企業ブース 1",
     "img": "sponsor_nikken.png",
+    "comment": ""
+  },
+  {
+    "circle": "本多電子株式会社",
+    "title": "本多電子株式会社",
+    "place": "屋外",
+    "category": "企業ブース",
+    "location": "企業ブース 2",
+    "img": "sponsor_honda_el.png",
     "comment": ""
   },
   {
