@@ -499,7 +499,7 @@
     "title": "技科大ゲーム大会2026",
     "place": "屋内",
     "category": "科学体験（Techフェス）",
-    "location": "Teach 3",
+    "location": "Tech 3",
     "img": "70.jpeg",
     "comment": "みんなで楽しめるゲーム大会！優勝を目指して熱い戦いに挑もう!"
   },
@@ -508,43 +508,43 @@
     "title": "スライム作り体験",
     "place": "屋内",
     "category": "科学体験（Techフェス）",
-    "location": "Teach 2",
+    "location": "Tech 2",
     "img": "71.jpg",
     "comment": "好きな色やラメを選んで，自分だけのオリジナルスライムを作ろう！!子供から大人まで気軽に体験できます！！"
   },
   {
-    "circle": "企画局　Tech5系",
-    "title": "",
+    "circle": "Tech5系",
+    "title": "マシュマロタワーコンペティション",
     "place": "屋内",
     "category": "科学体験（Techフェス）",
-    "location": "Teach 4",
+    "location": "Tech 4",
     "img": "72.png",
     "comment": "Tech5系のイベントとして開催！パスタと紐を使い、マシュマロをどれだけ高く配置できるかを競うコンペティションです！"
   },
   {
-    "circle": "Tech 3系",
+    "circle": "Tech3系",
     "title": "VRの世界へ！！",
     "place": "屋内",
     "category": "科学体験（Techフェス）",
-    "location": "Teach 4",
+    "location": "Tech 4",
     "img": "73.jpeg",
-    "comment": "VRを使用し、仮想の世界へ飛び込んでもらいます！！実際に研究で使用するVRを使用し、現実世界では味わえない体験ができるのでぜひ無料で遊びに来てください！！"
+    "comment": "VRを使用し、仮想の世界へ飛び込んでもらいます！！実際に研究で使用するVRを使用し、現実世界では味わえない体験が無料でできるのでぜひ遊びに来てください！！"
   },
   {
-    "circle": "ロボコン同好会　Tech　1系",
+    "circle": "ロボコン同好会　Tech1系",
     "title": "ロボット操縦体験＆展示",
     "place": "屋内",
     "category": "科学体験（Techフェス）",
-    "location": "Teach 1",
+    "location": "Tech 1",
     "img": "74.png",
     "comment": "世界大会優勝ロボット操縦体験！ お子様から大人まで、ロボコンの魅力をぜひ体感してください！"
   },
   {
-    "circle": "技科大祭実行委員",
-    "title": "Tech2系",
+    "circle": "Tech2系",
+    "title": "LEDキーホルダー作り",
     "place": "屋内",
     "category": "科学体験（Techフェス）",
-    "location": "Teach 2",
+    "location": "Tech 2",
     "img": "75.png",
     "comment": "LEDキーホルダーを作りながら、技科大２系（電気電子系）の学びを楽しく体験しよう！"
   },
