@@ -117,6 +117,7 @@
                     </option>
                     <option value="サークル体験">サークル体験</option>
                     <option value="サークル展示">サークル展示</option>
+                    <option value="企業ブース">企業ブース</option>
                   </select>
                 </div>
                 <div class="control-group">
@@ -252,7 +253,54 @@
           }
         };
 
+        // パンフレットのマップ番号は区分ごとに振られていて重複するため、
+        // location は「区分 番号（補足）」形式で持ち、区分の色付きバッジで表示する。
+        // 複数ある場合は " / " 区切り。
+        const LOCATION_GROUPS = {
+          屋外模擬店: { cls: "outdoor", order: 1 },
+          屋外遊戯: { cls: "game", order: 2 },
+          キッチンカー: { cls: "kitchencar", order: 3 },
+          屋内: { cls: "indoor", order: 4 },
+          Teach: { cls: "teach", order: 5 },
+          企業ブース: { cls: "company", order: 6 },
+        };
+        const parseLocations = (location) =>
+          String(location || "")
+            .split(" / ")
+            .map((s) => s.trim().match(/^(\S+) (\d+)(?:（(.+)）)?$/))
+            .filter((m) => m && LOCATION_GROUPS[m[1]])
+            .map(([, group, num, note]) => ({
+              group,
+              num: Number(num),
+              note: note || "",
+            }));
+        const locationSortKey = (shop) => {
+          const first = parseLocations(shop.location)[0];
+          return first
+            ? LOCATION_GROUPS[first.group].order * 1000 + first.num
+            : Infinity;
+        };
+        const generateLocationHtml = (location) =>
+          parseLocations(location)
+            .map(({ group, num, note }) => {
+              const label =
+                group === "Teach"
+                  ? `Teach${num}`
+                  : `${escapeHtml(group)}<span class="shop-loc-num">${num}</span>`;
+              const noteHtml = note
+                ? `<span class="shop-loc-note">${escapeHtml(note)}</span>`
+                : "";
+              return `<span class="shop-card-location shop-loc--${LOCATION_GROUPS[group].cls}">${label}${noteHtml}</span>`;
+            })
+            .join("");
+
         const sortCompare = (a, b, key, order) => {
+          if (key === "location") {
+            const diff = locationSortKey(a) - locationSortKey(b);
+            if (diff !== 0 && !Number.isNaN(diff)) {
+              return order === "asc" ? diff : -diff;
+            }
+          }
           let valA = a[key];
           let valB = b[key];
           let comparison = String(valA).localeCompare(String(valB), "ja", {
@@ -275,7 +323,7 @@
             .map((shop) => {
               const safeTitle = escapeHtml(shop.title);
               const safeCircle = escapeHtml(shop.circle);
-              const safeLocation = escapeHtml(shop.location);
+              const locationHtml = generateLocationHtml(shop.location);
               const safeComment = shop.comment ? escapeHtml(shop.comment) : "";
               const imgData = shop.img;
               let imgHtml = "";
@@ -323,7 +371,7 @@
                       <p class="shop-card-title">${safeTitle}</p>
                       <div class="shop-card-footer">
                         <span class="shop-card-circle">${safeCircle}</span>
-                        <span class="shop-card-location">${safeLocation}</span>
+                        <div class="shop-card-locations">${locationHtml}</div>
                       </div>
                       ${commentHtml}
                     </div>

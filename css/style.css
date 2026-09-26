@@ -1184,6 +1184,77 @@ p.next-bus-info {
   border: 1px solid var(--border-color);
 }
 
+/* マップ番号バッジ（色はパンフレットの区分色に合わせる） */
+.shop-card-locations {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 狭い画面でバッジがカードからはみ出さないよう折り返す */
+.shop-card-footer:has(.shop-card-locations) {
+  flex-wrap: wrap;
+  row-gap: 0.4rem;
+}
+
+.shop-card-locations .shop-card-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  color: #fff;
+  border: none;
+}
+
+.shop-loc-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--loc-color);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.shop-loc-note {
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.shop-loc--outdoor {
+  --loc-color: #1d4e77;
+  background: var(--loc-color);
+}
+.shop-loc--game {
+  --loc-color: #d9611c;
+  background: var(--loc-color);
+}
+.shop-loc--kitchencar {
+  --loc-color: #f2b705;
+  background: var(--loc-color);
+}
+.shop-card-locations .shop-loc--kitchencar {
+  color: #2c3338;
+}
+.shop-loc--indoor {
+  --loc-color: #cf2f3a;
+  background: var(--loc-color);
+}
+.shop-loc--teach {
+  --loc-color: #16a34a;
+  background: var(--loc-color);
+}
+.shop-loc--company {
+  --loc-color: #4a4a4a;
+  background: var(--loc-color);
+}
+
 /* ===== 店舗コメント（開閉式） ===== */
 .shop-card-comment {
   margin-top: 0.5rem;
