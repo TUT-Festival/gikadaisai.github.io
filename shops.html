@@ -143,31 +143,15 @@
       <div id="map-modal" class="modal-overlay">
         <div class="modal-content">
           <div class="modal-header">
-            <div class="map-switcher">
-              <button class="map-switch-button" data-map-target="outside">
-                <i class="fas fa-map-marked-alt"></i> 屋外マップ
-              </button>
-              <button class="map-switch-button" data-map-target="inside">
-                <i class="fas fa-building"></i> 屋内マップ
-              </button>
+            <div class="modal-title">
+              <i class="fas fa-map-marked-alt"></i> 会場マップ
             </div>
             <button class="modal-close-btn" aria-label="閉じる">&times;</button>
           </div>
           <div class="map-panels-container">
-            <div id="map-panel-outside" class="map-panel">
-              <div class="map-zoom-container" data-map-id="outside">
-                <img src="data/map/outside.png" alt="屋外会場マップ" />
-                <div class="map-instruction-overlay">
-                  <p>
-                    <i class="fas fa-hand-pointer"></i
-                    ><br />ピンチで拡大・縮小<br />ドラッグで移動できます
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div id="map-panel-inside" class="map-panel">
-              <div class="map-zoom-container" data-map-id="inside">
-                <img src="data/map/inside.png" alt="屋内会場マップ" />
+            <div id="map-panel-venue" class="map-panel active">
+              <div class="map-zoom-container" data-map-id="venue">
+                <img src="data/map/map.png" alt="会場マップ" />
                 <div class="map-instruction-overlay">
                   <p>
                     <i class="fas fa-hand-pointer"></i
@@ -497,15 +481,11 @@
 
         var mapButton = document.getElementById("map-button");
         var closeBtn = modal.querySelector(".modal-close-btn");
-        var mapPanels = modal.querySelectorAll(".map-panel");
-        var switchBtns = modal.querySelectorAll(".map-switch-button");
-
-        var zoomInstances = {}; // mapId -> PinchZoom instance
-        var overlayReady = {}; // mapId -> bool（リスナー登録済み）
+        var zoomInstance = null;
+        var overlayReady = false;
 
         /* --------------------------------------------------
          * PinchZoom コンストラクタを安全に取得
-         * UMD ビルドによって PinchZoom / PinchZoom.default のどちらかに入る
          * -------------------------------------------------- */
         function getPZ() {
           if (typeof PinchZoom === "undefined") return null;
@@ -515,23 +495,22 @@
         }
 
         /* --------------------------------------------------
-         * 指定パネルのズームと操作ガイドを初期化
+         * ズームと操作ガイドを初期化
          * -------------------------------------------------- */
-        function setupPanel(mapId) {
+        function setupMap() {
           var container = modal.querySelector(
-            '.map-zoom-container[data-map-id="' + mapId + '"]',
+            '.map-zoom-container[data-map-id="venue"]',
           );
           if (!container) return;
 
           // ── PinchZoom ──
-          // img 要素をズーム対象にする（container を渡すと overflow:hidden と干渉する）
-          if (!zoomInstances[mapId]) {
+          if (!zoomInstance) {
             var img = container.querySelector("img");
             var PZ = getPZ();
             if (img && PZ) {
               try {
-                zoomInstances[mapId] = new PZ(img, {
-                  draggableUnzoomed: true, // ズーム前でもドラッグで移動可
+                zoomInstance = new PZ(img, {
+                  draggableUnzoomed: true,
                   minZoom: 1,
                   maxZoom: 5,
                 });
@@ -542,8 +521,7 @@
           }
 
           // ── 操作ガイドオーバーレイ ──
-          // 重複登録を防ぐ・最初の操作（タッチ or クリック）で非表示
-          if (!overlayReady[mapId]) {
+          if (!overlayReady) {
             var overlay = container.querySelector(".map-instruction-overlay");
             if (overlay) {
               function dismiss() {
@@ -552,31 +530,14 @@
                   localStorage.setItem("mapGuideViewed", "true");
                 } catch (e) {}
               }
-              // pointer-events:none のためイベントはコンテナに届く
               container.addEventListener("touchstart", dismiss, {
                 once: true,
                 passive: true,
               });
               container.addEventListener("mousedown", dismiss, { once: true });
             }
-            overlayReady[mapId] = true;
+            overlayReady = true;
           }
-        }
-
-        /* --------------------------------------------------
-         * 表示マップを切り替え
-         * -------------------------------------------------- */
-        function setActiveMap(target) {
-          mapPanels.forEach(function (panel) {
-            panel.classList.toggle(
-              "active",
-              panel.id === "map-panel-" + target,
-            );
-          });
-          switchBtns.forEach(function (btn) {
-            btn.classList.toggle("active", btn.dataset.mapTarget === target);
-          });
-          setupPanel(target);
         }
 
         /* --------------------------------------------------
@@ -586,7 +547,6 @@
           document.body.classList.add("modal-open");
           modal.style.display = "block";
 
-          // 初回：ガイド表示 / 2回目以降：非表示
           var seen = false;
           try {
             seen = !!localStorage.getItem("mapGuideViewed");
@@ -597,7 +557,7 @@
               el.classList.toggle("hidden", seen);
             });
 
-          setActiveMap("outside");
+          setupMap();
         }
 
         function closeModal() {
@@ -608,14 +568,6 @@
         // イベント登録
         if (mapButton) mapButton.addEventListener("click", openModal);
         closeBtn.addEventListener("click", closeModal);
-
-        modal
-          .querySelector(".map-switcher")
-          .addEventListener("click", function (e) {
-            var btn = e.target.closest(".map-switch-button");
-            if (btn && btn.dataset.mapTarget)
-              setActiveMap(btn.dataset.mapTarget);
-          });
 
         modal.addEventListener("click", function (e) {
           if (e.target === modal) closeModal();

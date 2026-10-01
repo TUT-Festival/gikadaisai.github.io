@@ -71,7 +71,7 @@ gikadaisai/
 │   ├── poster.png          ★ テーマポスター画像
 │   ├── poster_live.png     ★ イベントポスター画像
 │   ├── ogp-49th-2026-wide.png ★ SNSシェア（OGP）用の横長画像 1200×630（年度ごとにファイル名を変える）
-│   ├── map/                ★ 会場マップ画像（inside.png / outside.png）
+│   ├── map/                ★ 会場マップ画像（map.png）
 │   ├── shop/icon/          ★ 模擬店アイコン画像
 │   └── kyousan/            △ 旧・協賛企業ロゴ画像（未使用・後述）
 │
@@ -103,7 +103,7 @@ gikadaisai/
 - [ ] `data/poster_live.png` — イベントポスター画像の差し替え
 - [ ] `data/ogp-○○th-○○○○-wide.png` — SNSシェア用の**横長画像（1200×630）**を**新しいファイル名**で追加し、`site-config.json` の `images.ogp` と、各HTMLの `og:image` / `twitter:image` を書き換え（[3-3](#3-3-htmlの-head-について)参照）
 - [ ] 各HTMLの `og:` / `twitter:` — 回数（第○回）・テーマ・画像URLを直接書き換え（[3-3](#3-3-htmlの-head-について)参照）
-- [ ] `data/map/` — 会場マップ画像の差し替え（inside.png, outside.png）
+- [ ] `data/map/` — 会場マップ画像の差し替え（map.png）
 - [ ] `data/shop/icon/` — 模擬店アイコン画像の差し替え
 - [ ] `index.html` — トップページ本文（テーマ紹介・開催概要カード・見どころカード。[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
 - [ ] `journey.html` — 昨年の実績・今年の開催計画・特別企画（[第6章](#6-jsonでは管理していない箇所htmlを直接編集する場所)参照）
@@ -601,8 +601,7 @@ const individualDonorsData = {
 | ---------------- | ---------------------- | ------------------------------------------------- |
 | テーマポスター   | `data/poster.png`      | できるだけ軽量化（1MB以下推奨）                   |
 | イベントポスター | `data/poster_live.png` | 同上                                              |
-| 屋外マップ       | `data/map/outside.png` | -                                                 |
-| 屋内マップ       | `data/map/inside.png`  | -                                                 |
+| 会場マップ       | `data/map/map.png`     | できるだけ軽量化（1MB以下推奨）                   |
 | 模擬店アイコン   | `data/shop/icon/{img}` | shop.json の `img` と一致させる                   |
 | 応募企画の写真   | `images/recruit/{img}` | recruit.json の `img` と一致させる（1MB以下推奨） |
 
