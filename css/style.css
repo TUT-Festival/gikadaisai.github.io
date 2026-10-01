@@ -1559,10 +1559,20 @@ section[style*="position: relative"] {
 .modal-header {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 10px 15px;
   background-color: rgba(0, 0, 0, 0.05);
   flex-shrink: 0;
   gap: 10px;
+}
+
+.modal-title {
+  flex-grow: 1;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .map-switcher {
